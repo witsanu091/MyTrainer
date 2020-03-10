@@ -32,7 +32,7 @@ export default class Formsignup extends Component {
                     style={{ width: 100, height: 100 }}
                     source={require('../image/logo.jpg')}
                 />
-                <Text style={styles.textlogo}> My Trainer </Text>
+                <Text style={styles.textlogo}> Sign Up </Text>
 
                 <ScrollView style={styles.scrollView}>
                     <TextInput style={styles.inputBox}

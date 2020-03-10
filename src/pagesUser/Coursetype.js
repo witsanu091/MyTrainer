@@ -28,15 +28,10 @@ export default class Coursetype extends Component {
     gymlocations() {
         Actions.gymlocations()
     }
-
-
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
-    state = {
-        locations: false,
-        sortby: false
-    }
+
     render() {
         return (
 
@@ -98,7 +93,7 @@ export default class Coursetype extends Component {
                             </View>
 
                             <Text style={{
-                                justifyContent: "flex-left",
+                                justifyContent: "flex-start",
                                 paddingTop: 10,
                                 paddingLeft: 10,
                                 color: '#62757f',
@@ -143,11 +138,13 @@ export default class Coursetype extends Component {
                                                 this.setModalVisible(false);
                                             }} style={{
                                                 paddingBottom: 13,
-                                                paddingTop: 5,
+                                                paddingTop: 7,
                                                 marginBottom: 15,
                                                 borderRadius: 10,
                                                 backgroundColor: "#883997",
                                                 marginHorizontal: 130,
+                                                borderWidth: 1,
+                                                width: 100
                                             }}>
                                             <Text style={{
                                                 color: '#eeeeee',
@@ -188,7 +185,7 @@ export default class Coursetype extends Component {
                     <View style={styles.info}>
                         <TouchableOpacity onPress={this.coursedetail} style={styles.deteil}>
                             <Text style={styles.fontSizeText}>
-                                เล่นกลามเฉพาะส่วน{"\n"}
+                                คอร์ส FIT TEENS: สอนออกกำลังกายสำหรับวัยรุ่น{"\n"}
                                 By พี่อาร์ม Np park
                         </Text>
                         </TouchableOpacity>

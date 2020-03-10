@@ -8,15 +8,17 @@ import {
 } from 'react-native';
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
+import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
+const LATITUDE = 16.4744744;
+const LONGITUDE = 102.8208432;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let id = 0;
+
 
 function randomColor() {
     return `#${Math.floor(Math.random() * 16777215)
@@ -24,7 +26,8 @@ function randomColor() {
         .padStart(6, 0)}`;
 }
 
-class GymLocation extends React.Component {
+
+export default class GymLocation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -51,6 +54,12 @@ class GymLocation extends React.Component {
             ],
         });
     }
+    goback() {
+        Actions.pop()
+    }
+    coursetype() {
+        Actions.coursetype()
+    }
 
     render() {
         return (
@@ -72,9 +81,28 @@ class GymLocation extends React.Component {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         onPress={() => this.setState({ markers: [] })}
-                        style={styles.bubble}
-                    >
+                        style={styles.bubble} >
                         <Text>Tap to create a marker of random color</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ justifyContent: "flex-end" }}>
+                    <TouchableOpacity
+                        onPress={this.coursetype} style={{
+                            paddingBottom: 13,
+                            paddingTop: 7,
+                            marginBottom: 15,
+                            borderRadius: 10,
+                            backgroundColor: "#883997",
+                            marginHorizontal: 130,
+                            borderWidth: 1,
+                            width: 100
+                        }}>
+                        <Text style={{
+                            color: '#eeeeee',
+                            fontSize: 20,
+                            fontWeight: '400',
+                            textAlign: "center",
+                        }} >ปิด</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -117,5 +145,3 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
 });
-
-export default GymLocation;

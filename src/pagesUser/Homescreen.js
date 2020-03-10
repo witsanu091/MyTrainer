@@ -157,6 +157,7 @@ export default class Homescreen extends Component {
 
                 </ScrollView>
 
+
                 <TouchableOpacity style={styles.Textbutton} onPress={() => { (this.state.checked != '' && this.state.select != 0) ? Actions.coursetype({ Gender: this.state.checked, CourseType: this.state.select, item: this.state.item }) : alert('กรุณาเลือกประเภทของคอร์ส') }}>
 
                     <Text style={[styles.Textcourse, { justifyContent: "center" }]} >
@@ -173,7 +174,6 @@ export default class Homescreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // flexDirection: "column",
         backgroundColor: '#f7ecf8'
     },
     TextBand: {
@@ -203,13 +203,11 @@ const styles = StyleSheet.create({
     Textbutton: {
         paddingBottom: 13,
         paddingTop: 5,
-        // flex: 
         justifyContent: "flex-end",
         marginBottom: 15,
         borderRadius: 10,
         backgroundColor: "#883997",
         marginHorizontal: 130,
-        // paddingVertical: 1
     }
 
 })

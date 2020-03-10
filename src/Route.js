@@ -17,8 +17,8 @@ export default class Route extends Component {
                 titleStyle={{ color: 'white', }}
             >
                 <Stack key="root">
-                    <Scene key="login" component={Login} title="Login" />
-                    <Scene key="signup" component={Signup} title="Sign up" />
+                    <Scene key="login" component={Login} hideNavBar={false} />
+                    <Scene key="signup" component={Signup} title="" />
                     <Scene key="home" component={Homescreen} hideNavBar={true} />
                     <Scene key="coursetype" component={Coursetype} hideNavBar={true} />
                     <Scene key="coursedetail" component={Coursedetail} hideNavBar={true} />

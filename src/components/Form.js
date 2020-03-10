@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, AsyncStorage, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, AsyncStorage, Keyboard, StatusBar } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 
 export default class Form extends Component {
 
@@ -68,7 +68,7 @@ export default class Form extends Component {
                     style={{ width: 100, height: 100 }}
                     source={require('../image/logo.jpg')}
                 />
-                <Text style={styles.textlogo}> My Trainer </Text>
+                <Text style={styles.textlogo}> Login </Text>
 
                 <TextInput style={styles.inputBox}
                     onChangeText={(email) => this.setState({ email })}
@@ -91,7 +91,6 @@ export default class Form extends Component {
                 <TouchableHighlight style={styles.button} onPress={this.home}>
                     <Text style={styles.buttonText} >{this.props.type}</Text>
                 </TouchableHighlight>
-
             </View>
 
         )
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
+
     },
     inputBox: {
         width: 300,
