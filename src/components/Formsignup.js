@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, Keyboard, StatusBar } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-
+import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -23,18 +24,38 @@ export default class Formsignup extends Component {
 
         }
     }
-
+    gobacklogin() {
+        Actions.login()
+    }
     render() {
         return (
 
             <View style={styles.container}>
+                {/* <StatusBar backgroundColor="#00b2cc" barStyle="light-content" /> */}
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
+                        <TouchableOpacity onPress={() => this.gobacklogin()}>
+                            <FontAwesome name="chevron-left" size={40} color='#fff' />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 2, alignItems: 'left' }}>
+                        <TouchableOpacity onPress={this.home}>
+                            <Text style={{
+                                paddingTop: 40,
+                                color: '#eeeeee',
+                                fontSize: 30,
+                                fontWeight: '500'
+                            }}>My Trainer</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
                 <Image
                     style={{ width: 100, height: 100 }}
                     source={require('../image/logo.jpg')}
                 />
                 <Text style={styles.textlogo}> Sign Up </Text>
-
-                <ScrollView style={styles.scrollView}>
+                <ScrollView>
                     <TextInput style={styles.inputBox}
                         onChangeText={(email) => this.setState({ email })}
                         underlineColorAndroid='rgba(0,0,0,0)'
@@ -121,7 +142,9 @@ export default class Formsignup extends Component {
                         <Text style={styles.buttonText} onPress={this.saveData}>{this.props.type}</Text>
                     </TouchableOpacity>
                 </ScrollView>
+
             </View>
+            // {/* // </View> */ }
 
         )
     }
@@ -129,10 +152,10 @@ export default class Formsignup extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20
+        // backgroundColor: 'red',
+        // flex:1
     },
     inputBox: {
         width: 300,

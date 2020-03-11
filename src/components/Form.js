@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, AsyncStorag
 
 import { Actions } from 'react-native-router-flux';
 import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 export default class Form extends Component {
 
@@ -62,8 +64,20 @@ export default class Form extends Component {
 
     render() {
         return (
-
             <View style={styles.container}>
+                <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                    <View style={{ flex: 5, alignItems: 'center' }}>
+                        <TouchableOpacity onPress={this.home}>
+                            <Text style={{
+                                paddingTop: 40,
+                                color: '#eeeeee',
+                                fontSize: 30,
+                                fontWeight: '500'
+                            }}>My Trainer</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <Image
                     style={{ width: 100, height: 100 }}
                     source={require('../image/logo.jpg')}
@@ -101,7 +115,6 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     inputBox: {
         width: 300,

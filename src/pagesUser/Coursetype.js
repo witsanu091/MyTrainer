@@ -225,8 +225,8 @@ export default class Coursetype extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // flexDirection: "column",
-        backgroundColor: '#f7ecf8'
+        backgroundColor: '#f7ecf8',
+        margin: 0
     },
     TextBand: {
         paddingTop: 40,

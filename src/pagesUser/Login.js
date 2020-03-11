@@ -15,9 +15,11 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <Form type="Login" />
-                </TouchableWithoutFeedback>
+                <View styles={{ flex: 1 }}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                        <Form type="Login" />
+                    </TouchableWithoutFeedback>
+                </View>
                 <View style={styles.loginTextCont}>
                     <Text style={styles.loginText}>Dont have an account yet? </Text>
                     <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
@@ -31,7 +33,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: 'white',
     },
     loginTextCont: {
