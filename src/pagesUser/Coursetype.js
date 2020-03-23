@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f7ecf8',
-        margin: 0
+    
     },
     TextBand: {
         paddingTop: 40,

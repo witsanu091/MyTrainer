@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-export default class Userprofile extends Component {
+export default class Trainerprofile extends Component {
     home() {
         Actions.home()
     }
@@ -41,7 +41,6 @@ export default class Userprofile extends Component {
         }
     }
 
-
     render() {
         return (
             <View style={styles.container}>
@@ -55,7 +54,7 @@ export default class Userprofile extends Component {
                     </View>
                     <View style={{ flex: 7, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>My Trainer</Text>
+                            <Text style={styles.TextBand}>Trainer profile</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -69,22 +68,22 @@ export default class Userprofile extends Component {
                     <View style={styles.bodyContent}>
                         <View style={styles.info}>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : UFName + UTName</Text>
+                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : firstname+lastname</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อเล่น : UNName</Text>
+                                <Text style={styles.fontSizeText}>ชื่อเล่น : nickname</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>น้ำหนัก : UWeight</Text>
+                                <Text style={styles.fontSizeText}>น้ำหนัก : weight</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ส่วนสูง : UHeight</Text>
+                                <Text style={styles.fontSizeText}>ส่วนสูง : height</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : UDOB</Text>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : birthday</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : UTel</Text>
+                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : telephone</Text>
                             </TouchableOpacity>
 
                         </View>

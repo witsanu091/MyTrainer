@@ -139,7 +139,7 @@ export default class Formsignup extends Component {
                         onDateChange={(bdate) => { this.setState({ bdate: bdate }) }}
                     />
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={this.saveData}>{this.props.type}</Text>
+                        <Text style={styles.buttonText} onPress={this.saveData}>SignUp</Text>
                     </TouchableOpacity>
                 </ScrollView>
 

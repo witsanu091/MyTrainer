@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, ScrollView, Modal, Button, Alert } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import {
+    StyleSheet,
+    Text,
+    View,
+    StatusBar,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    Modal,
+    Button,
+    Alert,
+    Form
+} from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default class Coursetype extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalVisible: false,
-        };
-    }
-    setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
-    }
-
     goback() {
         Actions.pop()
     }
@@ -32,8 +32,8 @@ export default class Coursetype extends Component {
     gymlocations() {
         Actions.gymlocations()
     }
-    setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+    tprofile() {
+        Actions.trainerprofile()
     }
 
     render() {
@@ -77,6 +77,16 @@ export default class Coursetype extends Component {
                             คอร์ส FIT TEENS: สอนออกกำลังกายสำหรับวัยรุ่น {"\n"}
                             สอนโดยเทรนเนอร์โจ้
                     </Text>
+                        <Text style={{
+                            justifyContent: "center",
+                            textAlign: 'left',
+                            color: '#62757f',
+                            fontSize: 18,
+                            fontWeight: '600',
+                            paddingTop: 15
+                        }}>
+                            GYM : Thai-M gym
+                        </Text>
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'left',
@@ -125,12 +135,18 @@ export default class Coursetype extends Component {
                         }}>
                             *3 คน ลดทั้งกลุ่ม 15%*
                     </Text>
-                        <Text>
-
-                        </Text>
-                        <View></View>
                     </View>
-
+                    <View style={{
+                        flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 20,
+                        marginRight: 20
+                    }}>
+                        <TouchableOpacity onPress={this.tprofile} style={styles.coursebutton}>
+                            <Text style={{ color: "#eeeeee" }}>ข้อมูลเทรนเนอร์</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.coursebutton}>
+                            <Text style={{ color: "#eeeeee" }}>ข้อมูลฟิตเนส</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </View>
         )
@@ -149,7 +165,16 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
     },
-    namecourse: {
-
+    coursebutton: {
+        margin: 8,
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 150,
+        borderRadius: 30,
+        backgroundColor: "#d05ce3",
+        borderWidth: 2,
+        borderColor: '#d6d7da',
     }
 })
