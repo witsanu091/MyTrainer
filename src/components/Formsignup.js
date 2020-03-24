@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Keyboard, StatusBar } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import { DatePicker } from 'react-native-datepicker';
 import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
 
 export default class Formsignup extends Component {
 
@@ -31,7 +29,6 @@ export default class Formsignup extends Component {
         return (
 
             <View style={styles.container}>
-                {/* <StatusBar backgroundColor="#00b2cc" barStyle="light-content" /> */}
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={() => this.gobacklogin()}>

@@ -24,7 +24,7 @@ export default class Trainerprofile extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.153/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {

@@ -29,7 +29,6 @@ export default class Route extends Component {
                     <Scene key="gymdetail" component={Gymdetail} hideNavBar={true} />
                     <Scene key="trainerprofile" component={Trainerprofile} hideNavBar={true} />
 
-
                 </Stack>
             </Router>
         )

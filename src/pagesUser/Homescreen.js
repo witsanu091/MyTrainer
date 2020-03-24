@@ -16,13 +16,12 @@ export default class Homescreen extends Component {
             user: [],
             data_profile: {}
         };
-        this.get_profile()
+        // this.get_profile();
+
     }
-
-    // setModalVisible(visible) {
-    //     this.setState({ modalVisible: visible });
-    // }
-
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
     coursetype() {
         Actions.coursetype()
     }
@@ -33,7 +32,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch('http://172.16.51.79/server/user/get_course')
+        fetch('http://10.66.32.153/server/user/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -43,7 +42,7 @@ export default class Homescreen extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.153/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -61,8 +60,6 @@ export default class Homescreen extends Component {
     }
 
     render() {
-        // this.test();
-        // console.log(this.state.x)
         this.get_course();
         return (
             <View style={styles.container} >
@@ -110,7 +107,7 @@ export default class Homescreen extends Component {
                     <Modal
                         animationType="slide"
                         transparent={false}
-                        visible={this.state.select == 4}
+                        visible={this.state.select == 4 && this.state.modalVisible}
                         onRequestClose={() => {
                             Alert.alert("Modal has been closed.");
                         }}>
@@ -124,7 +121,7 @@ export default class Homescreen extends Component {
                                         color: '#62757f',
                                         fontSize: 24,
                                         fontWeight: '500',
-                                    }}>ชื่อสถานที่ออกกำลังกาย</Text>
+                                    }}>ประเภทกีฬา</Text>
                                 </View>
 
                                 <Text style={{
@@ -136,8 +133,30 @@ export default class Homescreen extends Component {
                                     fontWeight: '500',
 
                                 }}>
-                                    ตอนนี้คุณอยู่ที่ : ....
+                                    เลือกประเภทกีฬา
                                 </Text>
+                                <View style={{ justifyContent: "flex-end" }}>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.setModalVisible(false);
+                                        }} style={{
+                                            paddingBottom: 13,
+                                            paddingTop: 7,
+                                            marginBottom: 15,
+                                            borderRadius: 10,
+                                            backgroundColor: "#883997",
+                                            marginHorizontal: 130,
+                                            borderWidth: 1,
+                                            width: 100
+                                        }}>
+                                        <Text style={{
+                                            color: '#eeeeee',
+                                            fontSize: 20,
+                                            fontWeight: '400',
+                                            textAlign: "center",
+                                        }} >ปิด</Text>
+                                    </TouchableOpacity>
+                                </View>
                                 <ScrollView>
 
 

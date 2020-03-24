@@ -13,6 +13,13 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 export default class Userprofile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data_profile: {}
+        };
+    }
+
     home() {
         Actions.home()
     }
@@ -24,7 +31,7 @@ export default class Userprofile extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.153/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -36,14 +43,16 @@ export default class Userprofile extends Component {
                         }
                     });
             }
+            console.log(key_token);
         } catch (error) {
             // Error retrieving data
         }
     }
 
-
     render() {
+        this.get_profile()
         return (
+
             <View style={styles.container}>
 
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
