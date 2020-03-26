@@ -12,6 +12,7 @@ export default class Login extends Component {
             password: '',
             type: 0
         }
+        this.check_login();
     }
     home() {
         Actions.home()
@@ -20,10 +21,22 @@ export default class Login extends Component {
         Actions.signup()
     }
 
+    check_login = async () => {
+        try {
+            var key_token = await AsyncStorage.getItem('key_token');
+            console.log("Logined |" + key_token);
+            if (key_token != null) {
+                Actions.userprofile();
+            }
+        } catch (error) {
+
+        }
+    }
+
     login(email, password, login_type) {
         if (login_type != 0) {
             if (this.state.type == 1) {
-                fetch('http://10.66.32.153/server/api/account/login?email=' + email + '&password=' + password)
+                fetch('http://172.16.51.79/server/api/account/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -32,7 +45,6 @@ export default class Login extends Component {
                                 AsyncStorage.setItem('key_token', responseJson.key_token);
                                 AsyncStorage.setItem('account_email', responseJson.data.email);
                                 AsyncStorage.setItem('account_firstname', responseJson.data.firstname);
-                                AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
                                 AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
                                 Actions.userprofile();
                             } else if (responseJson.data.status == 2) {//status account = รอการตวจสอบ
@@ -46,7 +58,7 @@ export default class Login extends Component {
                         console.log("xxx");
                     })
             } else if (this.state.type == 2) {
-                fetch('http://10.66.32.153/server/api/account_T/login?email=' + email + '&password=' + password)
+                fetch('http://172.16.51.79/server/api/account_T/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         // console.log(responseJson);

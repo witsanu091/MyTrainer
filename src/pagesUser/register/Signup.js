@@ -21,15 +21,17 @@ export default class Signup extends Component {
         this.state = {
             email: '',
             password: '',
-            fname: '',
-            lname: '',
+            firstname: '',
+            lastname: '',
             nickname: '',
             weight: '',
             height: '',
             gender: '',
-            bdate: '',
+            telephone: '',
+            birthday: '',
             items: ''
-        }
+        };
+        this.register();
     }
     goBack() {
         Actions.pop()
@@ -38,10 +40,27 @@ export default class Signup extends Component {
         Actions.login()
     }
 
+    register(email, password, firstname, lastname, nickname, weight, height, gender, telephone, birthday) {
+        fetch('http://172.16.51.79/server/api/account/register?email=' + email + '&password=' + password + '$firstname=' + firstname + '$lastname=' + lastname + '$nickname=' + nickname + '$weight=' + weight + '$height=' + height + '$gender=' + gender + '$telephone=' + telephone + '$birthday=' + birthday + '$status=2')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.status) {
+                    if (responseJson.data.status = "true") {
+                        alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
+                        Actions.login();
+                    } else {
+                        alert(responseJson.message);
+                    }
+                    console.log("xxx");
+                }
+            })
+        // console.log(this.register);
+        console.log(this.state.email)
+    }
+
     render() {
         return (
 
-            // <View styles={{ flex: 1 }}>
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
@@ -70,7 +89,6 @@ export default class Signup extends Component {
                         underlineColorAndroid='rgba(0,0,0,0)'
                         placeholder="Email"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="email-address"
                         onSubmitEditing={() => this.password.focus()} />
 
@@ -80,50 +98,67 @@ export default class Signup extends Component {
                         placeholder="Password"
                         secureTextEntry={true}
                         placeholderTextColor="#bdbdbd"
-                        ref={(input) => this.password = input}
-                    />
+                        onSubmitEditing={() => this.firstname.focus()}
+                        ref={(input) => this.password = input} />
+
                     <TextInput style={styles.inputBox}
                         onChangeText={(firstname) => this.setState({ firstname })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Firstname"
+                        placeholder="ชื่อ"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="default"
-                    />
+                        ref={(input) => this.firstname = input}
+                        onSubmitEditing={() => this.lastname.focus()} />
+
+
 
                     <TextInput style={styles.inputBox}
                         onChangeText={(lastname) => this.setState({ lastname })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Lastname"
+                        placeholder="นามสกุล"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="default"
-                    />
+                        ref={(input) => this.lastname = input}
+                        onSubmitEditing={() => this.nickname.focus()} />
+
+
 
                     <TextInput style={styles.inputBox}
                         onChangeText={(nickname) => this.setState({ nickname })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Nickname"
+                        placeholder="ชื่อเล่น"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="default"
-                    />
+                        ref={(input) => this.nickname = input}
+                        onSubmitEditing={() => this.weight.focus()} />
+
                     <TextInput style={styles.inputBox}
                         onChangeText={(weight) => this.setState({ weight })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Weight"
+                        placeholder="น้ำหนัก"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="default"
+                        ref={(input) => this.weight = input}
+                        onSubmitEditing={() => this.height.focus()}
                     />
                     <TextInput style={styles.inputBox}
                         onChangeText={(height) => this.setState({ height })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Height"
+                        placeholder="ส่วนสูง"
                         placeholderTextColor="#bdbdbd"
-                        selectionColor="#fff"
                         keyboardType="default"
+                        ref={(input) => this.height = input}
+                        onSubmitEditing={() => this.telephone.focus()}
                     />
+                    <TextInput style={styles.inputBox}
+                        onChangeText={(telephone) => this.setState({ telephone })}
+                        underlineColorAndroid='rgba(0,0,0,0)'
+                        placeholder="เบอร์โทรศัพท์"
+                        placeholderTextColor="#bdbdbd"
+                        keyboardType="numeric"
+                        ref={(input) => this.telephone = input}
+                    />
+
 
                     <View style={{ flexDirection: "row", paddingLeft: 15, marginTop: 10 }}>
                         <View style={{ flexDirection: "row", marginRight: 15, }}>
@@ -159,13 +194,10 @@ export default class Signup extends Component {
                     </View>
                     <DatePicker
                         style={{ width: 200, marginTop: 10 }}
-                        date={this.state.bdate}
+                        date={this.state.birthday}
                         mode="date"
                         placeholder="select birth date"
-                        // format="YYYY-MM-DD"
                         format="DD-MM-YYYY"
-                        // minDate="01-05-1800"
-                        // maxDate="01-06-2600"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         locale={'th'}
@@ -180,12 +212,12 @@ export default class Signup extends Component {
                                 marginLeft: 36
                             }
                         }}
-                        onDateChange={(bdate) => { this.setState({ bdate: bdate }) }}
+                        onDateChange={(birthday) => { this.setState({ birthday: birthday }) }}
                     />
                 </ScrollView>
 
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText} onPress={this.saveData}>SignUp</Text>
+                    <Text style={styles.buttonText} onPress={this.register}>SignUp</Text>
                 </TouchableOpacity>
             </View>
             // </View >

@@ -6,18 +6,25 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    StatusBar
+    StatusBar,
+    AsyncStorage,
+
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
-
+import ReactNativeTooltipMenu from 'react-native-tooltip-menu';
 
 export default class Userprofile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data_profile: {}
+            data_profile: {},
+            counterItem1: 0,
+            counterItem2: 0
+
         };
+
+        this.load_profile_data();
     }
 
     home() {
@@ -26,31 +33,48 @@ export default class Userprofile extends Component {
     goback() {
         Actions.pop()
     }
-    get_profile = async () => {
+    choice() {
+        Actions.choice()
+    }
+
+    load_profile_data = async () => {
+        console.log("data profile loading....")
         try {
-            const key_token = await AsyncStorage.getItem('key_token');
-            if (key_token !== null) {
+            var key_token = await AsyncStorage.getItem('key_token');
+            // console.log("user_profile|" + key_token);
+            console.log(key_token)
+            if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.153/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
                             this.setState({ data_profile: responseJson });
-                            console.log(this.state.data_profile);
+                            // console.log(this.state.data_profile);
                         } else {
                             alert("Not found this profile!");
                             Actions.pop();
                         }
                     });
             }
-            console.log(key_token);
         } catch (error) {
-            // Error retrieving data
+
         }
     }
 
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('key_token');
+            // var key_token = await AsyncStorage.getItem('key_token');
+            // console("logout key|" + key_token)
+            console.log("logout success.");
+            Actions.login();
+        } catch (error) {
+            alert("Logout fail.")
+        }
+    }
     render() {
-        this.get_profile()
+
         return (
 
             <View style={styles.container}>
@@ -63,43 +87,66 @@ export default class Userprofile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 7, alignItems: 'center' }}>
-                        <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>My Trainer</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.TextBand}>ข้อมูลส่วนตัว</Text>
+                        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 10 }}>
+                            <ReactNativeTooltipMenu
+                                buttonComponent={
+                                    <View style={{ padding: 10, borderRadius: 25 }}>
+                                        <FontAwesome name="bars" size={40} color='#00BFFF' />
+                                    </View>
+                                }
+                                items={[
+                                    {
+                                        label: 'Label #1',
+                                        onPress: () => this.logout()
+                                    },
+                                    {
+                                        label: 'Label #2',
+                                        onPress: () => this.setState({ counterItem2: this.state.counterItem2 + 1 }),
+                                    },
+                                ]}
+                            />
+                        </View>
                     </View>
                 </View>
                 <Image style={styles.avatar} source={require('../image/profile.jpg')} />
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
-                    <TouchableOpacity style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.choice() }}>
                         <Text style={{ color: "#eeeeee" }}>แก้ไขข้อมูลส่วนตัว</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.home() }} >
+                        <Text style={{ color: "#eeeeee" }}>ค้นหาเทรนเนอร์</Text>
+                    </TouchableOpacity>
+                </View>
+
                 <ScrollView>
                     <View style={styles.bodyContent}>
                         <View style={styles.info}>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : UFName + UTName</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อเล่น : UNName</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>น้ำหนัก : UWeight</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ส่วนสูง : UHeight</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : UDOB</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : UTel</Text>
-                            </TouchableOpacity>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : {this.state.data_profile.firstname}  {this.state.data_profile.lastname}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ชื่อเล่น : {this.state.data_profile.nickname}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>น้ำหนัก : {this.state.data_profile.weight}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
+                            </View>
+                            <View style={styles.deteil} >
+                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
+                            </View>
 
                         </View>
                     </View>
                 </ScrollView>
-            </View>
+            </View >
         );
     }
 }
@@ -110,16 +157,16 @@ const styles = StyleSheet.create({
         height: 100,
     },
     avatar: {
-        width: 100,
-        height: 100,
+        width: 110,
+        height: 110,
         borderRadius: 63,
         borderWidth: 4,
         borderColor: "white",
-        marginBottom: 20,
+        marginBottom: 10,
         alignSelf: 'flex-start',
         position: 'absolute',
-        marginLeft: 30,
-        marginTop: 80
+        marginLeft: 40,
+        marginTop: 98
     },
     TextBand: {
         paddingTop: 40,
@@ -141,7 +188,7 @@ const styles = StyleSheet.create({
     info: {
         fontSize: 16,
         color: "#00BFFF",
-        marginTop: 15,
+        marginTop: 5,
         alignItems: 'center',
     },
     deteil: {
@@ -152,14 +199,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
         width: 300,
-        backgroundColor: "#df78ef",
+        backgroundColor: "#eeeeee",
         borderRadius: 30,
         borderWidth: 2,
-        borderColor: '#d6d7da',
+        borderColor: '#d05ce3',
 
     },
     buttonContainer: {
-        marginTop: 15,
+        marginTop: 5,
         height: 45,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -175,6 +222,6 @@ const styles = StyleSheet.create({
     },
     fontSizeText: {
         fontSize: 18,
-        color: "#eeeeee"
+        color: "#343442"
     }
 });

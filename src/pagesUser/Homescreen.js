@@ -16,8 +16,7 @@ export default class Homescreen extends Component {
             user: [],
             data_profile: {}
         };
-        // this.get_profile();
-
+        this.get_profile();
     }
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
@@ -32,7 +31,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch('http://10.66.32.153/server/user/get_course')
+        fetch('http://172.16.51.79/server/user/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -42,7 +41,7 @@ export default class Homescreen extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.153/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {

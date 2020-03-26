@@ -10,6 +10,7 @@ import Userprofile from './pagesUser/Userprofile';
 import GymLocation from './pagesUser/GymLocation';
 import Gymdetail from './pagesUser/Gymdetail';
 import Trainerprofile from './pageTrainer/Trainerprofile';
+import Choice from './pagesUser/register/Choice';
 
 export default class Route extends Component {
     render() {
@@ -28,6 +29,8 @@ export default class Route extends Component {
                     <Scene key="gymlocations" component={GymLocation} hideNavBar={true} />
                     <Scene key="gymdetail" component={Gymdetail} hideNavBar={true} />
                     <Scene key="trainerprofile" component={Trainerprofile} hideNavBar={true} />
+                    <Scene key="choice" component={Choice} hideNavBar={true} />
+
 
                 </Stack>
             </Router>
