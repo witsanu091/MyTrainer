@@ -8,6 +8,7 @@ import {
     Image,
     TextInput,
     ScrollView,
+    KeyboardAvoidingView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { RadioButton } from 'react-native-paper';
@@ -31,31 +32,47 @@ export default class Signup extends Component {
             birthday: '',
             items: ''
         };
-        this.register();
     }
-    goBack() {
-        Actions.pop()
+    choice() {
+        Actions.choice()
     }
     login() {
         Actions.login()
     }
 
     register(email, password, firstname, lastname, nickname, weight, height, gender, telephone, birthday) {
-        fetch('http://172.16.51.79/server/api/account/register?email=' + email + '&password=' + password + '$firstname=' + firstname + '$lastname=' + lastname + '$nickname=' + nickname + '$weight=' + weight + '$height=' + height + '$gender=' + gender + '$telephone=' + telephone + '$birthday=' + birthday + '$status=2')
-            .then((response) => response.json())
-            .then((responseJson) => {
-                if (responseJson.status) {
-                    if (responseJson.data.status = "true") {
-                        alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
-                        Actions.login();
-                    } else {
-                        alert(responseJson.message);
+        if (this.props.user_type == 1) {
+            fetch('http://10.66.32.121/server/api/account/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=1')
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log(responseJson)
+                    if (responseJson.status) {
+                        if (responseJson.data.status = "true") {
+                            alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
+                            Actions.login();
+                        } else {
+                            alert(responseJson.message);
+                        }
+                        console.log("xxx");
                     }
-                    console.log("xxx");
-                }
-            })
-        // console.log(this.register);
-        console.log(this.state.email)
+                })
+        } else if (this.props.user_type == 2) {
+            fetch('http://10.66.32.121/server/api/account_T/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=2')
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log(responseJson)
+                    if (responseJson.status) {
+                        if (responseJson.data.status = "true") {
+                            alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
+                            Actions.login();
+                        } else {
+                            alert(responseJson.message);
+                        }
+                        console.log("yyy");
+                    }
+                })
+        }
+
     }
 
     render() {
@@ -63,8 +80,9 @@ export default class Signup extends Component {
 
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                    {/* {console.log(this.props.user_type)} */}
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={() => this.login}>
+                        <TouchableOpacity onPress={() => this.choice()}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -78,147 +96,152 @@ export default class Signup extends Component {
                     </View>
                 </View>
                 {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
-                <Image
-                    style={{ width: 100, height: 100 }}
-                    source={require('../../image/logo.jpg')}
-                />
-                <Text style={styles.textlogo}> Sign Up </Text>
-                <ScrollView >
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(email) => this.setState({ email })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Email"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="email-address"
-                        onSubmitEditing={() => this.password.focus()} />
+                <KeyboardAvoidingView style={{ flex: 1, alignItems: 'center' }} behavior='padding'>
+                    <ScrollView >
+                        <View style={{ alignItems: 'center' }}>
+                            <Image
+                                style={{ width: 100, height: 100 }}
+                                source={require('../../image/logo.jpg')}
+                            />
+                            <Text style={styles.textlogo}> Sign Up </Text>
+                        </View>
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(email) => this.setState({ email })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="Email"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="email-address"
+                            onSubmitEditing={() => this.password.focus()} />
 
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(password) => this.setState({ password })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        placeholderTextColor="#bdbdbd"
-                        onSubmitEditing={() => this.firstname.focus()}
-                        ref={(input) => this.password = input} />
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(password) => this.setState({ password })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            placeholderTextColor="#bdbdbd"
+                            onSubmitEditing={() => this.firstname.focus()}
+                            ref={(input) => this.password = input} />
 
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(firstname) => this.setState({ firstname })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="ชื่อ"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="default"
-                        ref={(input) => this.firstname = input}
-                        onSubmitEditing={() => this.lastname.focus()} />
-
-
-
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(lastname) => this.setState({ lastname })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="นามสกุล"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="default"
-                        ref={(input) => this.lastname = input}
-                        onSubmitEditing={() => this.nickname.focus()} />
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(firstname) => this.setState({ firstname })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="ชื่อ"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="default"
+                            ref={(input) => this.firstname = input}
+                            onSubmitEditing={() => this.lastname.focus()} />
 
 
 
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(nickname) => this.setState({ nickname })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="ชื่อเล่น"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="default"
-                        ref={(input) => this.nickname = input}
-                        onSubmitEditing={() => this.weight.focus()} />
-
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(weight) => this.setState({ weight })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="น้ำหนัก"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="default"
-                        ref={(input) => this.weight = input}
-                        onSubmitEditing={() => this.height.focus()}
-                    />
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(height) => this.setState({ height })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="ส่วนสูง"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="default"
-                        ref={(input) => this.height = input}
-                        onSubmitEditing={() => this.telephone.focus()}
-                    />
-                    <TextInput style={styles.inputBox}
-                        onChangeText={(telephone) => this.setState({ telephone })}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="เบอร์โทรศัพท์"
-                        placeholderTextColor="#bdbdbd"
-                        keyboardType="numeric"
-                        ref={(input) => this.telephone = input}
-                    />
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(lastname) => this.setState({ lastname })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="นามสกุล"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="default"
+                            ref={(input) => this.lastname = input}
+                            onSubmitEditing={() => this.nickname.focus()} />
 
 
-                    <View style={{ flexDirection: "row", paddingLeft: 15, marginTop: 10 }}>
-                        <View style={{ flexDirection: "row", marginRight: 15, }}>
+
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(nickname) => this.setState({ nickname })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="ชื่อเล่น"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="default"
+                            ref={(input) => this.nickname = input}
+                            onSubmitEditing={() => this.weight.focus()} />
+
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(weight) => this.setState({ weight })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="น้ำหนัก"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="default"
+                            ref={(input) => this.weight = input}
+                            onSubmitEditing={() => this.height.focus()}
+                        />
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(height) => this.setState({ height })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="ส่วนสูง"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="default"
+                            ref={(input) => this.height = input}
+                            onSubmitEditing={() => this.telephone.focus()}
+                        />
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(telephone) => this.setState({ telephone })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="เบอร์โทรศัพท์"
+                            placeholderTextColor="#bdbdbd"
+                            keyboardType="numeric"
+                            ref={(input) => this.telephone = input}
+                        />
+
+
+                        <View style={{ flexDirection: "row", paddingLeft: 15, marginTop: 10 }}>
+                            <View style={{ flexDirection: "row", marginRight: 15, }}>
+                                <View style={{ borderWidth: 1, borderRadius: 10 }}>
+                                    {/* {console.log(this.state.checked)} */}
+                                    <RadioButton
+                                        value="male"
+                                        status={this.state.gender === 'male' ? 'checked' : 'unchecked'}
+                                        onPress={() => { this.setState({ gender: "male" }) }}
+                                    ></RadioButton></View>
+                                <Text style={{
+                                    color: '#62757f',
+                                    fontSize: 20,
+                                    fontWeight: '300',
+                                    textAlign: "center",
+                                    margin: 5
+                                }}>ชาย</Text>
+                            </View>
                             <View style={{ borderWidth: 1, borderRadius: 10 }}>
-                                {/* {console.log(this.state.checked)} */}
                                 <RadioButton
-                                    value="male"
-                                    status={this.state.gender === 'male' ? 'checked' : 'unchecked'}
-                                    onPress={() => { this.setState({ gender: "male" }) }}
-                                ></RadioButton></View>
+                                    value="female"
+                                    status={this.state.gender === 'female' ? 'checked' : 'unchecked'}
+                                    onPress={() => { this.setState({ gender: 'female' }); }}
+                                ></RadioButton>
+                            </View>
                             <Text style={{
                                 color: '#62757f',
                                 fontSize: 20,
                                 fontWeight: '300',
                                 textAlign: "center",
                                 margin: 5
-                            }}>ชาย</Text>
+                            }}>หญิง</Text>
                         </View>
-                        <View style={{ borderWidth: 1, borderRadius: 10 }}>
-                            <RadioButton
-                                value="female"
-                                status={this.state.gender === 'female' ? 'checked' : 'unchecked'}
-                                onPress={() => { this.setState({ gender: 'female' }); }}
-                            ></RadioButton>
-                        </View>
-                        <Text style={{
-                            color: '#62757f',
-                            fontSize: 20,
-                            fontWeight: '300',
-                            textAlign: "center",
-                            margin: 5
-                        }}>หญิง</Text>
-                    </View>
-                    <DatePicker
-                        style={{ width: 200, marginTop: 10 }}
-                        date={this.state.birthday}
-                        mode="date"
-                        placeholder="select birth date"
-                        format="DD-MM-YYYY"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        locale={'th'}
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                marginLeft: 36
-                            }
-                        }}
-                        onDateChange={(birthday) => { this.setState({ birthday: birthday }) }}
-                    />
-                </ScrollView>
-
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText} onPress={this.register}>SignUp</Text>
-                </TouchableOpacity>
+                        <DatePicker
+                            style={{ width: 200, marginTop: 10 }}
+                            date={this.state.birthday}
+                            mode="date"
+                            placeholder="select birth date"
+                            format="DD-MM-YYYY"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            locale={'th'}
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                },
+                                dateInput: {
+                                    marginLeft: 36
+                                }
+                            }}
+                            onDateChange={(birthday) => { this.setState({ birthday: birthday }) }}
+                        />
+                    </ScrollView>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText} onPress={() =>
+                            this.register(this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.nickname, this.state.weight, this.state.height, this.state.gender, this.state.telephone, this.state.birthday
+                            )}>SignUp</Text>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             </View>
             // </View >
         )
@@ -256,7 +279,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         fontSize: 16,
         color: '#002f6c',
-        marginVertical: 10, paddingVertical: 10
+        marginVertical: 10, paddingVertical: 15
     },
     button: {
         width: 300,

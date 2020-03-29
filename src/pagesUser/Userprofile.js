@@ -45,7 +45,7 @@ export default class Userprofile extends Component {
             console.log(key_token)
             if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.121/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -88,25 +88,6 @@ export default class Userprofile extends Component {
                     </View>
                     <View style={{ flex: 7, alignItems: 'center' }}>
                         <Text style={styles.TextBand}>ข้อมูลส่วนตัว</Text>
-                        <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 10 }}>
-                            <ReactNativeTooltipMenu
-                                buttonComponent={
-                                    <View style={{ padding: 10, borderRadius: 25 }}>
-                                        <FontAwesome name="bars" size={40} color='#00BFFF' />
-                                    </View>
-                                }
-                                items={[
-                                    {
-                                        label: 'Label #1',
-                                        onPress: () => this.logout()
-                                    },
-                                    {
-                                        label: 'Label #2',
-                                        onPress: () => this.setState({ counterItem2: this.state.counterItem2 + 1 }),
-                                    },
-                                ]}
-                            />
-                        </View>
                     </View>
                 </View>
                 <Image style={styles.avatar} source={require('../image/profile.jpg')} />
@@ -142,7 +123,25 @@ export default class Userprofile extends Component {
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
                             </View>
-
+                            <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 10 }}>
+                                <ReactNativeTooltipMenu
+                                    buttonComponent={
+                                        <View style={{ padding: 10, borderRadius: 25 }}>
+                                            <FontAwesome name="bars" size={40} color='#00BFFF' />
+                                        </View>
+                                    }
+                                    items={[
+                                        {
+                                            label: 'Label #1',
+                                            onPress: () => this.logout()
+                                        },
+                                        {
+                                            label: 'Label #2',
+                                            onPress: () => this.setState({ counterItem2: this.state.counterItem2 + 1 }),
+                                        },
+                                    ]}
+                                />
+                            </View>
                         </View>
                     </View>
                 </ScrollView>

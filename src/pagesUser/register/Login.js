@@ -17,9 +17,10 @@ export default class Login extends Component {
     home() {
         Actions.home()
     }
-    signup() {
-        Actions.signup()
+    choice() {
+        Actions.choice()
     }
+
 
     check_login = async () => {
         try {
@@ -36,7 +37,7 @@ export default class Login extends Component {
     login(email, password, login_type) {
         if (login_type != 0) {
             if (this.state.type == 1) {
-                fetch('http://172.16.51.79/server/api/account/login?email=' + email + '&password=' + password)
+                fetch('http://10.66.32.121/server/api/account/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -58,10 +59,10 @@ export default class Login extends Component {
                         console.log("xxx");
                     })
             } else if (this.state.type == 2) {
-                fetch('http://172.16.51.79/server/api/account_T/login?email=' + email + '&password=' + password)
+                fetch('http://10.66.32.121/server/api/account_T/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
-                        // console.log(responseJson);
+                        console.log(responseJson.key_token);
                         if (responseJson.status) {// user pass ถูกต้อง
                             if (responseJson.data.status == 1) {//status account = เปิดใช้งาน
                                 AsyncStorage.setItem('key_token', responseJson.key_token);
@@ -102,18 +103,20 @@ export default class Login extends Component {
     render() {
         return (
 
-            <View styles={{ flex: 1 }}>
-                <View style={styles.container}>
-                    <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
-                        <View style={{ flex: 5, alignItems: 'center' }}>
-                            <Text style={{
-                                paddingTop: 40,
-                                color: '#eeeeee',
-                                fontSize: 30,
-                                fontWeight: '500'
-                            }}>My Trainer</Text>
-                        </View>
+            <View styles={{}}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                    <View style={{ flex: 5, alignItems: 'center' }}>
+                        <Text style={{
+                            paddingTop: 40,
+                            color: '#eeeeee',
+                            fontSize: 30,
+                            fontWeight: '500'
+                        }}>My Trainer</Text>
                     </View>
+                </View>
+
+
+                <View style={styles.container}>
                     <Image
                         style={{ width: 100, height: 100 }}
                         source={require('../../image/logo.jpg')}
@@ -166,7 +169,8 @@ export default class Login extends Component {
                             fontWeight: '300',
                             textAlign: "center",
                             margin: 5
-                        }}>Trainer</Text>
+                        }}>Trainer
+                        </Text>
                     </View>
                     <TouchableOpacity style={styles.button} onPress={() => { this.login(this.state.email, this.state.password, this.state.type) }}>
                         <Text style={styles.buttonText} >Login</Text>
@@ -174,36 +178,39 @@ export default class Login extends Component {
                 </View>
 
                 <View style={styles.loginTextCont}>
-                    <Text style={styles.loginText}>Dont have an account yet? </Text>
-                    <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
+                    <Text style={styles.loginText}>ยังไม่มีบัญชีผู้ใช้ไปหน้าสมัคร</Text>
+                    <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
                 </View>
+
             </View>
+
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
+        // flex: 1,
+        // justifyContent: 'center',
         alignItems: 'center',
-
+        // backgroundColor: 'green'
     },
     loginTextCont: {
-        // flexGrow: 1,
+        // flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        // alignItems: 'flex-end',
         paddingVertical: 16,
         flexDirection: 'row',
-        marginTop: 60
-        // backgroundColor: 'red'
+        marginTop: 80,
+
     },
     loginText: {
         color: '#12799f',
-        fontSize: 16,
+        fontSize: 18,
     },
     signupButton: {
         color: '#12799f',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '500',
         borderWidth: 1,
         borderRadius: 5,

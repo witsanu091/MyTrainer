@@ -31,7 +31,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch('http://172.16.51.79/server/user/get_course')
+        fetch('http://10.66.32.121/server/user/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -41,7 +41,7 @@ export default class Homescreen extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.121/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -98,7 +98,7 @@ export default class Homescreen extends Component {
                                 <View style={this.state.select == item.CTID ? [styles.Textshow,
                                 { backgroundColor: "#ba68c8", borderWidth: 3 }] : [styles.Textshow,
                                     ]} >
-                                    <Text>{item.CTName}</Text>
+                                    <Text style={{ fontSize: 17, textAlign: "center" }} >{item.CTName}</Text>
                                 </View>
                             </TouchableOpacity>}
                         keyExtractor={({ id }, index) => id}
@@ -218,7 +218,7 @@ export default class Homescreen extends Component {
                 </ScrollView>
 
 
-                <TouchableOpacity style={styles.Textbutton} onPress={() => { (this.state.checked != '' && this.state.select != 0) ? Actions.coursetype({ Gender: this.state.checked, CourseType: this.state.select, item: this.state.item }) : alert('กรุณาเลือกประเภทของคอร์ส') }}>
+                <TouchableOpacity style={styles.Textbutton} onPress={() => { (this.state.type != '' && this.state.select != 0) ? Actions.coursetype({ Gender: this.state.type, CourseType: this.state.select, item: this.state.item }) : alert('กรุณาเลือกประเภทของคอร์ส') }}>
 
                     <Text style={[styles.Textcourse, { justifyContent: "center" }]} >
                         ค้นหา
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 10,
         borderWidth: 3,
-        fontSize: 18,
+        fontSize: 20,
         color: "#62757f"
 
     },

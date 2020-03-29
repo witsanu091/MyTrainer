@@ -6,30 +6,49 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    StatusBar
+    StatusBar,
+    AsyncStorage
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
 
 
 export default class Trainerprofile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data_profile: {},
+            counterItem1: 0,
+            counterItem2: 0
+
+        };
+
+        this.load_profile();
+    }
+
     home() {
         Actions.home()
     }
     goback() {
         Actions.pop()
     }
-    get_profile = async () => {
+    choice() {
+        Actions.choice()
+    }
+
+    load_profile = async () => {
+        console.log("data profile loading....")
         try {
             const key_token = await AsyncStorage.getItem('key_token');
-            if (key_token !== null) {
+            console.log(key_token)
+            if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.121/server/api/account_T/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
                             this.setState({ data_profile: responseJson });
-                            console.log(this.state.data_profile);
+                            // console.log(this.state.data_profile);
                         } else {
                             alert("Not found this profile!");
                             Actions.pop();
@@ -37,9 +56,21 @@ export default class Trainerprofile extends Component {
                     });
             }
         } catch (error) {
-            // Error retrieving data
+
         }
     }
+    logout = async () => {
+        try {
+            await AsyncStorage.removeItem('key_token');
+            // var key_token = await AsyncStorage.getItem('key_token');
+            // console("logout key|" + key_token)
+            console.log("logout success.");
+            Actions.login();
+        } catch (error) {
+            alert("Logout fail.")
+        }
+    }
+
 
     render() {
         return (
@@ -53,7 +84,7 @@ export default class Trainerprofile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 7, alignItems: 'center' }}>
-                        <TouchableOpacity onPress={this.home}>
+                        <TouchableOpacity onPress={this.choice}>
                             <Text style={styles.TextBand}>Trainer profile</Text>
                         </TouchableOpacity>
                     </View>
@@ -67,24 +98,24 @@ export default class Trainerprofile extends Component {
                 <ScrollView>
                     <View style={styles.bodyContent}>
                         <View style={styles.info}>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : firstname+lastname</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ชื่อเล่น : nickname</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>น้ำหนัก : weight</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>ส่วนสูง : height</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : birthday</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : telephone</Text>
-                            </TouchableOpacity>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ชื่อ-สกุล : {this.state.data_profile.firstname}  {this.state.data_profile.lastname}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ชื่อเล่น : {this.state.data_profile.nickname}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>น้ำหนัก : {this.state.data_profile.weight}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
+                            </View>
+                            <View style={styles.deteil}>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
+                            </View>
+                            <View style={styles.deteil} >
+                                <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
+                            </View>
 
                         </View>
                     </View>

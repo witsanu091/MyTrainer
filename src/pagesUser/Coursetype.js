@@ -36,7 +36,7 @@ export default class Coursetype extends Component {
         return (
 
             <View style={styles.container}>
-
+                {console.log(this.props)}
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
@@ -67,20 +67,20 @@ export default class Coursetype extends Component {
                         fontWeight: '500',
 
                     }} >
-                        {/* {this.props.item.CTName} */}
-                        รายชื่อคอร์ส
+                        {this.props.item.CTName}
+
                     </Text>
                 </View>
 
                 <Modal
                     animationType="slide"
-                    transparent={false}
+                    transparent={true}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
                         Alert.alert("Modal has been closed.");
                     }}>
-                    <View style={{ marginTop: 22, flex: 1 }}>
-                        <View>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
+                        <View style={{ backgroundColor: '#ffffff', marginHorizontal: 20, borderRadius: 10 }}>
                             <View style={{ alignItems: "center" }}>
                                 <Text style={{
                                     justifyContent: "center",
@@ -105,7 +105,10 @@ export default class Coursetype extends Component {
                                 </Text>
                             <ScrollView>
                                 <View style={{ alignItems: "center" }}>
-                                    <TouchableOpacity onPress={this.gymlocations}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.gymlocations()
+                                        this.setModalVisible(false);
+                                    }}>
                                         <View style={styles.gymlocate}>
                                             <Image style={styles.imagelocate} source={require('../image/nppark.jpg')} />
                                             <Text style={styles.fontlocateText}>
@@ -114,7 +117,10 @@ export default class Coursetype extends Component {
                                             </Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={this.gymlocations}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.gymlocations()
+                                        this.setModalVisible(false);
+                                    }}>
                                         <View style={styles.gymlocate}>
                                             <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
                                             <Text style={styles.fontlocateText}>
@@ -123,7 +129,10 @@ export default class Coursetype extends Component {
                                             </Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={this.gymlocations}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.gymlocations()
+                                        this.setModalVisible(false);
+                                    }}>
                                         <View style={styles.gymlocate}>
                                             <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
                                             <Text style={styles.fontlocateText}>
@@ -226,7 +235,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f7ecf8',
-    
+
     },
     TextBand: {
         paddingTop: 40,
