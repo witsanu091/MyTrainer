@@ -9,6 +9,7 @@ import {
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
+import { SearchBar } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
 
@@ -78,6 +79,7 @@ export default class GymLocation extends React.Component {
                         />
                     ))}
                 </MapView>
+
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         onPress={() => this.setState({ markers: [] })}

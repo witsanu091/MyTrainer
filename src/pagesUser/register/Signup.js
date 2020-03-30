@@ -42,7 +42,7 @@ export default class Signup extends Component {
 
     register(email, password, firstname, lastname, nickname, weight, height, gender, telephone, birthday) {
         if (this.props.user_type == 1) {
-            fetch('http://10.66.32.121/server/api/account/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=1')
+            fetch('http://172.16.51.79/server/api/account/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=1')
                 .then((response) => response.json())
                 .then((responseJson) => {
                     console.log(responseJson)
@@ -57,7 +57,7 @@ export default class Signup extends Component {
                     }
                 })
         } else if (this.props.user_type == 2) {
-            fetch('http://10.66.32.121/server/api/account_T/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=2')
+            fetch('http://172.16.51.79/server/api/account_T/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=2' + '&type=2')
                 .then((response) => response.json())
                 .then((responseJson) => {
                     console.log(responseJson)
@@ -79,7 +79,7 @@ export default class Signup extends Component {
         return (
 
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     {/* {console.log(this.props.user_type)} */}
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={() => this.choice()}>
@@ -92,16 +92,16 @@ export default class Signup extends Component {
                             color: '#eeeeee',
                             fontSize: 30,
                             fontWeight: '500'
-                        }}>My Trainer</Text>
+                        }}>Find Trainer</Text>
                     </View>
                 </View>
                 {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
                 <KeyboardAvoidingView style={{ flex: 1, alignItems: 'center' }} behavior='padding'>
                     <ScrollView >
-                        <View style={{ alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center', marginTop: 10 }}>
                             <Image
                                 style={{ width: 100, height: 100 }}
-                                source={require('../../image/logo.jpg')}
+                                source={require('../../image/logoApp.png')}
                             />
                             <Text style={styles.textlogo}> Sign Up </Text>
                         </View>
@@ -298,5 +298,7 @@ const styles = StyleSheet.create({
         color: '#12799f',
         fontSize: 24,
         fontWeight: '500',
+        marginTop: 10,
+
     }
 });

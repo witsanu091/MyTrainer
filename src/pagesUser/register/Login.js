@@ -24,10 +24,20 @@ export default class Login extends Component {
 
     check_login = async () => {
         try {
-            var key_token = await AsyncStorage.getItem('key_token');
-            console.log("Logined |" + key_token);
-            if (key_token != null) {
-                Actions.userprofile();
+            if (this.state.type == 1) {
+                var key_token = await AsyncStorage.getItem('key_token');
+                console.log("Logined |" + key_token);
+
+                if (key_token != null) {
+                    Actions.userprofile();
+                }
+            } else if (this.state.type == 2) {
+                var key_token = await AsyncStorage.getItem('key_token');
+                console.log("Logined |" + key_token);
+
+                if (key_token != null) {
+                    Actions.trainerprofile();
+                }
             }
         } catch (error) {
 
@@ -37,7 +47,7 @@ export default class Login extends Component {
     login(email, password, login_type) {
         if (login_type != 0) {
             if (this.state.type == 1) {
-                fetch('http://10.66.32.121/server/api/account/login?email=' + email + '&password=' + password)
+                fetch('http://172.16.51.79/server/api/account/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -59,7 +69,7 @@ export default class Login extends Component {
                         console.log("xxx");
                     })
             } else if (this.state.type == 2) {
-                fetch('http://10.66.32.121/server/api/account_T/login?email=' + email + '&password=' + password)
+                fetch('http://172.16.51.79/server/api/account_T/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -104,25 +114,28 @@ export default class Login extends Component {
         return (
 
             <View styles={{}}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <Text style={{
                             paddingTop: 40,
                             color: '#eeeeee',
                             fontSize: 30,
                             fontWeight: '500'
-                        }}>My Trainer</Text>
+                        }}>Find Trainer</Text>
                     </View>
                 </View>
 
 
                 <View style={styles.container}>
-                    <Image
-                        style={{ width: 100, height: 100 }}
-                        source={require('../../image/logo.jpg')}
-                    />
-                    <Text style={styles.textlogo}> Login </Text>
-
+                    <View style={{ marginTop: 10 }}>
+                        <Image
+                            style={{ width: 100, height: 100 }}
+                            source={require('../../image/logoApp.png')}
+                        />
+                        <View style={{ alignItems: "center" }}>
+                            <Text style={styles.textlogo}> Login </Text>
+                        </View>
+                    </View>
                     <TextInput style={styles.inputBox}
                         onChangeText={(email) => this.setState({ email })}
                         underlineColorAndroid='rgba(0,0,0,0)'
@@ -238,7 +251,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     textlogo: {
-        color: '#424242',
+        color: '#12799f',
         marginTop: 10,
         fontSize: 24,
         fontWeight: '500',

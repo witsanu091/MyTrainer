@@ -45,7 +45,7 @@ export default class Userprofile extends Component {
             console.log(key_token)
             if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.121/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -80,7 +80,7 @@ export default class Userprofile extends Component {
             <View style={styles.container}>
 
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.goback}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />

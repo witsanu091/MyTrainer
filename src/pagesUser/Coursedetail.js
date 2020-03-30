@@ -42,7 +42,7 @@ export default class Coursetype extends Component {
             <View style={styles.container}>
 
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.goback}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
@@ -50,7 +50,7 @@ export default class Coursetype extends Component {
                     </View>
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>My Trainer</Text>
+                            <Text style={styles.TextBand}>Find Trainer</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>

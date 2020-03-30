@@ -31,7 +31,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch('http://10.66.32.121/server/user/get_course')
+        fetch('http://172.16.51.79/server/user/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -41,7 +41,7 @@ export default class Homescreen extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.121/server/api/account/get_profile?token_login=' + key_token)
+                fetch('http://172.16.51.79/server/api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -62,10 +62,10 @@ export default class Homescreen extends Component {
         this.get_course();
         return (
             <View style={styles.container} >
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
 
                     <View style={{ flex: 8, left: 20, alignItems: 'center' }}>
-                        <Text style={styles.TextBand}>My Trainer</Text>
+                        <Text style={styles.TextBand}>Find Trainer</Text>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.userprofile}>

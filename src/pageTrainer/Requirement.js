@@ -1,0 +1,151 @@
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image } from 'react-native';
+import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import { FontAwesome } from '@expo/vector-icons';
+
+export default class Requirement extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tableHead: ['ชื่อ', 'คอร์ส', 'รายละเอียด',],
+            tableData: [
+                ['พชร', 'เพิ่มกล้าม', '3'],
+                ['วิษณุ', 'เพิ่มกล้าม', 'c'],
+                ['ภคพงษ์', 'ลดหุ่น', '3'],
+                ['สุภาดา', 'ลดหุ่น', 'c']
+            ],
+            modalVisible: false,
+        }
+    }
+
+    _alertIndex(index) {
+        Alert.alert(`This is row ${index + 1}`);
+    }
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+    render() {
+        const state = this.state;
+        const element = (data, index) => (
+            <TouchableOpacity onPress={() => {
+                this.setModalVisible(true);
+            }}>
+                <View style={styles.btn}>
+                    <Text style={styles.btnText}>รายละเอียด</Text>
+                </View>
+            </TouchableOpacity>
+        );
+
+        return (
+            <View style={styles.container}>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                    }}>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
+                        <View style={{ backgroundColor: '#ffffff', marginHorizontal: 20, borderRadius: 10 }}>
+                            <View style={{ alignItems: "center" }}>
+                                <Text style={{
+                                    justifyContent: "center",
+                                    paddingTop: 10,
+                                    textAlign: 'center',
+                                    color: '#62757f',
+                                    fontSize: 20,
+                                    fontWeight: '500',
+                                }}>รายละเอียดผู้ที่ต้องการเรียน</Text>
+                            </View>
+
+                            <ScrollView>
+                                <View style={{ alignItems: "flex-start", marginLeft: 10 }}>
+                                    <View style={{ justifyContent: "flex-start" }}>
+                                        <Text>
+                                            นายวิษณุ พลไธสง {'\n'}
+                                            อายุ 22 ปี {'\n'}
+
+                                        </Text>
+                                    </View>
+                                    <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                this.setModalVisible(false);
+                                            }} style={{
+                                                paddingBottom: 13,
+                                                paddingTop: 7,
+                                                marginBottom: 15,
+                                                borderRadius: 10,
+                                                backgroundColor: "#883997",
+                                                marginHorizontal: 130,
+                                                borderWidth: 1,
+                                                width: 100
+                                            }}>
+                                            <Text style={{
+                                                color: '#eeeeee',
+                                                fontSize: 16,
+                                                fontWeight: '300',
+                                                textAlign: "center",
+                                            }} >ปิด</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </View>
+                </Modal>
+
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
+                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
+                        <TouchableOpacity onPress={this.goback}>
+                            <FontAwesome name="chevron-left" size={40} color='#fff' />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 5, alignItems: 'center' }}>
+                        <TouchableOpacity onPress={this.home}>
+                            <Text style={{
+                                paddingTop: 40,
+                                color: '#eeeeee',
+                                fontSize: 30,
+                                fontWeight: '500',
+                            }}>Find Trainer</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
+                        <TouchableOpacity onPress={this.userprofile}>
+
+                            <FontAwesome name="user" size={40} color='#fff' />
+
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <Table borderStyle={{ borderColor: 'transparent' }}>
+                    <View style={{ alignItems: "center" }}>
+                        <Row data={state.tableHead} style={styles.head} textStyle={styles.text} />
+                    </View>
+                    {
+                        state.tableData.map((rowData, index) => (
+                            <TableWrapper key={index} style={styles.row}>
+                                {
+                                    rowData.map((cellData, cellIndex) => (
+                                        <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} textStyle={styles.textdetail} />
+                                    ))
+                                }
+                            </TableWrapper>
+                        ))
+                    }
+                </Table>
+            </View>
+        )
+    }
+}
+
+const styles = StyleSheet.create({
+    container: { flex: 1, backgroundColor: '#fff' },
+    head: { height: 50, backgroundColor: '#62757f', },
+    text: { margin: 6, alignItems: "center", fontSize: 16, color: "#fff" },
+    row: { flexDirection: 'row', backgroundColor: '#FFF1C1', alignItems: "center" },
+    btn: { width: 71, height: 20, backgroundColor: '#78B7BB', borderRadius: 2 },
+    btnText: { textAlign: 'center', color: '#fff', width: 71 },
+    textdetail: { margin: 6, alignItems: "center", fontSize: 16, }
+});

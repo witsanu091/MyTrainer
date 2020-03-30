@@ -34,20 +34,21 @@ export default class Choice extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 20 }} >
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <Text style={{
                             paddingTop: 40,
                             color: '#eeeeee',
                             fontSize: 30,
                             fontWeight: '500'
-                        }}>My Trainer</Text>
+                        }}>Find Trainer</Text>
                     </View>
                 </View>
-                <Image
-                    style={{ width: 100, height: 100 }}
-                    source={require('../../image/logo.jpg')}
-                />
+                <View style={{ marginTop: 10 }}>
+                    <Image
+                        style={{ width: 100, height: 100 }}
+                        source={require('../../image/logoApp.png')}
+                    /></View>
                 <Text style={styles.textlogo}> Sign Up </Text>
                 <View style={{
                     justifyContent: "center", alignItems: "center", marginTop: 30
@@ -126,6 +127,8 @@ const styles = StyleSheet.create({
         color: '#12799f',
         fontSize: 24,
         fontWeight: '500',
+        marginTop: 10,
+
     },
     coursebutton: {
         margin: 8,
