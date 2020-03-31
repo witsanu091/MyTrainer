@@ -31,7 +31,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch('http://172.16.51.79/server/user/get_course')
+        fetch('http://172.16.51.79/server/api/Cousre/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -103,7 +103,7 @@ export default class Homescreen extends Component {
                             </TouchableOpacity>}
                         keyExtractor={({ id }, index) => id}
                     />
-                    <Modal
+                    {/* <Modal
                         animationType="slide"
                         transparent={false}
                         visible={this.state.select == 4 && this.state.modalVisible}
@@ -162,7 +162,7 @@ export default class Homescreen extends Component {
                                 </ScrollView>
                             </View>
                         </View>
-                    </Modal>
+                    </Modal>*/}
                     <View>
                         <Text style={{
                             color: '#62757f',
@@ -218,7 +218,7 @@ export default class Homescreen extends Component {
                 </ScrollView>
 
 
-                <TouchableOpacity style={styles.Textbutton} onPress={() => { (this.state.type != '' && this.state.select != 0) ? Actions.coursetype({ Gender: this.state.type, CourseType: this.state.select, item: this.state.item }) : alert('กรุณาเลือกประเภทของคอร์ส') }}>
+                <TouchableOpacity style={styles.Textbutton} onPress={() => { (this.state.checked != '' && this.state.select != 0) ? Actions.coursetype({ Gender: this.state.checked, CourseType: this.state.select, item: this.state.item }) : alert('กรุณาเลือกประเภทของคอร์ส') }}>
 
                     <Text style={[styles.Textcourse, { justifyContent: "center" }]} >
                         ค้นหา
@@ -247,8 +247,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#eeeeee",
         margin: 10,
-        borderRadius: 10,
-        borderWidth: 3,
+        borderRadius: 20,
+        borderWidth: 2,
         fontSize: 20,
         color: "#62757f"
 

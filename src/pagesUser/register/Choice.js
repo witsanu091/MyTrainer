@@ -90,7 +90,7 @@ export default class Choice extends Component {
                     borderWidth: 2,
                     borderColor: '#d6d7da',
                 }} onPress={() => { (this.state.type != '') ? Actions.signup({ user_type: this.state.type }) : alert('กรุณาเลือกผู้ใช้งานที่ต้องการสมัคร') }}>
-                    < Text style={{ color: "#ffffff" }}>ค้นหา</Text>
+                    < Text style={{ color: "#ffffff" }}>ดำเนินการสมัคร</Text>
                 </TouchableOpacity>
                 <View style={{
                     justifyContent: 'center',

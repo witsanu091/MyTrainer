@@ -13,6 +13,8 @@ import Gymdetail from './pagesUser/Gymdetail';
 import Trainerprofile from './pageTrainer/Trainerprofile';
 import Trainercourse from './pageTrainer/Trainercourse';
 import Requirement from './pageTrainer/Requirement';
+import Trainerdetail from './pagesUser/Trainerdetail';
+
 
 
 
@@ -37,6 +39,9 @@ export default class Route extends Component {
                     <Scene key="choice" component={Choice} hideNavBar={true} />
                     <Scene key="Trainercourse" component={Trainercourse} hideNavBar={true} />
                     <Scene key="requirement" component={Requirement} hideNavBar={true} />
+                    <Scene key="trainerdetail" component={Trainerdetail} hideNavBar={true} />
+
+
 
 
 

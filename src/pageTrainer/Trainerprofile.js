@@ -94,8 +94,8 @@ export default class Trainerprofile extends Component {
                 </View>
                 <Image style={styles.avatar} source={require('../image/profile.jpg')} />
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
-                    <TouchableOpacity style={styles.buttonContainer}>
-                        <Text style={{ color: "#eeeeee" }}>แก้ไขข้อมูลส่วนตัว</Text>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.logout()}>
+                        <Text style={{ color: "#eeeeee" }}>ออกจากระบบ</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>

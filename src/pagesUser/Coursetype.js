@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, Image, TouchableOpacity, ScrollView, Modal, Button, Alert } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 export default class Coursetype extends Component {
 
@@ -11,13 +12,16 @@ export default class Coursetype extends Component {
         super(props);
         this.state = {
             modalVisible: false,
+            coures_list: '',
+            genderT: '',
+
         };
+        this.load_coures();
+        this.gendertrainer();
+
     }
     goback() {
         Actions.pop()
-    }
-    coursedetail() {
-        Actions.coursedetail()
     }
     userprofile() {
         Actions.userprofile()
@@ -32,7 +36,46 @@ export default class Coursetype extends Component {
         this.setState({ modalVisible: visible });
     }
 
+    gendertrainer() {
+        let gender = this.props.Gender;
+        if (gender == "all") {
+            gender = 'ทั้งหมด';
+            this.setState({ genderT: gender });
+
+        } if (gender == "male") {
+            gender = 'ชาย';
+            this.setState({ genderT: gender });
+
+        } if (gender == "female") {
+            gender = 'หญิง';
+            this.setState({ genderT: gender });
+
+        }
+        console.log(gender)
+
+    }
+    load_coures() {
+        let gender = this.props.Gender;
+        //  console.log(gender);
+        if (gender == "all") {
+            gender = '';
+        }
+        fetch('http://172.16.51.79/server/api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson)
+                if (responseJson.status) {
+                    this.setState({ coures_list: responseJson })
+                } else {
+                    alert("เกิดข้อผิดพลาด");
+                    Actions.home();
+                }
+
+            });
+    }
+
     render() {
+
         return (
 
             <View style={styles.container}>
@@ -66,7 +109,8 @@ export default class Coursetype extends Component {
                         fontWeight: '500',
 
                     }} >
-                        {this.props.item.CTName}
+                        {this.props.item.CTName} {'\n'}
+
 
                     </Text>
                 </View>
@@ -190,43 +234,44 @@ export default class Coursetype extends Component {
                     </TouchableOpacity>
                 </View>
                 <ScrollView>
-                    <View style={styles.info}>
-                        <TouchableOpacity onPress={this.coursedetail} style={styles.deteil}>
-                            <Text style={styles.fontSizeText}>
-                                คอร์ส FIT TEENS: สอนออกกำลังกายสำหรับวัยรุ่น{"\n"}
-                                By พี่อาร์ม Np park
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <FlatList
+                        data={this.state.coures_list.data}
+                        renderItem={({ item }) =>
+                            <TouchableOpacity onPress={() => { Actions.coursedetail({ course_data: item }) }}>
+                                <View style={{
+                                    padding: 20,
+                                    justifyContent: "center",
+                                    backgroundColor: "#eeeeee",
+                                    margin: 10,
+                                    borderRadius: 20,
+                                    borderWidth: 2,
+                                    borderColor: "#d6d7da",
+                                    fontSize: 20,
+                                    color: "#62757f",
 
-                    <View style={styles.info}>
-                        <TouchableOpacity onPress={this.coursedetail} style={styles.deteil}>
-                            <Text style={styles.fontSizeText}>
-                                เพิ่มกล้ามเนื้อ{"\n"}
-                                By พี่ต้อม Thai-M Gym
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
+                                }} >
+                                    <Text style={{ fontSize: 17, textAlign: "center", color: '#62757f', fontWeight: "bold" }} >
+                                        {item.CName}{'\n'}
+                                       โดยเทรนเนอร์ {item.nickname}
+                                        <Rating
+                                            type='custom'
+                                            ratingCount={item.avgscore}
+                                            ratingColor='#ebc934'
+                                            ratingBackgroundColor='#ebc934'
+                                            imageSize={20}
+                                            showRating
+                                        // onFinishRating={this.}
+                                        />
+                                       สถานที่: {item.LName}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>}
+                        keyExtractor={item => item.id}
+                    />
 
-                    <View style={styles.info}>
-                        <TouchableOpacity onPress={this.coursedetail} style={styles.deteil}>
-                            <Text style={styles.fontSizeText}>
-                                เพิ่มกล้ามเนื้อ{"\n"}
-                                By ปีเตอร์ Thai-M gym
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
 
-                    <View style={styles.info}>
-                        <TouchableOpacity onPress={this.coursedetail} style={styles.deteil}>
-                            <Text style={styles.fontSizeText}>
-                                เล่นกลามท้อง{"\n"}
-                                By พี่น็อต Np park
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
                 </ScrollView>
-            </View>
+            </View >
         )
     }
 }

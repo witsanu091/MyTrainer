@@ -92,8 +92,8 @@ export default class Userprofile extends Component {
                 </View>
                 <Image style={styles.avatar} source={require('../image/profile.jpg')} />
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.choice() }}>
-                        <Text style={{ color: "#eeeeee" }}>แก้ไขข้อมูลส่วนตัว</Text>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.logout()}>
+                        <Text style={{ color: "#eeeeee" }}>ออกจากระบบ</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
@@ -123,7 +123,7 @@ export default class Userprofile extends Component {
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 10 }}>
+                            {/* <View style={{ flex: 1, justifyContent: 'flex-end', marginTop: 10 }}>
                                 <ReactNativeTooltipMenu
                                     buttonComponent={
                                         <View style={{ padding: 10, borderRadius: 25 }}>
@@ -141,7 +141,7 @@ export default class Userprofile extends Component {
                                         },
                                     ]}
                                 />
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                 </ScrollView>

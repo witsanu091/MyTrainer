@@ -24,23 +24,19 @@ export default class Login extends Component {
 
     check_login = async () => {
         try {
-            if (this.state.type == 1) {
-                var key_token = await AsyncStorage.getItem('key_token');
-                console.log("Logined |" + key_token);
-
-                if (key_token != null) {
+            var key_token = await AsyncStorage.getItem('key_token');
+            var account_type = await AsyncStorage.getItem('account_type');
+            console.log("Logined |" + key_token + " | " + account_type);
+            if (key_token != null && account_type != null) {
+                console.log("hee")
+                if (account_type == 1) {
                     Actions.userprofile();
-                }
-            } else if (this.state.type == 2) {
-                var key_token = await AsyncStorage.getItem('key_token');
-                console.log("Logined |" + key_token);
-
-                if (key_token != null) {
+                } else if (account_type == 2) {
                     Actions.trainerprofile();
                 }
             }
         } catch (error) {
-
+            console.log("eooreeeeeeeee")
         }
     }
 
@@ -54,9 +50,11 @@ export default class Login extends Component {
                         if (responseJson.status) {// user pass ถูกต้อง
                             if (responseJson.data.status == 1) {//status account = เปิดใช้งาน
                                 AsyncStorage.setItem('key_token', responseJson.key_token);
+                                AsyncStorage.setItem('account_id', responseJson.data.id);
                                 AsyncStorage.setItem('account_email', responseJson.data.email);
                                 AsyncStorage.setItem('account_firstname', responseJson.data.firstname);
                                 AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
+                                AsyncStorage.setItem('account_type', responseJson.data.type);
                                 Actions.userprofile();
                             } else if (responseJson.data.status == 2) {//status account = รอการตวจสอบ
                                 alert("รอการตวจสอบบัญชี");
@@ -76,10 +74,12 @@ export default class Login extends Component {
                         if (responseJson.status) {// user pass ถูกต้อง
                             if (responseJson.data.status == 1) {//status account = เปิดใช้งาน
                                 AsyncStorage.setItem('key_token', responseJson.key_token);
+                                AsyncStorage.setItem('account_id', responseJson.data.id);
                                 AsyncStorage.setItem('account_email', responseJson.data.email);
                                 AsyncStorage.setItem('account_firstname', responseJson.data.firstname);
                                 AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
                                 AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
+                                AsyncStorage.setItem('account_type', responseJson.data.type);
                                 Actions.trainerprofile();
                             } else if (responseJson.data.status == 2) {//status account = รอการตวจสอบ
                                 alert("รอการตวจสอบบัญชี");
@@ -97,18 +97,6 @@ export default class Login extends Component {
             alert("กรุณาเลือกสถานะผู้ใช้งาน");
         }
     }
-
-    _storeData = async (responseJson) => {
-        try {
-            await AsyncStorage.setItem('key_token', responseJson.key_token);
-            await AsyncStorage.setItem('account_email', responseJson.data.email);
-            await AsyncStorage.setItem('account_firstname', responseJson.data.firstname);
-            await AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
-            await AsyncStorage.setItem('account_lastname', responseJson.data.lastname);
-        } catch (error) {
-            alert(error)
-        }
-    };
 
     render() {
         return (
