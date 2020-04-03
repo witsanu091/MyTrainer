@@ -17,6 +17,7 @@ import {
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 export default class Trainerdetail extends Component {
     constructor(props) {
@@ -24,6 +25,15 @@ export default class Trainerdetail extends Component {
         this.state = {
         };
         console.log("------------Trainerdetail---------------");
+    }
+    goback() {
+        Actions.pop()
+    }
+    userprofile() {
+        Actions.userprofile()
+    }
+    home() {
+        Actions.home()
     }
 
     onEngage = async () => {
@@ -73,11 +83,8 @@ export default class Trainerdetail extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView>
-                    <View style={{
-                        justifyContent: "center", alignItems: "center", marginLeft: 20,
-                        marginRight: 20
-                    }}>
+                <ScrollView >
+                    <View style={styles.choice}>
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'center',
@@ -87,7 +94,7 @@ export default class Trainerdetail extends Component {
                             paddingTop: 10
                         }}>
                             {this.props.course_data.CName} {'\n'}
-                      โดย พี่ {this.props.course_data.nickname}
+                      โดยเทรนเนอร์ {this.props.course_data.nickname}
                         </Text>
                         <Text style={{
                             justifyContent: "center",
@@ -97,63 +104,66 @@ export default class Trainerdetail extends Component {
                             fontWeight: '600',
                             paddingTop: 15
                         }}>
-                            สถานที่ {this.props.course_data.LName}
+                            สถานที่ฝึกสอน {this.props.course_data.LName}
                         </Text>
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'left',
-                            color: '#62757f',
-                            fontSize: 16,
-                            fontWeight: '500',
+                            color: '#0b0c0d',
+                            fontSize: 18,
+                            fontWeight: '600',
                             paddingTop: 15
-                        }}>
-                            คอร์ส Fit Teens คอร์สฟิต ช่วงปิดเทอม ลดไขมัน ด้วยเทคนิคการออกกำลังกายแบบ Sports Performance + Circuit Training เน้นสนุกแต่ได้ผลท้าทาย
-                    </Text>
-                        <Text style={{
-                            justifyContent: "center",
-                            textAlign: 'left',
-                            color: '#0b0c0d',
-                            fontSize: 16,
-                            fontWeight: '600',
-                            paddingTop: 10
 
                         }}>
-                            *ลงทะเบียนด่วน! มีโปรพิเศษ*
-                </Text>
-                        <Text style={{ color: '#62757f', fontWeight: "bold" }}>
-                            ราคา{"\n"}
-                        - 12 ครั้ง 6900{"\n"}
-                        - 8  ครั้ง 5200{"\n"}
-                        - *มีการ Book Class ล่วงหน้าเพื่อจำกัดจำนวนนักเรียน{"\n"}
-                        ต่อ1 คลาส รับนักเรียนได้มากสุด 5 คน
+                            ข้อมูลส่วนตัว
                 </Text>
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'left',
-                            color: '#0b0c0d',
-                            fontSize: 16,
-                            fontWeight: '600',
-                            paddingTop: 10
-
-                        }}>PROMOTION ชวนเพื่อนมาเรียนเป็นแก๊ง
-                    </Text>
-                        <Text style={{
                             color: '#62757f',
-                            fontWeight: "bold",
-                            paddingTop: 10,
-                            textAlign: "left",
-                            fontSize: 16,
-
+                            fontSize: 18,
+                            fontWeight: '500',
+                            paddingTop: 12
                         }}>
-                            *3 คน ลดทั้งกลุ่ม 15%*
-                </Text>
+                            ชื่อ {this.props.course_data.firstname}  {this.props.course_data.lastname}
+                        </Text>
+
+                        <Text style={{
+                            justifyContent: "center",
+                            textAlign: 'left',
+                            color: '#62757f',
+                            fontSize: 18,
+                            fontWeight: '500',
+                            paddingTop: 12
+                        }}>เพศ {this.props.course_data.gender}
+                        </Text>
+                        <Text style={{
+                            justifyContent: "center",
+                            textAlign: 'center',
+                            color: '#0b0c0d',
+                            fontSize: 18,
+                            fontWeight: '600',
+                            paddingTop: 10,
+
+
+                        }}>คะแนน :  <Rating
+                                type='custom'
+                                ratingCount={this.props.course_data.avgscore}
+                                ratingColor='#ebc934'
+                                ratingBackgroundColor='#ebc934'
+                                imageSize={20}
+                                showRating
+                            // onFinishRating={this.}
+                            />
+                        </Text>
+
                     </View>
                     <View style={{
                         flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 20,
                         marginRight: 20
                     }}>
                         <TouchableOpacity onPress={() => { this.onEngage() }} style={styles.coursebutton}>
-                            <Text style={{ color: "#eeeeee" }}>ลงทะเบียนน</Text>
+                            <Text style={{ color: "#eeeeee" }}>ลงทะเบียน</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.coursebutton}>
                             <Text style={{ color: "#eeeeee" }}>ข้อมูลฟิตเนส</Text>
@@ -168,7 +178,8 @@ export default class Trainerdetail extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-
+        backgroundColor: '#f7ecf8',
+        flex: 1
     },
     TextBand: {
         paddingTop: 40,
@@ -187,6 +198,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#d05ce3",
         borderWidth: 2,
         borderColor: '#d6d7da',
-    }
+    },
+    choice: {
+        flex: 1,
+        padding: 8,
+        borderRadius: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        shadowColor: 'rgba(0,0,0,0.25)',
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 3,
+    },
 })
 

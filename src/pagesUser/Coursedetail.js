@@ -36,8 +36,8 @@ export default class Coursetype extends Component {
     home() {
         Actions.home()
     }
-    gymlocations() {
-        Actions.gymlocations()
+    coursetype() {
+        Actions.coursetype()
     }
     trainerdetail() {
         Actions.trainerdetail()
@@ -69,10 +69,10 @@ export default class Coursetype extends Component {
                     </View>
                 </View>
                 <ScrollView>
-                    <View style={{
-                        justifyContent: "center", alignItems: "center", marginLeft: 20,
-                        marginRight: 20
-                    }}>
+                    <View style={styles.choice}>
+                        {/* // justifyContent: "center", alignItems: "center", marginLeft: 20,
+                        // marginRight: 20
+                    // }}> */}
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'center',
@@ -82,7 +82,7 @@ export default class Coursetype extends Component {
                             paddingTop: 10
                         }}>
                             {this.props.course_data.CName} {'\n'}
-                          โดย พี่ {this.props.course_data.nickname}
+                          โดยเทรนเนอร์ {this.props.course_data.nickname}
                         </Text>
                         <Text style={{
                             justifyContent: "center",
@@ -102,26 +102,19 @@ export default class Coursetype extends Component {
                             fontWeight: '500',
                             paddingTop: 15
                         }}>
-                            คอร์ส Fit Teens คอร์สฟิต ช่วงปิดเทอม ลดไขมัน ด้วยเทคนิคการออกกำลังกายแบบ Sports Performance + Circuit Training เน้นสนุกแต่ได้ผลท้าทาย
+                            รายละเอียด : {this.props.course_data.TCDetails}
                         </Text>
+
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'left',
-                            color: '#0b0c0d',
-                            fontSize: 16,
+                            color: '#62757f',
+                            fontSize: 18,
                             fontWeight: '600',
-                            paddingTop: 10
-
+                            paddingTop: 15
                         }}>
-                            *ลงทะเบียนด่วน! มีโปรพิเศษ*
-                    </Text>
-                        <Text style={{ color: '#62757f', fontWeight: "bold" }}>
-                            ราคา{"\n"}
-                            - 12 ครั้ง 6900{"\n"}
-                            - 8  ครั้ง 5200{"\n"}
-                            - *มีการ Book Class ล่วงหน้าเพื่อจำกัดจำนวนนักเรียน{"\n"}
-                            ต่อ1 คลาส รับนักเรียนได้มากสุด 5 คน
-                    </Text>
+                            ราคา : {this.props.course_data.TCPrice}
+                        </Text>
                         <Text style={{
                             justifyContent: "center",
                             textAlign: 'left',
@@ -144,8 +137,8 @@ export default class Coursetype extends Component {
                     </Text>
                     </View>
                     <View style={{
-                        flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 20,
-                        marginRight: 20
+                        flexDirection: "row", justifyContent: "flex-end", alignItems: "center", marginLeft: 20,
+                        marginRight: 20, marginTop: 10
                     }}>
                         <TouchableOpacity onPress={() => { Actions.trainerdetail({ course_data: this.props.course_data }) }} style={styles.coursebutton}>
                             <Text style={{ color: "#eeeeee" }}>ติดต่อเทรนเนอร์</Text>
@@ -183,5 +176,25 @@ const styles = StyleSheet.create({
         backgroundColor: "#d05ce3",
         borderWidth: 2,
         borderColor: '#d6d7da',
-    }
+    }, boxChoice: {
+        flex: 1,
+        padding: 8,
+        borderRadius: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        borderColor: '#00396D',
+        borderWidth: 3,
+    },
+    choice: {
+        flex: 1,
+        padding: 8,
+        borderRadius: 10,
+        margin: 5,
+        backgroundColor: '#fff',
+        shadowColor: 'rgba(0,0,0,0.25)',
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 3,
+    },
 })

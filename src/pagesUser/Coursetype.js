@@ -17,7 +17,7 @@ export default class Coursetype extends Component {
 
         };
         this.load_coures();
-        this.gendertrainer();
+        // this.gendertrainer();
 
     }
     goback() {
@@ -40,18 +40,15 @@ export default class Coursetype extends Component {
         let gender = this.props.Gender;
         if (gender == "all") {
             gender = 'ทั้งหมด';
-            this.setState({ genderT: gender });
 
         } if (gender == "male") {
             gender = 'ชาย';
-            this.setState({ genderT: gender });
 
         } if (gender == "female") {
             gender = 'หญิง';
-            this.setState({ genderT: gender });
 
         }
-        console.log(gender)
+        return gender
 
     }
     load_coures() {
@@ -63,7 +60,7 @@ export default class Coursetype extends Component {
         fetch('http://172.16.51.79/server/api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson)
+                // console.log(responseJson)
                 if (responseJson.status) {
                     this.setState({ coures_list: responseJson })
                 } else {
@@ -110,7 +107,7 @@ export default class Coursetype extends Component {
 
                     }} >
                         {this.props.item.CTName} {'\n'}
-
+                       เพศของเทรนเนอร์ : {this.gendertrainer()}
 
                     </Text>
                 </View>
