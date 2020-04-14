@@ -11,9 +11,12 @@ export default class Coursetype extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalVisible: false,
-            coures_list: '',
+            modallocation: false,
+            course_list: [],
             genderT: '',
+            show_data: '',
+            c_location: [],
+
 
         };
         this.load_coures();
@@ -33,7 +36,7 @@ export default class Coursetype extends Component {
         Actions.gymlocations()
     }
     setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+        this.setState({ modallocation: visible });
     }
 
     gendertrainer() {
@@ -57,12 +60,12 @@ export default class Coursetype extends Component {
         if (gender == "all") {
             gender = '';
         }
-        fetch('http://172.16.51.79/server/api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
+        fetch('http://10.66.32.45/server/api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
             .then((response) => response.json())
             .then((responseJson) => {
                 // console.log(responseJson)
                 if (responseJson.status) {
-                    this.setState({ coures_list: responseJson })
+                    this.setState({ course_list: responseJson })
                 } else {
                     alert("เกิดข้อผิดพลาด");
                     Actions.home();
@@ -115,112 +118,99 @@ export default class Coursetype extends Component {
                 <Modal
                     animationType="slide"
                     transparent={true}
-                    visible={this.state.modalVisible}
+                    visible={this.state.modallocation}
                     onRequestClose={() => {
                         Alert.alert("Modal has been closed.");
                     }}>
                     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
-                        <View style={{ backgroundColor: '#ffffff', marginHorizontal: 20, borderRadius: 10 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={{
-                                    justifyContent: "center",
-                                    paddingTop: 10,
-                                    textAlign: 'center',
-                                    color: '#62757f',
-                                    fontSize: 24,
-                                    fontWeight: '500',
-                                }}>ชื่อสถานที่ออกกำลังกาย</Text>
-                            </View>
-
+                        <View style={{ alignItems: 'center', backgroundColor: '#ffffff', marginHorizontal: 25, borderRadius: 10, paddingVertical: 10 }}>
                             <Text style={{
-                                justifyContent: "flex-start",
-                                paddingTop: 10,
-                                paddingLeft: 10,
                                 color: '#62757f',
-                                fontSize: 20,
-                                fontWeight: '500',
+                                fontSize: 24,
+                                marginTop: 10,
+                            }}>เลือกสถานที่</Text>
+                            <TouchableOpacity onPress={() => {
 
+                                this.setState({ modallocation: false })
+                                this.setState({ c_location: item })
                             }}>
-                                ตอนนี้คุณอยู่ที่ : ....
-                                </Text>
-                            <ScrollView>
-                                <View style={{ alignItems: "center" }}>
-                                    <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
-                                        this.setModalVisible(false);
-                                    }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/nppark.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Np park{"\n"}
-                                                สาขาหลังมอ{"\n"}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
-                                        this.setModalVisible(false);
-                                    }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Thai-M Gym{"\n"}
-                                                สาขาหลังมอ{"\n"}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
-                                        this.setModalVisible(false);
-                                    }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Thai-M Gym{"\n"}
-                                                สาขาโคลัมโบ{"\n"}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <View style={{ justifyContent: "flex-end" }}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                this.setModalVisible(false);
-                                            }} style={{
-                                                paddingBottom: 13,
-                                                paddingTop: 7,
-                                                marginBottom: 15,
-                                                borderRadius: 10,
-                                                backgroundColor: "#883997",
-                                                marginHorizontal: 130,
-                                                borderWidth: 1,
-                                                width: 100
-                                            }}>
-                                            <Text style={{
-                                                color: '#eeeeee',
-                                                fontSize: 20,
-                                                fontWeight: '400',
-                                                textAlign: "center",
-                                            }} >ปิด</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                <View style={styles.Textshow
+                                } >
+                                    <Text style={{ fontSize: 17, textAlign: "center" }} >{this.state.c_location.LName}</Text>
                                 </View>
-                            </ScrollView>
+                            </TouchableOpacity>}
+
+
+                            <View style={{}}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this.setState({ modallocation: false })
+                                    }} style={{
+                                        paddingVertical: 10,
+                                        marginVertical: 10,
+                                        borderRadius: 10,
+                                        backgroundColor: "#883997",
+                                        marginHorizontal: 130,
+                                        borderWidth: 1,
+                                        width: 100
+                                    }}>
+                                    <Text style={{
+                                        color: '#eeeeee',
+                                        fontSize: 20,
+                                        fontWeight: '400',
+                                        textAlign: "center",
+                                    }} >ปิด</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </Modal>
+                <TouchableOpacity style={styles.choice}
+                    onPress={
+                        () => {
+                            this.setState({ modallocation: true })
+                        }
+                    }
+                >
+                    {
+                        this.state.c_location.LName ?
 
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() => {
-                        this.setModalVisible(true);
+                            <Text style={{
+                                justifyContent: "center",
+                                textAlign: 'center',
+                                color: '#62757f',
+                                fontSize: 20,
+                                fontWeight: '500',
+                                paddingVertical: 8
+                            }}>
+                                {this.state.c_location.LName}
+                            </Text>
+                            :
+                            <Text style={{
+                                justifyContent: "center",
+                                textAlign: 'center',
+                                color: '#62757f',
+                                fontSize: 20,
+                                fontWeight: '500',
+                                paddingVertical: 8
+                            }}>
+                                เลือกสถานที่ฝึกสอน
+                            </Text>
+                    }
+                </TouchableOpacity>
+                <View style={{ flexDirection: 'row', paddingLeft: 10 }}>
+                    {/* <TouchableOpacity onPress={() => {
+                        this.setModalVisible(true)
+                        this.setState({ show_data: item })
                     }}>
                         <View style={this.state.locations = true ? [styles.Textshow, { backgroundColor: "#ba68c8", borderWidth: 1 }] : [styles.Textshow, { backgroundColor: "#ba68c8" }]} >
                             <Text style={styles.Textcourse} >
                                 เลือกสถานที่ <FontAwesome name="caret-down" size={15} color='#fff' />
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                    <TouchableOpacity onPress={() => {
+                    {/* <TouchableOpacity onPress={() => {
                         this.setState({ sortby: true })
                     }}>
                         <View style={this.state.isVisible = true ? [styles.Textshow, { backgroundColor: "#ba68c8", borderWidth: 1 }] : [styles.Textshow, { backgroundColor: "#ba68c8" }]} >
@@ -228,13 +218,13 @@ export default class Coursetype extends Component {
                                 เรียงตาม <FontAwesome name="caret-down" size={15} color='#fff' />
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <ScrollView>
                     <FlatList
                         data={this.state.coures_list.data}
                         renderItem={({ item }) =>
-                            <TouchableOpacity onPress={() => { Actions.coursedetail({ course_data: item }) }}>
+                            <TouchableOpacity onPress={() => { { this.setState({ c_location: item }) } Actions.coursedetail({ course_data: item }) }}>
                                 <View style={{
                                     padding: 20,
                                     justifyContent: "center",
@@ -259,7 +249,7 @@ export default class Coursetype extends Component {
                                             showRating
                                         // onFinishRating={this.}
                                         />
-                                       สถานที่: {item.LName}
+                                    สถานที่: {item.LName}
                                     </Text>
                                 </View>
                             </TouchableOpacity>}

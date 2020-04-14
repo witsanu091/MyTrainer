@@ -18,7 +18,7 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
 import { Rating, AirbnbRating } from 'react-native-ratings';
-
+import Config from '../components/config';
 export default class Trainerdetail extends Component {
     constructor(props) {
         super(props);
@@ -41,7 +41,7 @@ export default class Trainerdetail extends Component {
             const account_id = await AsyncStorage.getItem('account_id');
             console.log("account_id | " + account_id);
             if (account_id != "") {
-                fetch('http://172.16.51.79/server/api/Cousre/insert_engage?UID=' + account_id + "&CID=" + this.props.course_data.CID + "&LID=" + this.props.course_data.LID + "&TID=" + this.props.course_data.id)
+                fetch(Config.url + 'server/api/Cousre/insert_engage?UID=' + account_id + "&TCID=" + this.props.course_data.TCID)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson)
@@ -134,8 +134,11 @@ export default class Trainerdetail extends Component {
                             color: '#62757f',
                             fontSize: 18,
                             fontWeight: '500',
-                            paddingTop: 12
-                        }}>เพศ {this.props.course_data.gender}
+                            paddingTop: 5
+                        }}>เพศ {this.props.course_data.gender === 'male' ? 'ชาย' : 'หญิง'}{'\n'}
+                         เบอร์โทรศัพท์: {this.props.course_data.telephone}{'\n'}
+                                    อีเมล: {this.props.course_data.email}{'\n'}
+                                    facebook: {this.props.course_data.contact}{'\n'}
                         </Text>
                         <Text style={{
                             justifyContent: "center",

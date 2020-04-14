@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image, AsyncStorage } from 'react-native';
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 import { FontAwesome } from '@expo/vector-icons';
+import { Actions } from 'react-native-router-flux';
+import Config from '../components/config';
 
 export default class Requirement extends Component {
     constructor(props) {
@@ -14,21 +16,71 @@ export default class Requirement extends Component {
                 ['ภคพงษ์', 'ลดหุ่น', '3'],
                 ['สุภาดา', 'ลดหุ่น', 'c']
             ],
+
             modalVisible: false,
+            TID: '',
+            listUser: [],
+            data: [],
+            all_use: [],
+            no: ''
+
         }
+        // this.get_id()
+        this.get_listUser()
     }
 
     _alertIndex(index) {
         Alert.alert(`This is row ${index + 1}`);
     }
+    get_id = async () => {
+        try {
+            const account_id = await AsyncStorage.getItem('account_id');
+            this.setState({ TID: account_id })
+        }
+        catch (error) {
+            // Error retrieving data
+        }
+    }
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
     }
+    goback() {
+        Actions.pop()
+    }
+    get_listUser = async () => {
+        try {
+            const account_id = await AsyncStorage.getItem('account_id');
+
+            await fetch(Config.url + 'server/api/Cousre/show_engage?seeby=t&TID=' + account_id)
+                .then((response) => response.json())
+                .then((responseJson) => this.setState({ listUser: responseJson }));
+            let i = 0;
+            let data = [];
+            for (i = 0; i < this.state.listUser.length; i++) {
+                data[i] = [this.state.listUser[i].firstname, this.state.listUser[i].CName, '']
+            }
+            await this.setState({ data: data })
+            await this.setState({ all_use: this.state.listUser })
+            // console.log(this.state.data)
+            // console.log(this.state.tableData)
+
+        }
+        catch (error) {
+            // Error retrieving data
+        }
+        // fetch(Config.url + 'server/api/Cousre/get_course')
+        //     .then((response) => response.json())
+        //     .then((responseJson) => this.setState({ listUser: responseJson }));
+
+    }
+
+
     render() {
         const state = this.state;
         const element = (data, index) => (
-            <TouchableOpacity onPress={() => {
+            <TouchableOpacity onPress={async () => {
                 this.setModalVisible(true);
+                await this.setState({ no: index })
             }}>
                 <View style={styles.btn}>
                     <Text style={styles.btnText}>รายละเอียด</Text>
@@ -38,6 +90,7 @@ export default class Requirement extends Component {
 
         return (
             <View style={styles.container}>
+
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -55,17 +108,28 @@ export default class Requirement extends Component {
                                     color: '#62757f',
                                     fontSize: 20,
                                     fontWeight: '500',
-                                }}>รายละเอียดผู้ที่ต้องการเรียน</Text>
+                                }}>รายละเอียดผู้เรียน</Text>
                             </View>
 
                             <ScrollView>
                                 <View style={{ alignItems: "flex-start", marginLeft: 10 }}>
                                     <View style={{ justifyContent: "flex-start" }}>
-                                        <Text>
-                                            นายวิษณุ พลไธสง {'\n'}
-                                            อายุ 22 ปี {'\n'}
+                                        {this.state.listUser[this.state.no] ?
+                                            <Text style={{ fontSize: 18 }}>
 
-                                        </Text>
+                                                ชื่อ : {this.state.listUser[this.state.no].firstname} {this.state.listUser[this.state.no].lastname}{'\n'}
+                                                ชื่อเล่น : {this.state.listUser[this.state.no].nickname} {'\n'}
+                                                คอร์สที่เรียน : {this.state.listUser[this.state.no].CName} {'\n'}
+                                                น้ำหนัก : {this.state.listUser[this.state.no].weight} {'\n'}
+                                                ส่วนสูง : {this.state.listUser[this.state.no].height} {'\n'}
+                                                เพศ : {this.state.listUser[this.state.no].gender === 'male' ? 'ชาย' : 'หญิง'} {'\n'}
+                                                เบอร์โทรศัพท์ : {this.state.listUser[this.state.no].telephone} {'\n'}
+                                                อีเมล : {this.state.listUser[this.state.no].email} {'\n'}
+                                            </Text>
+                                            :
+                                            <Text>
+                                            </Text>
+                                        }
                                     </View>
                                     <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
                                         <TouchableOpacity
@@ -97,7 +161,7 @@ export default class Requirement extends Component {
 
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={this.goback}>
+                        <TouchableOpacity onPress={() => { this.goback() }}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -124,7 +188,7 @@ export default class Requirement extends Component {
                         <Row data={state.tableHead} style={styles.head} textStyle={styles.text} />
                     </View>
                     {
-                        state.tableData.map((rowData, index) => (
+                        state.data.map((rowData, index) => (
                             <TableWrapper key={index} style={styles.row}>
                                 {
                                     rowData.map((cellData, cellIndex) => (

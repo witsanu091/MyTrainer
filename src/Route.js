@@ -14,9 +14,8 @@ import Trainerprofile from './pageTrainer/Trainerprofile';
 import Trainercourse from './pageTrainer/Trainercourse';
 import Requirement from './pageTrainer/Requirement';
 import Trainerdetail from './pagesUser/Trainerdetail';
-
-
-
+import TrainerAddCourse from './pageTrainer/TrainerAddCourse';
+import Mycourse from './pagesUser/Mycourse';
 
 
 export default class Route extends Component {
@@ -40,11 +39,8 @@ export default class Route extends Component {
                     <Scene key="Trainercourse" component={Trainercourse} hideNavBar={true} />
                     <Scene key="requirement" component={Requirement} hideNavBar={true} />
                     <Scene key="trainerdetail" component={Trainerdetail} hideNavBar={true} />
-
-
-
-
-
+                    <Scene key="TrainerAddCourse" component={TrainerAddCourse} hideNavBar={true} />
+                    <Scene key="Mycourse" component={Mycourse} hideNavBar={true} />
 
                 </Stack>
             </Router>

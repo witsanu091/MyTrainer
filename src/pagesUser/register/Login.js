@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableWithoutFeedback, ScrollView, TouchableOpacity, AsyncStorage, Keyboard, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, KeyboardAvoidingView, ScrollView, TouchableOpacity, AsyncStorage, Keyboard, StatusBar } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
@@ -43,7 +43,7 @@ export default class Login extends Component {
     login(email, password, login_type) {
         if (login_type != 0) {
             if (this.state.type == 1) {
-                fetch('http://172.16.51.79/server/api/account/login?email=' + email + '&password=' + password)
+                fetch('http://10.66.32.45/server/api/account/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -67,7 +67,7 @@ export default class Login extends Component {
                         console.log("xxx");
                     })
             } else if (this.state.type == 2) {
-                fetch('http://172.16.51.79/server/api/account_T/login?email=' + email + '&password=' + password)
+                fetch('http://10.66.32.45/server/api/account_T/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -113,7 +113,6 @@ export default class Login extends Component {
                     </View>
                 </View>
 
-
                 <View style={styles.container}>
                     <View style={{ marginTop: 10 }}>
                         <Image
@@ -124,6 +123,7 @@ export default class Login extends Component {
                             <Text style={styles.textlogo}> Login </Text>
                         </View>
                     </View>
+
                     <TextInput style={styles.inputBox}
                         onChangeText={(email) => this.setState({ email })}
                         underlineColorAndroid='rgba(0,0,0,0)'
@@ -176,13 +176,14 @@ export default class Login extends Component {
                     <TouchableOpacity style={styles.button} onPress={() => { this.login(this.state.email, this.state.password, this.state.type) }}>
                         <Text style={styles.buttonText} >Login</Text>
                     </TouchableOpacity>
-                </View>
 
+
+
+                </View>
                 <View style={styles.loginTextCont}>
                     <Text style={styles.loginText}>ยังไม่มีบัญชีผู้ใช้ไปหน้าสมัคร</Text>
                     <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
                 </View>
-
             </View>
 
         )

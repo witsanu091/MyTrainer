@@ -46,7 +46,7 @@ export default class Trainerprofile extends Component {
             console.log(key_token)
             if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://172.16.51.79/server/api/account_T/get_profile?token_login=' + key_token)
+                fetch('http://10.66.32.45/server/api/account_T/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -81,19 +81,15 @@ export default class Trainerprofile extends Component {
 
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={this.goback}>
-                            <FontAwesome name="chevron-left" size={40} color='#fff' />
-                        </TouchableOpacity>
-                    </View>
+
                     <View style={{ flex: 7, alignItems: 'center' }}>
 
                         <Text style={styles.TextBand}>Trainer profile</Text>
 
                     </View>
                 </View>
-                <Image style={styles.avatar} source={require('../image/profile.jpg')} />
-                <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
+                <Image style={styles.avatar} source={require('../image/tprofile.png')} />
+                <View style={{ flexDirection: "row-reverse", marginLeft: 20, marginTop: 10 }}>
                     <TouchableOpacity style={styles.buttonContainer} onPress={() => this.logout()}>
                         <Text style={{ color: "#eeeeee" }}>ออกจากระบบ</Text>
                     </TouchableOpacity>
@@ -129,7 +125,7 @@ export default class Trainerprofile extends Component {
                                 marginRight: 20
                             }}>
                                 <TouchableOpacity onPress={() => { this.requirement() }} style={styles.coursebutton}>
-                                    <Text style={{ color: "#eeeeee" }}>รายชื่อผู้สนใจ</Text>
+                                    <Text style={{ color: "#eeeeee" }}>รายชื่อผู้เรียน</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.coursebutton}>
                                     <Text style={{ color: "#eeeeee" }}>ข้อมูลฟิตเนส</Text>
@@ -145,20 +141,20 @@ export default class Trainerprofile extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: "#883997",
+        backgroundColor: '#f7ecf8',
         height: 100,
     },
     avatar: {
-        width: 100,
-        height: 100,
+        width: 110,
+        height: 110,
         borderRadius: 63,
         borderWidth: 4,
         borderColor: "white",
-        marginBottom: 20,
+        marginBottom: 10,
         alignSelf: 'flex-start',
         position: 'absolute',
-        marginLeft: 30,
-        marginTop: 80
+        marginLeft: 40,
+        marginTop: 98
     },
     TextBand: {
         paddingTop: 40,
@@ -180,7 +176,7 @@ const styles = StyleSheet.create({
     info: {
         fontSize: 16,
         color: "#00BFFF",
-        marginTop: 15,
+        marginTop: 5,
         alignItems: 'center',
     },
     deteil: {
@@ -198,7 +194,7 @@ const styles = StyleSheet.create({
 
     },
     buttonContainer: {
-        marginTop: 15,
+        marginTop: 5,
         height: 45,
         flexDirection: 'row',
         justifyContent: 'center',
@@ -209,7 +205,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#d05ce3",
         borderWidth: 2,
         borderColor: '#d6d7da',
-
 
     },
     fontSizeText: {
