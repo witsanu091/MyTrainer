@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
-
+import Config from '../components/config';
 
 export default class Trainerprofile extends Component {
     constructor(props) {
@@ -32,8 +32,8 @@ export default class Trainerprofile extends Component {
     goback() {
         Actions.pop()
     }
-    requirement() {
-        Actions.requirement()
+    Mytrainy() {
+        Actions.Mytrainy()
     }
     Trainercourse() {
         Actions.Trainercourse()
@@ -46,7 +46,7 @@ export default class Trainerprofile extends Component {
             console.log(key_token)
             if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.45/server/api/account_T/get_profile?token_login=' + key_token)
+                fetch(Config.url + 'api/account_T/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -124,7 +124,7 @@ export default class Trainerprofile extends Component {
                                 flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 20,
                                 marginRight: 20
                             }}>
-                                <TouchableOpacity onPress={() => { this.requirement() }} style={styles.coursebutton}>
+                                <TouchableOpacity onPress={() => { this.Mytrainy() }} style={styles.coursebutton}>
                                     <Text style={{ color: "#eeeeee" }}>รายชื่อผู้เรียน</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.coursebutton}>

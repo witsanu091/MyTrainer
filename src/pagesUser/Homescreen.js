@@ -32,7 +32,7 @@ export default class Homescreen extends Component {
         Actions.userprofile()
     }
     get_course() {
-        fetch(Config.url + 'server/api/Cousre/get_course')
+        fetch(Config.url + 'api/Cousre/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ user: responseJson }));
     }
@@ -42,7 +42,7 @@ export default class Homescreen extends Component {
             const key_token = await AsyncStorage.getItem('key_token');
             if (key_token !== null) {
                 console.log("key_token | " + key_token);
-                fetch(Config.url + 'server/api/account/get_profile?token_login=' + key_token)
+                fetch(Config.url + 'api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {

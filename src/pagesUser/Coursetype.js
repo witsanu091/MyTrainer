@@ -15,11 +15,19 @@ export default class Coursetype extends Component {
             modalVisible: false,
             coures_list: '',
             genderT: '',
-
+            location: '',
+            l_name: ''
         };
         this.load_coures();
+        this.get_location();
         // this.gendertrainer();
 
+
+    }
+    get_location() {
+        fetch(Config.url + 'api/Cousre/get_location_id')
+            .then((response) => response.json())
+            .then((responseJson) => this.setState({ location: responseJson }));
     }
     goback() {
         Actions.pop()
@@ -52,13 +60,33 @@ export default class Coursetype extends Component {
         return gender
 
     }
+    load_coures_location(lid) {
+        let gender = this.props.Gender;
+        //  console.log(gender);
+        if (gender == "all") {
+            gender = '';
+        }
+        console.log(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&LID=' + lid)
+        fetch(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender + '&LID=' + lid)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log(responseJson)
+                if (responseJson.status) {
+                    this.setState({ coures_list: responseJson })
+                } else {
+                    alert("เกิดข้อผิดพลาด");
+                    Actions.home();
+                }
+
+            });
+    }
     load_coures() {
         let gender = this.props.Gender;
         //  console.log(gender);
         if (gender == "all") {
             gender = '';
         }
-        fetch(Config.url + 'server/api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
+        fetch(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender)
             .then((response) => response.json())
             .then((responseJson) => {
                 // console.log(responseJson)
@@ -72,11 +100,14 @@ export default class Coursetype extends Component {
             });
     }
 
+
+
     render() {
 
         return (
 
             <View style={styles.container}>
+                {console.log(this.state.coures_list.data)}
                 <StatusBar backgroundColor="#00b2cc" barStyle="light-content" />
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
@@ -122,90 +153,72 @@ export default class Coursetype extends Component {
                     }}>
                     <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
                         <View style={{ backgroundColor: '#ffffff', marginHorizontal: 20, borderRadius: 10 }}>
-                            <View style={{ alignItems: "center" }}>
-                                <Text style={{
-                                    justifyContent: "center",
-                                    paddingTop: 10,
-                                    textAlign: 'center',
-                                    color: '#62757f',
-                                    fontSize: 24,
-                                    fontWeight: '500',
-                                }}>ชื่อสถานที่ออกกำลังกาย</Text>
-                            </View>
-
-                            {/* <Text style={{
-                                justifyContent: "flex-start",
-                                paddingTop: 10,
-                                paddingLeft: 10,
+                            <Text style={{
+                                justifyContent: "center",
+                                padding: 10,
+                                textAlign: 'center',
                                 color: '#62757f',
-                                fontSize: 20,
+                                fontSize: 24,
                                 fontWeight: '500',
+                            }}>ชื่อสถานที่ออกกำลังกาย</Text>
+
+                            <TouchableOpacity onPress={() => {
+                                // this.gymlocations()
+                                this.load_coures();
+                                this.setState({ l_name: 'ทั้งหมด' });
+                                this.setModalVisible(false);
 
                             }}>
-                                ตอนนี้คุณอยู่ที่ : ....
-                                </Text> */}
-                            <ScrollView>
-                                <View style={{ alignItems: "center" }}>
+
+                                {/* <Image style={styles.imagelocate} source={require('../image/nppark.jpg')} /> */}
+
+                                <Text style={styles.gymlocate}>
+                                    ทั้งหมด {"\n"}
+                                </Text>
+
+                            </TouchableOpacity>
+                            <FlatList
+                                data={this.state.location}
+                                renderItem={({ item }) =>
                                     <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
+                                        // this.gymlocations()
+                                        this.load_coures_location(item.LID);
+                                        this.setState({ l_name: item.LName });
                                         this.setModalVisible(false);
+
                                     }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/nppark.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Np park{"\n"}
-                                                สาขาหลังมอ{"\n"}
-                                            </Text>
-                                        </View>
+
+                                        {/* <Image style={styles.imagelocate} source={require('../image/nppark.jpg')} /> */}
+                                        <Text style={styles.gymlocate}>
+                                            {item.LName}{"\n"}
+                                        </Text>
+
                                     </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
+                                }
+                                keyExtractor={({ id }, index) => id}
+                            />
+                            <View style={{ justifyContent: "flex-end" }}>
+                                <TouchableOpacity
+                                    onPress={() => {
                                         this.setModalVisible(false);
+                                    }} style={{
+                                        paddingBottom: 13,
+                                        paddingTop: 7,
+                                        marginBottom: 15,
+                                        borderRadius: 10,
+                                        backgroundColor: "#883997",
+                                        marginHorizontal: 130,
+                                        borderWidth: 1,
+                                        width: 100
                                     }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Thai-M Gym{"\n"}
-                                                สาขาหลังมอ{"\n"}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => {
-                                        this.gymlocations()
-                                        this.setModalVisible(false);
-                                    }}>
-                                        <View style={styles.gymlocate}>
-                                            <Image style={styles.imagelocate} source={require('../image/thaiM.jpg')} />
-                                            <Text style={styles.fontlocateText}>
-                                                Thai-M Gym{"\n"}
-                                                สาขาโคลัมโบ{"\n"}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <View style={{ justifyContent: "flex-end" }}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                this.setModalVisible(false);
-                                            }} style={{
-                                                paddingBottom: 13,
-                                                paddingTop: 7,
-                                                marginBottom: 15,
-                                                borderRadius: 10,
-                                                backgroundColor: "#883997",
-                                                marginHorizontal: 130,
-                                                borderWidth: 1,
-                                                width: 100
-                                            }}>
-                                            <Text style={{
-                                                color: '#eeeeee',
-                                                fontSize: 20,
-                                                fontWeight: '400',
-                                                textAlign: "center",
-                                            }} >ปิด</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </ScrollView>
+                                    <Text style={{
+                                        color: '#eeeeee',
+                                        fontSize: 20,
+                                        fontWeight: '400',
+                                        textAlign: "center",
+                                    }} >ปิด</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </Modal>
@@ -214,14 +227,25 @@ export default class Coursetype extends Component {
                     <TouchableOpacity onPress={() => {
                         this.setModalVisible(true);
                     }}>
-                        <View style={this.state.locations = true ? [styles.Textshow, { backgroundColor: "#ba68c8", borderWidth: 1 }] : [styles.Textshow, { backgroundColor: "#ba68c8" }]} >
-                            <Text style={styles.Textcourse} >
-                                เลือกสถานที่ <FontAwesome name="caret-down" size={15} color='#fff' />
-                            </Text>
+                        <View style={this.state.locations = true ? [styles.Textshow, { backgroundColor: "#ba68c8", borderWidth: 1, paddingLeft: 10 }] : [styles.Textshow, { backgroundColor: "#ba68c8" }]} >
+                            {
+                                this.state.l_name ?
+                                    <Text style={styles.Textcourse} >
+
+                                        {this.state.l_name} < FontAwesome name="caret-down" size={15} color='#fff' />
+
+                                    </Text>
+                                    :
+                                    <Text style={styles.Textcourse} >
+
+                                        เลือกสถานที่ < FontAwesome name="caret-down" size={15} color='#fff' />
+
+                                    </Text>
+                            }
                         </View>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => {
+                    {/* <TouchableOpacity onPress={() => {
                         this.setState({ sortby: true })
                     }}>
                         <View style={this.state.isVisible = true ? [styles.Textshow, { backgroundColor: "#ba68c8", borderWidth: 1 }] : [styles.Textshow, { backgroundColor: "#ba68c8" }]} >
@@ -229,7 +253,7 @@ export default class Coursetype extends Component {
                                 เรียงตาม <FontAwesome name="caret-down" size={15} color='#fff' />
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <ScrollView>
                     <FlatList
@@ -237,15 +261,16 @@ export default class Coursetype extends Component {
                         renderItem={({ item }) =>
                             <TouchableOpacity onPress={() => { Actions.coursedetail({ course_data: item }) }}>
                                 <View style={{
-                                    padding: 20,
-                                    justifyContent: "center",
-                                    backgroundColor: "#eeeeee",
-                                    margin: 10,
-                                    borderRadius: 20,
-                                    borderWidth: 2,
-                                    borderColor: "#d6d7da",
-                                    fontSize: 20,
-                                    color: "#62757f",
+                                    flex: 1,
+                                    padding: 8,
+                                    borderRadius: 10,
+                                    margin: 5,
+                                    backgroundColor: '#fff',
+                                    shadowColor: 'rgba(0,0,0,0.25)',
+                                    shadowOpacity: 0.3,
+                                    shadowRadius: 4,
+                                    shadowOffset: { width: 0, height: 2 },
+                                    elevation: 3,
 
                                 }} >
                                     <Text style={{ fontSize: 17, textAlign: "center", color: '#62757f', fontWeight: "bold" }} >
@@ -350,38 +375,27 @@ const styles = StyleSheet.create({
         borderRadius: 63,
         paddingLeft: 10
     },
-    fontlocateText: {
-        fontSize: 18,
-        color: "#62757f",
-        textAlign: "left",
-        flexDirection: "row",
-        alignSelf: 'flex-start',
-        justifyContent: "center",
-        borderRadius: 63,
-        paddingLeft: 10,
-        paddingTop: 10
-    },
+
     gymlocate: {
-        marginTop: 10,
-        height: 100,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginBottom: 10,
-        width: 300,
-        backgroundColor: "#f7ecf8",
+        padding: 10,
+        justifyContent: "center",
+        textAlign: "center",
+        backgroundColor: "#eeeeee",
+        margin: 5,
+        borderRadius: 15,
         borderWidth: 2,
-        borderColor: '#d6d7da',
-        paddingTop: 3
+        fontSize: 20,
+        color: "#62757f",
+        height: 60
 
     },
-    imagelocate: {
-        width: 90,
-        height: 90,
-        borderWidth: 4,
-        borderColor: "white",
-        alignSelf: 'flex-start',
-        // position: 'absolute',
-        marginLeft: 10,
-    }
+    // imagelocate: {
+    //     width: 90,
+    //     height: 90,
+    //     borderWidth: 4,
+    //     borderColor: "white",
+    //     alignSelf: 'flex-start',
+    //     // position: 'absolute',
+    //     marginLeft: 10,
+    // }
 })

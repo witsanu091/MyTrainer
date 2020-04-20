@@ -13,6 +13,8 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
 import ReactNativeTooltipMenu from 'react-native-tooltip-menu';
+import Config from '../components/config';
+
 
 export default class Userprofile extends Component {
     constructor(props) {
@@ -45,7 +47,7 @@ export default class Userprofile extends Component {
             console.log(key_token)
             if (key_token != null) {
                 console.log("key_token | " + key_token);
-                fetch('http://10.66.32.45/server/api/account/get_profile?token_login=' + key_token)
+                fetch(Config.url + 'api/account/get_profile?token_login=' + key_token)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {

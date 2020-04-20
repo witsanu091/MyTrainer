@@ -47,6 +47,9 @@ export default class TrainerAddCourse extends Component {
     goback() {
         Actions.pop()
     }
+    trainerprofile() {
+        Actions.trainerprofile()
+    }
     get_tid = async () => {
         try {
             const account_id = await AsyncStorage.getItem('account_id');
@@ -57,23 +60,23 @@ export default class TrainerAddCourse extends Component {
         }
     }
     get_location() {
-        fetch(Config.url + 'server/api/Cousre/get_location_id')
+        fetch(Config.url + 'api/Cousre/get_location_id')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ location: responseJson }));
     }
     get_course() {
-        fetch(Config.url + 'server/api/Cousre/get_course')
+        fetch(Config.url + 'api/Cousre/get_course')
             .then((response) => response.json())
             .then((responseJson) => this.setState({ course: responseJson }));
     }
     load_course(id) {
-        fetch(Config.url + 'server/api/Cousre/get_course_id?CTID=' + id)
+        fetch(Config.url + 'api/Cousre/get_course_id?CTID=' + id)
             .then((response) => response.json())
             .then((responseJson) => this.setState({ course_list: responseJson }));
     }
     add_course(TID, CID, TCPrice, TCDetails, LID) {
-        // console.log(Config.url + 'server/api/Cousre/add_course?TID=' + TID + '&CID=' + CID + '&TCPrice=' + Number(TCPrice) + '&TCDetails=' + TCDetails + '&LID=' + LID)
-        fetch(Config.url + 'server/api/Cousre/add_course?TID=' + TID + '&CID=' + CID + '&TCPrice=' + Number(TCPrice) + '&TCDetails=' + TCDetails + '&LID=' + LID)
+        console.log(Config.url + 'api/Cousre/add_course?TID=' + TID + '&CID=' + CID + '&TCPrice=' + Number(TCPrice) + '&TCDetails=' + TCDetails + '&LID=' + LID)
+        fetch(Config.url + 'api/Cousre/add_course?TID=' + TID + '&CID=' + CID + '&TCPrice=' + Number(TCPrice) + '&TCDetails=' + TCDetails + '&LID=' + LID)
         alert('เพิ่มคอร์สสำเร็จ')
         Actions.Trainercourse()
 
@@ -100,7 +103,7 @@ export default class TrainerAddCourse extends Component {
                     </View>
 
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
-                        <TouchableOpacity onPress={this.userprofile}>
+                        <TouchableOpacity onPress={() => { this.trainerprofile() }}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -185,8 +188,7 @@ export default class TrainerAddCourse extends Component {
                                             this.setState({ course_name: '' })
                                             this.load_course(item.CTID)
                                         }}>
-                                            <View style={styles.Textshow
-                                            } >
+                                            <View style={styles.Textshow} >
                                                 <Text style={{ fontSize: 17, textAlign: "center" }} >{item.CTName}</Text>
                                             </View>
                                         </TouchableOpacity>}

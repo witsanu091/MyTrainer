@@ -41,7 +41,7 @@ export default class Trainerdetail extends Component {
             const account_id = await AsyncStorage.getItem('account_id');
             console.log("account_id | " + account_id);
             if (account_id != "") {
-                fetch(Config.url + 'server/api/Cousre/insert_engage?UID=' + account_id + "&TCID=" + this.props.course_data.TCID)
+                fetch(Config.url + 'api/Cousre/insert_engage?UID=' + account_id + "&TCID=" + this.props.course_data.TCID)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson)
@@ -165,7 +165,7 @@ export default class Trainerdetail extends Component {
                         flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 20,
                         marginRight: 20
                     }}>
-                        <TouchableOpacity onPress={() => { this.onEngage() }} style={styles.coursebutton}>
+                        <TouchableOpacity onPress={() => { this.onEngage(), Actions.Mycourse() }} style={styles.coursebutton}>
                             <Text style={{ color: "#eeeeee" }}>ลงทะเบียน</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.coursebutton}>

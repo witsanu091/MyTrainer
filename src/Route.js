@@ -16,6 +16,9 @@ import Requirement from './pageTrainer/Requirement';
 import Trainerdetail from './pagesUser/Trainerdetail';
 import TrainerAddCourse from './pageTrainer/TrainerAddCourse';
 import Mycourse from './pagesUser/Mycourse';
+import Mytrainy from './pageTrainer/Mytrainy';
+
+
 
 
 export default class Route extends Component {
@@ -41,6 +44,7 @@ export default class Route extends Component {
                     <Scene key="trainerdetail" component={Trainerdetail} hideNavBar={true} />
                     <Scene key="TrainerAddCourse" component={TrainerAddCourse} hideNavBar={true} />
                     <Scene key="Mycourse" component={Mycourse} hideNavBar={true} />
+                    <Scene key="Mytrainy" component={Mytrainy} hideNavBar={true} />
 
                 </Stack>
             </Router>

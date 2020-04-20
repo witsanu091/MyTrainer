@@ -15,6 +15,8 @@ import {
 import { SearchBar } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
+import Config from '../components/config';
+
 export default class Trainercourse extends React.Component {
     constructor(props) {
         super(props);
@@ -22,13 +24,16 @@ export default class Trainercourse extends React.Component {
             data_course: '',
             modalVisible: false,
             show_data: []
-
         };
         this.get_trainer_course();
     }
 
     goback() {
         Actions.pop()
+    }
+
+    trainerprofile() {
+        Actions.trainerprofile()
     }
     setModalVisible(visible) {
         this.setState({ modalVisible: visible });
@@ -42,7 +47,7 @@ export default class Trainercourse extends React.Component {
             console.log("account_id | " + account_id);
 
             if (account_id !== null) {
-                fetch('http://10.66.32.45/server/api/Cousre/show_course_trainer?TID=' + account_id)
+                fetch(Config.url + 'api/Cousre/show_course_trainer?TID=' + account_id)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         if (responseJson != null) {
@@ -80,7 +85,7 @@ export default class Trainercourse extends React.Component {
                     </View>
 
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
-                        <TouchableOpacity onPress={this.userprofile}>
+                        <TouchableOpacity onPress={() => { this.trainerprofile() }}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -172,6 +177,10 @@ export default class Trainercourse extends React.Component {
                                             <Text style={{ fontSize: 18 }}>
                                                 ชื่อคอร์ส <Text style={{ color: '#62757f' }}>{this.state.show_data.CName}{"\n"}</Text>
                                     ประเภทคอร์ส <Text style={{ color: '#62757f' }}>{this.state.show_data.CTName}{"\n"}</Text>
+                                    ราคา <Text style={{ color: '#62757f' }}>{this.state.show_data.TCPrice}{"\n"}</Text>
+                                    รายละเอียด <Text style={{ color: '#62757f' }}>{this.state.show_data.TCDetails}{"\n"}</Text>
+                                    สถานที่ <Text style={{ color: '#62757f' }}>{this.state.show_data.LDetails}{"\n"}</Text>
+
                                             </Text>
                                         </TouchableOpacity>
                                         <View style={{ justifyContent: "flex-end" }}>

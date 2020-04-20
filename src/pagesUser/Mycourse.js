@@ -9,7 +9,8 @@ import {
     ScrollView,
     AsyncStorage,
     Modal,
-    Image
+    Image,
+    Button
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
@@ -27,6 +28,7 @@ export default class mycourse extends React.Component {
             show_data: [],
             UID: '',
             listTrainer: [],
+            listTrainer_by_filter: [],
             modalcourse: false,
         };
         this.get_listTrainer()
@@ -44,14 +46,28 @@ export default class mycourse extends React.Component {
         try {
             const account_id = await AsyncStorage.getItem('account_id');
 
-            await fetch(Config.url + 'server/api/Cousre/show_engage?seeby=u&UID=' + account_id)
+            await fetch(Config.url + 'api/Cousre/show_engage?seeby=u&UID=' + account_id)
                 .then((response) => response.json())
-                .then((responseJson) => this.setState({ listTrainer: responseJson }));
+                .then((responseJson) => {
+                    // result_json = responseJson.filter(obj => obj.engage_status == "2")
+                    this.setState({ listTrainer: responseJson })
+                    this.filter_listTrainer();// all
+                });
             console.log(this.state.listTrainer);
         }
         catch (error) {
             // Error retrieving data
         }
+    }
+
+    filter_listTrainer(status = null) {
+        if (status != null) {
+            result_json = this.state.listTrainer.filter(obj => obj.engage_status == status)
+            this.setState({ listTrainer_by_filter: result_json })
+        } else {
+            this.setState({ listTrainer_by_filter: this.state.listTrainer })
+        }
+        console.log(this.state.listTrainer_by_filter);
     }
 
     render() {
@@ -82,6 +98,12 @@ export default class mycourse extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Button title={"ตอบรับแล้ว"} onPress={() => { this.filter_listTrainer(2) }} />
+                    <Button title={"รอการตอบรับ"} onPress={() => { this.filter_listTrainer(1) }} />
+                    <Button title={"ไม่ตอบรับ"} onPress={() => { this.filter_listTrainer(3) }} />
+                    <Button title={"ทั้งหมด"} onPress={() => { this.filter_listTrainer() }} />
+                </View>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.choice}>
                         <View style={{
@@ -96,8 +118,9 @@ export default class mycourse extends React.Component {
                                 textAlign: 'center'
                             }}>คอร์สที่ลงทะเบียน</Text>
                         </View>
+
                         <FlatList
-                            data={this.state.listTrainer}
+                            data={this.state.listTrainer_by_filter}
                             renderItem={({ item }) =>
                                 <TouchableOpacity>
                                     <View style={{
@@ -130,80 +153,13 @@ export default class mycourse extends React.Component {
                                     อีเมล: {item.email}{'\n'}
                                     facebook: {item.contact}{'\n'}
                                     เพศ: {item.gender === 'male' ? 'ชาย' : 'หญิง'}{'\n'}
-
+                                    สถานะคอร์ส: {item.engage_status === '1' ? 'รอการตอบรับ' : item.engage_status === '2' ? 'ได้รับการตอบรับแล้ว' : 'ไม่ได้ตอบรับ'}
 
                                         </Text>
                                     </View>
                                 </TouchableOpacity>}
-                            keyExtractor={item => item.id}
+                            keyExtractor={item => item.ENGID}
                         />
-                        {/* <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={this.state.modalcourse}
-                            onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
-                            }}>
-                            <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center' }}>
-                                <View style={{ backgroundColor: '#ffffff', marginHorizontal: 20, borderRadius: 10 }}>
-                                    <View style={{ alignItems: "center" }}>
-                                        <Text style={{
-                                            justifyContent: "center",
-                                            paddingTop: 10,
-                                            textAlign: 'center',
-                                            color: '#62757f',
-                                            fontSize: 20,
-                                            fontWeight: '500',
-                                        }}>รายละเอียดผู้เรียน</Text>
-                                    </View>
-
-                                    <ScrollView>
-                                        <View style={{ alignItems: "flex-start", marginLeft: 10 }}>
-                                            <View style={{ justifyContent: "flex-start" }}>
-                                                {this.state.listUser[this.state.no] ?
-                                                    <Text style={{ fontSize: 18 }}>
-
-                                                        ชื่อ : {this.state.listUser[this.state.no].firstname} {this.state.listUser[this.state.no].lastname}{'\n'}
-                                                ชื่อเล่น : {this.state.listUser[this.state.no].nickname} {'\n'}
-                                                คอร์สที่เรียน : {this.state.listUser[this.state.no].CName} {'\n'}
-                                                น้ำหนัก : {this.state.listUser[this.state.no].weight} {'\n'}
-                                                ส่วนสูง : {this.state.listUser[this.state.no].height} {'\n'}
-                                                เพศ : {this.state.listUser[this.state.no].gender === 'male' ? 'ชาย' : 'หญิง'} {'\n'}
-                                                เบอร์โทรศัพท์ : {this.state.listUser[this.state.no].telephone} {'\n'}
-                                                อีเมล : {this.state.listUser[this.state.no].email} {'\n'}
-                                                    </Text>
-                                                    :
-                                                    <Text>
-                                                    </Text>
-                                                }
-                                            </View>
-                                            <View style={{ justifyContent: "flex-end", flexDirection: "row" }}>
-                                                <TouchableOpacity
-                                                    onPress={() => {
-                                                        this.setModalVisible(false);
-                                                    }} style={{
-                                                        paddingBottom: 13,
-                                                        paddingTop: 7,
-                                                        marginBottom: 15,
-                                                        borderRadius: 10,
-                                                        backgroundColor: "#883997",
-                                                        marginHorizontal: 130,
-                                                        borderWidth: 1,
-                                                        width: 100
-                                                    }}>
-                                                    <Text style={{
-                                                        color: '#eeeeee',
-                                                        fontSize: 16,
-                                                        fontWeight: '300',
-                                                        textAlign: "center",
-                                                    }} >ปิด</Text>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
-                                    </ScrollView>
-                                </View>
-                            </View>
-                        </Modal> */}
                     </View>
                 </ScrollView>
             </View>

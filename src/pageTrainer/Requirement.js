@@ -47,13 +47,23 @@ export default class Requirement extends Component {
     goback() {
         Actions.pop()
     }
+    trainerprofile() {
+        Actions.trainerprofile()
+    }
+    Mytrainy() {
+        Actions.Mytrainy()
+
+    }
     get_listUser = async () => {
         try {
             const account_id = await AsyncStorage.getItem('account_id');
 
-            await fetch(Config.url + 'server/api/Cousre/show_engage?seeby=t&TID=' + account_id)
+            await fetch(Config.url + 'api/Cousre/show_engage?seeby=t&TID=' + account_id)
                 .then((response) => response.json())
-                .then((responseJson) => this.setState({ listUser: responseJson }));
+                .then((responseJson) => {
+                    result_json = responseJson.filter(obj => obj.engage_status == "1")
+                    this.setState({ listUser: result_json })
+                });
             let i = 0;
             let data = [];
             for (i = 0; i < this.state.listUser.length; i++) {
@@ -68,24 +78,62 @@ export default class Requirement extends Component {
         catch (error) {
             // Error retrieving data
         }
-        // fetch(Config.url + 'server/api/Cousre/get_course')
-        //     .then((response) => response.json())
-        //     .then((responseJson) => this.setState({ listUser: responseJson }));
-
     }
 
+    change_status = async (eng_id, status) => {
+        console.log("Change status at eng_id | " + eng_id)
+        await fetch(Config.url + 'api/Cousre/change_status_engage?ENGID=' + eng_id + '&engage_status=' + status)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson)
+                if (responseJson.status) {
+                    alert("สำเร็จ");
+                } else {
+                    alert("ไม่สำเร็จ โปรดลองอีกครั้ง");
+                }
+                this.get_listUser();
+            });
+    }
 
     render() {
         const state = this.state;
         const element = (data, index) => (
-            <TouchableOpacity onPress={async () => {
-                this.setModalVisible(true);
-                await this.setState({ no: index })
-            }}>
-                <View style={styles.btn}>
-                    <Text style={styles.btnText}>รายละเอียด</Text>
-                </View>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity onPress={async () => {
+                    this.setModalVisible(true);
+                    await this.setState({ no: index })
+                }}>
+                    <View style={styles.btn}>
+                        <Text style={styles.btnText}>รายละเอียด</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    this.setState({ no: index })
+                    Alert.alert(
+                        "ยืนยันคำขอการสมัคร",
+                        "",
+                        [
+                            {
+                                text: "ตอบรับคำขอ",
+                                onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 2) }
+                            },
+                            {
+                                text: "ไม่ตอบรับ",
+                                onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 3) }
+                            },
+                            {
+                                text: "ปิด", onPress: () => console.log("close alert"),
+                                style: "cancel"
+                            }
+                        ],
+                        { cancelable: false }
+                    );
+                }}>
+                    <View style={styles.btn2}>
+                        <Text style={styles.btnText}>ตอบรับ</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
         );
 
         return (
@@ -152,6 +200,7 @@ export default class Requirement extends Component {
                                                 textAlign: "center",
                                             }} >ปิด</Text>
                                         </TouchableOpacity>
+
                                     </View>
                                 </View>
                             </ScrollView>
@@ -161,7 +210,7 @@ export default class Requirement extends Component {
 
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={() => { this.goback() }}>
+                        <TouchableOpacity onPress={() => { this.Mytrainy() }}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -176,7 +225,7 @@ export default class Requirement extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
-                        <TouchableOpacity onPress={this.userprofile}>
+                        <TouchableOpacity onPress={() => { this.trainerprofile() }}>
 
                             <FontAwesome name="user" size={40} color='#fff' />
 
@@ -187,16 +236,14 @@ export default class Requirement extends Component {
                     <View style={{ alignItems: "center" }}>
                         <Row data={state.tableHead} style={styles.head} textStyle={styles.text} />
                     </View>
-                    {
-                        state.data.map((rowData, index) => (
-                            <TableWrapper key={index} style={styles.row}>
-                                {
-                                    rowData.map((cellData, cellIndex) => (
-                                        <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} textStyle={styles.textdetail} />
-                                    ))
-                                }
-                            </TableWrapper>
-                        ))
+                    {state.data.map((rowData, index) => (
+                        <TableWrapper key={index} style={styles.row}>
+                            {rowData.map((cellData, cellIndex) => (
+                                <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} textStyle={styles.textdetail} />
+                            ))
+                            }
+                        </TableWrapper>
+                    ))
                     }
                 </Table>
             </View>
@@ -207,9 +254,10 @@ export default class Requirement extends Component {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff' },
     head: { height: 50, backgroundColor: '#62757f', },
-    text: { margin: 6, alignItems: "center", fontSize: 16, color: "#fff" },
+    text: { margin: 6, alignItems: "center", fontSize: 18, color: "#fff" },
     row: { flexDirection: 'row', backgroundColor: '#FFF1C1', alignItems: "center" },
-    btn: { width: 71, height: 20, backgroundColor: '#78B7BB', borderRadius: 2 },
+    btn: { width: 80, height: 25, backgroundColor: '#247de3', borderRadius: 2, margin: 2, },
+    btn2: { width: 80, height: 25, backgroundColor: '#78B7BB', borderRadius: 2, margin: 2 },
     btnText: { textAlign: 'center', color: '#fff', width: 71 },
-    textdetail: { margin: 6, alignItems: "center", fontSize: 16, }
+    textdetail: { margin: 6, alignItems: "center", fontSize: 18, }
 });

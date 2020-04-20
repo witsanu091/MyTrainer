@@ -15,6 +15,8 @@ import { RadioButton } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import DatePicker from 'react-native-datepicker';
 import RNPickerSelect from 'react-native-picker-select';
+import Config from '../../components/config';
+
 
 export default class Signup extends Component {
 
@@ -43,7 +45,7 @@ export default class Signup extends Component {
 
     register(email, password, firstname, lastname, nickname, weight, height, gender, telephone, birthday) {
         if (this.props.user_type == 1) {
-            fetch('http://10.66.32.45/server/api/account/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=1' + '&type=1')
+            fetch(Config.url + 'api/account/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=1' + '&type=1')
                 .then((response) => response.json())
                 .then((responseJson) => {
                     console.log(responseJson)
@@ -58,7 +60,7 @@ export default class Signup extends Component {
                     }
                 })
         } else if (this.props.user_type == 2) {
-            fetch('http://10.66.32.45/server/api/account_T/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=1' + '&type=2')
+            fetch(Config.url + 'api/account_T/register?email=' + email + '&password=' + password + '&firstname=' + firstname + '&lastname=' + lastname + '&nickname=' + nickname + '&weight=' + weight + '&height=' + height + '&gender=' + gender + '&telephone=' + telephone + '&birthday=' + birthday + '&status=1' + '&type=2')
                 .then((response) => response.json())
                 .then((responseJson) => {
                     console.log(responseJson)
@@ -219,7 +221,7 @@ export default class Signup extends Component {
                             date={this.state.birthday}
                             mode="date"
                             placeholder="select birth date"
-                            format="DD-MM-YYYY"
+                            format="YYYY-MM-DD"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             locale={'th'}

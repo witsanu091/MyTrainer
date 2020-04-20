@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, TextInput, KeyboardAvoidingView, ScrollV
 import { RadioButton } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
+import Config from '../../components/config';
+
 
 export default class Login extends Component {
     constructor(props) {
@@ -43,7 +45,7 @@ export default class Login extends Component {
     login(email, password, login_type) {
         if (login_type != 0) {
             if (this.state.type == 1) {
-                fetch('http://10.66.32.45/server/api/account/login?email=' + email + '&password=' + password)
+                fetch(Config.url + 'api/account/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
@@ -67,7 +69,7 @@ export default class Login extends Component {
                         console.log("xxx");
                     })
             } else if (this.state.type == 2) {
-                fetch('http://10.66.32.45/server/api/account_T/login?email=' + email + '&password=' + password)
+                fetch(Config.url + 'api/account_T/login?email=' + email + '&password=' + password)
                     .then((response) => response.json())
                     .then((responseJson) => {
                         console.log(responseJson.key_token);
