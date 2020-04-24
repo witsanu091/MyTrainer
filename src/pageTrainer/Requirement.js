@@ -95,6 +95,12 @@ export default class Requirement extends Component {
             });
     }
 
+    reverseString = (str) => {
+        let splitString = str.split("-");
+        let reverseArray = splitString.reverse();
+        let joinArray = reverseArray.join("-");
+        return joinArray;
+    }
     render() {
         const state = this.state;
         const element = (data, index) => (

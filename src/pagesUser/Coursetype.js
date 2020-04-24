@@ -57,7 +57,7 @@ export default class Coursetype extends Component {
             gender = 'หญิง';
 
         }
-        return gender
+        return gender;
 
     }
     load_coures_location(lid) {
@@ -66,7 +66,7 @@ export default class Coursetype extends Component {
         if (gender == "all") {
             gender = '';
         }
-        console.log(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&LID=' + lid)
+        console.log(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender + '&LID=' + lid)
         fetch(Config.url + 'api/Cousre/get_course_filter?ct=' + this.props.item.CTID + '&gender=' + gender + '&LID=' + lid)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -117,7 +117,7 @@ export default class Coursetype extends Component {
                     </View>
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>Find Trainer</Text>
+                            <Text style={styles.TextBand}>เลือกคอร์ส</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
@@ -139,7 +139,7 @@ export default class Coursetype extends Component {
 
                     }} >
                         {this.props.item.CTName} {'\n'}
-                       เพศของเทรนเนอร์ : {this.gendertrainer()}
+                       เพศของเทรนเนอร์ : <Text style={{ color: "#3ac204" }}>{this.gendertrainer()}</Text>
 
                     </Text>
                 </View>
@@ -289,7 +289,7 @@ export default class Coursetype extends Component {
                                     </Text>
                                 </View>
                             </TouchableOpacity>}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.CTID}
                     />
 
 
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     TextBand: {
         paddingTop: 40,
         color: '#eeeeee',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
     },
     TextSortBy: {
@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#eeeeee",
         margin: 5,
         borderRadius: 15,
-        borderWidth: 2,
+
         fontSize: 20,
         color: "#62757f",
         height: 60

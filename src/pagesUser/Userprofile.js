@@ -38,6 +38,9 @@ export default class Userprofile extends Component {
     Mycourse() {
         Actions.Mycourse()
     }
+    HistoryCourse() {
+        Actions.HistoryCourse()
+    }
 
     load_profile_data = async () => {
         console.log("data profile loading....")
@@ -125,20 +128,22 @@ export default class Userprofile extends Component {
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
                             </View>
-                            <TouchableOpacity onPress={() => { this.Mycourse() }} style={{
-                                margin: 8,
-                                height: 45,
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: 150,
-                                borderRadius: 30,
-                                backgroundColor: "#d05ce3",
-                                borderWidth: 2,
-                                borderColor: '#d6d7da',
-                            }}>
-                                <Text style={{ color: "#eeeeee" }}>คอร์สของฉัน</Text>
-                            </TouchableOpacity>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => { this.Mycourse() }} style={{
+                                    margin: 8,
+                                    height: 45,
+                                    flexDirection: 'row',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: 150,
+                                    borderRadius: 30,
+                                    backgroundColor: "#d05ce3",
+
+                                }}>
+                                    <Text style={{ color: "#eeeeee" }}>คอร์สของฉัน</Text>
+                                </TouchableOpacity>
+
+                            </View>
                         </View>
                     </View>
                 </ScrollView>
@@ -197,8 +202,7 @@ const styles = StyleSheet.create({
         width: 300,
         backgroundColor: "#eeeeee",
         borderRadius: 30,
-        borderWidth: 2,
-        borderColor: '#d05ce3',
+
 
     },
     buttonContainer: {
@@ -211,8 +215,8 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 30,
         backgroundColor: "#d05ce3",
-        borderWidth: 2,
-        borderColor: '#d6d7da',
+        // borderWidth: 2,
+        // borderColor: '#d6d7da',
 
 
     },

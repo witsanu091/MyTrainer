@@ -9,18 +9,14 @@ import {
     ScrollView,
     AsyncStorage,
     Modal,
-    Image,
-    Alert
+
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
 import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
 import Config from '../components/config';
-import { Rating, AirbnbRating } from 'react-native-ratings';
-import { Avatar, Button } from 'react-native-paper';
+import moment from 'moment';
 
-
-export default class Mytrainy extends React.Component {
+export default class HistoryTrain extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,8 +26,10 @@ export default class Mytrainy extends React.Component {
             UID: '',
             listTrainer: [],
             modalcourse: false,
+            endC: ''
         };
-        this.get_listTrainer()
+        this.get_listTrainer();
+
     }
 
     goback() {
@@ -40,15 +38,10 @@ export default class Mytrainy extends React.Component {
     trainerprofile() {
         Actions.trainerprofile()
     }
-    requirement() {
-        Actions.requirement()
-    }
     Mytrainy() {
         Actions.Mytrainy()
     }
-    HistoryTrain() {
-        Actions.HistoryTrain()
-    }
+
     get_listTrainer = async () => {
 
         try {
@@ -57,7 +50,7 @@ export default class Mytrainy extends React.Component {
             await fetch(Config.url + 'api/Cousre/show_engage?seeby=t&TID=' + account_id)
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    result_json = responseJson.filter(obj => obj.engage_status == "2")
+                    result_json = responseJson.filter(obj => obj.engage_status == "4")
                     this.setState({ listTrainer: result_json })
                 });
             // console.log(this.state.listTrainer);
@@ -66,21 +59,6 @@ export default class Mytrainy extends React.Component {
             // Error retrieving data
         }
     }
-    end_course(eng_id, status) {
-        console.log("Change status at eng_id | " + eng_id + status)
-        fetch(Config.url + 'api/Cousre/end_course_engage?ENGID=' + eng_id + '&engage_status=' + status)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                console.log(responseJson)
-                if (responseJson.status) {
-                    alert("สำเร็จ");
-                } else {
-                    alert("ไม่สำเร็จ โปรดลองอีกครั้ง");
-                }
-                this.get_listTrainer();
-            });
-    }
-
     reverseString = (str) => {
         let splitString = str.split("-");
         let reverseArray = splitString.reverse();
@@ -88,13 +66,14 @@ export default class Mytrainy extends React.Component {
         return joinArray;
     }
 
+    //    this.state.listTrainer.EndCourse;
     render() {
         return (
 
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={this.goback}>
+                        <TouchableOpacity onPress={this.Mytrainy}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -118,36 +97,8 @@ export default class Mytrainy extends React.Component {
                 </View>
 
                 <View style={styles.choice}>
-
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <TouchableOpacity style={{
-                            margin: 8,
-                            height: 45,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: 150,
-                            borderRadius: 30,
-                            backgroundColor: "#d05ce3"
-                        }} onPress={() => { this.HistoryTrain() }} >
-                            <Text style={{ color: "#eeeeee" }}>ประวัติการสอน</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={{
-                            margin: 8,
-                            height: 45,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: 150,
-                            borderRadius: 30,
-                            backgroundColor: "#d05ce3",
-                        }} onPress={() => { this.requirement() }} >
-                            <Text style={{ color: "#eeeeee" }}>คำร้องผู้ที่สนใจ</Text>
-                        </TouchableOpacity>
-                    </View>
                     <View style={{
-                        paddingTop: 8,
+                        padding: 8,
                         justifyContent: "center",
                     }} >
                         <Text style={{
@@ -156,13 +107,13 @@ export default class Mytrainy extends React.Component {
                             fontWeight: '500',
                             justifyContent: 'center',
                             textAlign: 'center'
-                        }}>รายชื่อผู้ที่ลงทะเบียน</Text>
+                        }}>ประวัติผู้ที่เคยลงทะเบียนเรียน</Text>
                     </View>
                     <ScrollView style={styles.scrollView}>
                         <FlatList
                             data={this.state.listTrainer}
                             renderItem={({ item }) =>
-                                <View>
+                                <TouchableOpacity>
                                     <View style={{
                                         flex: 1,
                                         padding: 8,
@@ -179,7 +130,7 @@ export default class Mytrainy extends React.Component {
                                         <Text style={{ fontSize: 17, textAlign: "left", color: '#62757f', fontWeight: "bold", margin: 10 }} >
                                             <Text style={{ fontSize: 20 }} >   {item.CName}{'\n'}</Text>
                                        ชื่อเล่น {item.nickname}{'\n'}
-                                       ชื่อ-สกุล: {item.firstname} {item.lastname}{'\n'}
+                                            {item.firstname} {item.lastname}{'\n'}
                                             {/* <Rating
                                                 type='custom'
                                                 ratingCount={item.avgscore}
@@ -195,46 +146,12 @@ export default class Mytrainy extends React.Component {
                                     facebook: {item.contact}{'\n'}
                                     เพศ: {item.gender === 'male' ? 'ชาย' : 'หญิง'}{'\n'}
                                     สถานะคอร์ส:  <Text style={{ color: "#3ac204" }}>{item.engage_status === '1' ? 'รอการตอบรับ' : item.engage_status === '2' ? 'ได้รับการตอบรับแล้ว' : item.engage_status === '3' ? 'ไม่ได้ตอบรับ' : 'เรียนจบคอร์สแล้ว'}{'\n'}</Text>
+                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {this.reverseString(item.StartCourse)}{'\n'}</Text>
+                                            <Text style={{ color: "#ff5722" }}>จบคอร์สวันที่: {this.reverseString(item.EndCourse)}{'\n'}</Text>
 
-                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {this.reverseString(item.StartCourse)}{'\n'} </Text>
                                         </Text>
-                                        <TouchableOpacity style={{
-                                            height: 45,
-                                            flexDirection: 'row',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            marginBottom: 10,
-                                            width: 150,
-                                            marginLeft: 15,
-                                            borderRadius: 30,
-                                            backgroundColor: "#7b13a1",
-
-                                        }} onPress={() => {
-                                            Alert.alert(
-                                                "จบการสอน",
-                                                "",
-                                                [
-                                                    {
-                                                        text: "ยืนยัน",
-                                                        onPress: () => this.end_course(item.ENGID, 4),
-                                                        // style: "cancel"
-                                                    },
-
-
-                                                    {
-                                                        text: "ปิด", onPress: () => console.log("close alert"),
-                                                        // style: "cancel"
-                                                    }
-                                                ],
-                                                { cancelable: false }
-                                            );
-                                        }}>
-
-                                            <Text style={{ color: "#ffffff" }}>จบการสอน</Text>
-                                        </TouchableOpacity>
                                     </View>
-
-                                </View>}
+                                </TouchableOpacity>}
                             keyExtractor={item => item.ENGID}
                         />
                     </ScrollView>

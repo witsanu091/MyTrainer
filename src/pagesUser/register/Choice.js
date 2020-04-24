@@ -49,7 +49,7 @@ export default class Choice extends Component {
                         style={{ width: 100, height: 100 }}
                         source={require('../../image/logoApp.png')}
                     /></View>
-                <Text style={styles.textlogo}> Sign Up </Text>
+                <Text style={styles.textlogo}> สมัครสมาชิก </Text>
                 <View style={{
                     justifyContent: "center", alignItems: "center", marginTop: 30
                 }}>
@@ -80,15 +80,15 @@ export default class Choice extends Component {
                 </View>
                 <TouchableOpacity style={{
                     margin: 8,
-                    height: 60,
+                    height: 50,
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: 150,
                     borderRadius: 30,
                     backgroundColor: "#ba68c8",
-                    borderWidth: 2,
-                    borderColor: '#d6d7da',
+                    // borderWidth: 2,
+                    // borderColor: '#d6d7da',
                 }} onPress={() => { (this.state.type != '') ? Actions.signup({ user_type: this.state.type }) : alert('กรุณาเลือกผู้ใช้งานที่ต้องการสมัคร') }}>
                     < Text style={{ color: "#ffffff" }}>ดำเนินการสมัคร</Text>
                 </TouchableOpacity>
@@ -105,11 +105,11 @@ export default class Choice extends Component {
                     }}>มีบัญชีแล้ว กลับไปหน้า</Text>
                     <TouchableOpacity onPress={this.login}><Text style={{
                         color: '#12799f',
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: '500',
                         borderWidth: 1,
                         borderRadius: 5,
-                    }}>Login</Text></TouchableOpacity>
+                    }}> เข้าสู่ระบบ</Text></TouchableOpacity>
                 </View>
             </View >
 

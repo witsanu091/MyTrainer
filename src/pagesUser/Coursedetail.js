@@ -57,7 +57,7 @@ export default class Coursetype extends Component {
                     </View>
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>Find Trainer</Text>
+                            <Text style={styles.TextBand}>รายละเอียดคอร์ส</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     TextBand: {
         paddingTop: 40,
         color: '#eeeeee',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
     },
     coursebutton: {
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 30,
         backgroundColor: "#d05ce3",
-        borderWidth: 2,
-        borderColor: '#d6d7da',
+
     }, boxChoice: {
         flex: 1,
         padding: 8,

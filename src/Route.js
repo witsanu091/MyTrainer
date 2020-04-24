@@ -17,9 +17,9 @@ import Trainerdetail from './pagesUser/Trainerdetail';
 import TrainerAddCourse from './pageTrainer/TrainerAddCourse';
 import Mycourse from './pagesUser/Mycourse';
 import Mytrainy from './pageTrainer/Mytrainy';
-
-
-
+import EndCourse from './pagesUser/EndCourse';
+import HistoryTrain from './pageTrainer/HistoryTrain';
+import HistoryCourse from './pagesUser/HistoryCourse';
 
 export default class Route extends Component {
     render() {
@@ -45,6 +45,10 @@ export default class Route extends Component {
                     <Scene key="TrainerAddCourse" component={TrainerAddCourse} hideNavBar={true} />
                     <Scene key="Mycourse" component={Mycourse} hideNavBar={true} />
                     <Scene key="Mytrainy" component={Mytrainy} hideNavBar={true} />
+                    <Scene key="EndCourse" component={EndCourse} hideNavBar={true} />
+                    <Scene key="HistoryTrain" component={HistoryTrain} hideNavBar={true} />
+                    <Scene key="HistoryCourse" component={HistoryCourse} hideNavBar={true} />
+
 
                 </Stack>
             </Router>

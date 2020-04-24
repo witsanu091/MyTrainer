@@ -63,6 +63,8 @@ export default class Trainercourse extends React.Component {
             // Error retrieving data
         }
     }
+
+
     render() {
         return (
             <View style={styles.container}>

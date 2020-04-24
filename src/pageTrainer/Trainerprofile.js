@@ -74,6 +74,12 @@ export default class Trainerprofile extends Component {
         }
     }
 
+    reverseString = (str) => {
+        let splitString = str.split("-");
+        let reverseArray = splitString.reverse();
+        let joinArray = reverseArray.join("-");
+        return joinArray;
+    }
 
     render() {
         return (
@@ -90,8 +96,19 @@ export default class Trainerprofile extends Component {
                 </View>
                 <Image style={styles.avatar} source={require('../image/tprofile.png')} />
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20, marginTop: 10 }}>
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.logout()}>
-                        <Text style={{ color: "#eeeeee" }}>ออกจากระบบ</Text>
+                    <TouchableOpacity style={{
+                        marginTop: 5,
+                        height: 45,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginBottom: 5,
+                        width: 150,
+                        borderRadius: 30,
+                        backgroundColor: "#eb4034",
+                    }} onPress={() => this.logout()}>
+                        <Text style={{ color: "#eeeeee", justifyContent: 'space-between' }}>ออกจากระบบ  <FontAwesome name="sign-out" size={20} color='#fff' />
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
@@ -115,7 +132,7 @@ export default class Trainerprofile extends Component {
                                 <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
                             </View>
                             <View style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.reverseString(this.state.data_profile.birthday)}</Text>
                             </View>
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
@@ -127,9 +144,9 @@ export default class Trainerprofile extends Component {
                                 <TouchableOpacity onPress={() => { this.Mytrainy() }} style={styles.coursebutton}>
                                     <Text style={{ color: "#eeeeee" }}>รายชื่อผู้เรียน</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.coursebutton}>
+                                {/* <TouchableOpacity style={styles.coursebutton}>
                                     <Text style={{ color: "#eeeeee" }}>ข้อมูลฟิตเนส</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                             </View>
                         </View>
                     </View>
@@ -187,10 +204,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 5,
         width: 300,
-        backgroundColor: "#df78ef",
+        backgroundColor: "#eeeeee",
         borderRadius: 30,
-        borderWidth: 2,
-        borderColor: '#d6d7da',
+
 
     },
     buttonContainer: {
@@ -203,13 +219,12 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 30,
         backgroundColor: "#d05ce3",
-        borderWidth: 2,
-        borderColor: '#d6d7da',
+
 
     },
     fontSizeText: {
         fontSize: 18,
-        color: "#eeeeee"
+        color: "#000"
     },
     coursebutton: {
         margin: 8,
@@ -220,7 +235,6 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 30,
         backgroundColor: "#d05ce3",
-        borderWidth: 2,
-        borderColor: '#d6d7da',
+
     }
 });

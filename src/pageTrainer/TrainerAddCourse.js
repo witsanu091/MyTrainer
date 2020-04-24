@@ -330,8 +330,6 @@ export default class TrainerAddCourse extends Component {
                         this.state.course_name ?
 
                             <View>
-
-
                                 <Text style={{
                                     color: '#62757f',
                                     fontSize: 18,

@@ -66,7 +66,7 @@ export default class Homescreen extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
 
                     <View style={{ flex: 8, left: 20, alignItems: 'center' }}>
-                        <Text style={styles.TextBand}>Find Trainer</Text>
+                        <Text style={styles.TextBand}>เลือกประเภทคอร์ส</Text>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.userprofile}>
@@ -97,73 +97,13 @@ export default class Homescreen extends Component {
 
                             }}>
                                 <View style={this.state.select == item.CTID ? [styles.Textshow,
-                                { backgroundColor: "#ba68c8", borderWidth: 3 }] : [styles.Textshow,
+                                { backgroundColor: "#ba68c8", }] : [styles.Textshow,
                                     ]} >
-                                    <Text style={{ fontSize: 17, textAlign: "center" }} >{item.CTName}</Text>
+                                    <Text style={{ fontSize: 17, textAlign: "center", color: "#2e2d27" }} >{item.CTName}</Text>
                                 </View>
                             </TouchableOpacity>}
                         keyExtractor={({ id }, index) => id}
                     />
-                    {/* <Modal
-                        animationType="slide"
-                        transparent={false}
-                        visible={this.state.select == 4 && this.state.modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert("Modal has been closed.");
-                        }}>
-                        <View style={{ marginTop: 22, flex: 1 }}>
-                            <View>
-                                <View style={{ alignItems: "center" }}>
-                                    <Text style={{
-                                        justifyContent: "center",
-                                        paddingTop: 10,
-                                        textAlign: 'center',
-                                        color: '#62757f',
-                                        fontSize: 24,
-                                        fontWeight: '500',
-                                    }}>ประเภทกีฬา</Text>
-                                </View>
-
-                                <Text style={{
-                                    justifyContent: "flex-start",
-                                    paddingTop: 10,
-                                    paddingLeft: 10,
-                                    color: '#62757f',
-                                    fontSize: 20,
-                                    fontWeight: '500',
-
-                                }}>
-                                    เลือกประเภทกีฬา
-                                </Text>
-                                <View style={{ justifyContent: "flex-end" }}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            this.setModalVisible(false);
-                                        }} style={{
-                                            paddingBottom: 13,
-                                            paddingTop: 7,
-                                            marginBottom: 15,
-                                            borderRadius: 10,
-                                            backgroundColor: "#883997",
-                                            marginHorizontal: 130,
-                                            borderWidth: 1,
-                                            width: 100
-                                        }}>
-                                        <Text style={{
-                                            color: '#eeeeee',
-                                            fontSize: 20,
-                                            fontWeight: '400',
-                                            textAlign: "center",
-                                        }} >ปิด</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <ScrollView>
-
-
-                                </ScrollView>
-                            </View>
-                        </View>
-                    </Modal>*/}
                     <View>
                         <Text style={{
                             color: '#62757f',
@@ -240,18 +180,23 @@ const styles = StyleSheet.create({
     TextBand: {
         paddingTop: 40,
         color: '#eeeeee',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
     },
     Textshow: {
-        padding: 20,
-        justifyContent: "center",
-        backgroundColor: "#eeeeee",
+        flex: 1,
+        padding: 8,
+        borderRadius: 10,
         margin: 10,
-        borderRadius: 20,
-        borderWidth: 2,
-        fontSize: 20,
-        color: "#62757f"
+        backgroundColor: '#fff',
+        shadowColor: 'rgba(0,0,0,0.25)',
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 3,
+        height: 60,
+        justifyContent: "center"
+
 
     },
     Textcourse: {

@@ -72,7 +72,7 @@ export default class Trainerdetail extends Component {
                     </View>
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
-                            <Text style={styles.TextBand}>Find Trainer</Text>
+                            <Text style={styles.TextBand}>ข้อมูลเทรนเนอร์</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     TextBand: {
         paddingTop: 40,
         color: '#eeeeee',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
     },
     coursebutton: {

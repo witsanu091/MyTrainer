@@ -105,7 +105,7 @@ export default class Login extends Component {
 
             <View styles={{}}>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ flex: 5, alignItems: 'center' }}>
+                    <View style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{
                             paddingTop: 40,
                             color: '#eeeeee',
@@ -122,7 +122,7 @@ export default class Login extends Component {
                             source={require('../../image/logoApp.png')}
                         />
                         <View style={{ alignItems: "center" }}>
-                            <Text style={styles.textlogo}> Login </Text>
+                            <Text style={styles.textlogo}>เข้าสู่ระบบ </Text>
                         </View>
                     </View>
 
@@ -153,11 +153,11 @@ export default class Login extends Component {
                                 ></RadioButton></View>
                             <Text style={{
                                 color: '#62757f',
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: '300',
                                 textAlign: "center",
                                 margin: 5
-                            }}>User</Text>
+                            }}>ผู้ใช้งาน</Text>
                         </View>
                         <View style={{ borderWidth: 1, borderRadius: 10 }}>
                             <RadioButton
@@ -168,23 +168,23 @@ export default class Login extends Component {
                         </View>
                         <Text style={{
                             color: '#62757f',
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: '300',
                             textAlign: "center",
                             margin: 5
-                        }}>Trainer
+                        }}>เทรนเนอร์
                         </Text>
                     </View>
                     <TouchableOpacity style={styles.button} onPress={() => { this.login(this.state.email, this.state.password, this.state.type) }}>
-                        <Text style={styles.buttonText} >Login</Text>
+                        <Text style={styles.buttonText} >เข้าสู่ระบบ</Text>
                     </TouchableOpacity>
 
 
 
                 </View>
                 <View style={styles.loginTextCont}>
-                    <Text style={styles.loginText}>ยังไม่มีบัญชีผู้ใช้ไปหน้าสมัคร</Text>
-                    <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
+                    <Text style={styles.loginText}>ยังไม่มีบัญชีผู้ใช้ไปหน้า </Text>
+                    <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}> สมัคร</Text></TouchableOpacity>
                 </View>
             </View>
 
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     },
     signupButton: {
         color: '#12799f',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '500',
         borderWidth: 1,
         borderRadius: 5,
