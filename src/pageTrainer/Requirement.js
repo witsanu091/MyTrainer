@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image, AsyncStorage } from 'react-native';
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
 import Config from '../components/config';

@@ -60,12 +60,14 @@ export default class HistoryTrain extends React.Component {
         }
     }
     reverseString = (str) => {
-        let splitString = str.split("-");
-        let reverseArray = splitString.reverse();
-        let joinArray = reverseArray.join("-");
-        return joinArray;
-    }
 
+        if (str != undefined && str != null) {
+            let splitString = str.split("-");
+            let reverseArray = splitString.reverse();
+            let joinArray = reverseArray.join("-");
+            return joinArray;
+        }
+    }
     //    this.state.listTrainer.EndCourse;
     render() {
         return (
@@ -85,7 +87,7 @@ export default class HistoryTrain extends React.Component {
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
-                            }}>คอร์สที่ลงทะเบียน</Text>
+                            }}>ประวัติการสอน</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -107,7 +109,7 @@ export default class HistoryTrain extends React.Component {
                             fontWeight: '500',
                             justifyContent: 'center',
                             textAlign: 'center'
-                        }}>ประวัติผู้ที่เคยลงทะเบียนเรียน</Text>
+                        }}>ประวัติการสอนคอร์สของฉัน</Text>
                     </View>
                     <ScrollView style={styles.scrollView}>
                         <FlatList

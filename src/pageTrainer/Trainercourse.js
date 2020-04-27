@@ -82,7 +82,7 @@ export default class Trainercourse extends React.Component {
                                 color: '#eeeeee',
                                 fontSize: 30,
                                 fontWeight: '500',
-                            }}>Find Trainer</Text>
+                            }}>คอร์สของฉัน</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -177,11 +177,11 @@ export default class Trainercourse extends React.Component {
                                             this.setModalVisible(false);
                                         }}>
                                             <Text style={{ fontSize: 18 }}>
-                                                ชื่อคอร์ส <Text style={{ color: '#62757f' }}>{this.state.show_data.CName}{"\n"}</Text>
-                                    ประเภทคอร์ส <Text style={{ color: '#62757f' }}>{this.state.show_data.CTName}{"\n"}</Text>
-                                    ราคา <Text style={{ color: '#62757f' }}>{this.state.show_data.TCPrice}{"\n"}</Text>
-                                    รายละเอียด <Text style={{ color: '#62757f' }}>{this.state.show_data.TCDetails}{"\n"}</Text>
-                                    สถานที่ <Text style={{ color: '#62757f' }}>{this.state.show_data.LDetails}{"\n"}</Text>
+                                                ชื่อคอร์ส : <Text style={{ color: '#62757f' }}>{this.state.show_data.CName}{"\n"}</Text>
+                                    ประเภทคอร์ส : <Text style={{ color: '#62757f' }}>{this.state.show_data.CTName}{"\n"}</Text>
+                                    ราคา : <Text style={{ color: '#62757f' }}>{this.state.show_data.TCPrice}{" บาท\n"}</Text>
+                                    รายละเอียด : <Text style={{ color: '#62757f' }}>{this.state.show_data.TCDetails}{"\n"}</Text>
+                                    สถานที่ : <Text style={{ color: '#62757f' }}>{this.state.show_data.LDetails}{"\n"}</Text>
 
                                             </Text>
                                         </TouchableOpacity>

@@ -129,7 +129,7 @@ export default class Login extends Component {
                     <TextInput style={styles.inputBox}
                         onChangeText={(email) => this.setState({ email })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Email"
+                        placeholder="อีเมล"
                         placeholderTextColor="#bdbdbd"
                         keyboardType="email-address"
                         onSubmitEditing={() => this.password.focus()} />
@@ -137,7 +137,7 @@ export default class Login extends Component {
                     <TextInput style={styles.inputBox}
                         onChangeText={(password) => this.setState({ password })}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder="Password"
+                        placeholder="รหัสผ่าน"
                         secureTextEntry={true}
                         placeholderTextColor="#bdbdbd"
                         ref={(input) => this.password = input}
@@ -184,7 +184,7 @@ export default class Login extends Component {
                 </View>
                 <View style={styles.loginTextCont}>
                     <Text style={styles.loginText}>ยังไม่มีบัญชีผู้ใช้ไปหน้า </Text>
-                    <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}> สมัคร</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={this.choice}><Text style={styles.signupButton}> สมัครบัญชีผู้ใช้</Text></TouchableOpacity>
                 </View>
             </View>
 

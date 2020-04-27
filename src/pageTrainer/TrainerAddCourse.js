@@ -348,7 +348,7 @@ export default class TrainerAddCourse extends Component {
                                 }]}
                                     onChangeText={(text) => this.setState({ c_detail: text })}
                                     underlineColorAndroid='rgba(0,0,0,0)'
-                                    placeholder="ระบุรายละเอียดคอร์ส"
+                                    placeholder="ระยะเวลาในการสอน จำนวนครั้งการสอน อื่นๆ"
 
                                     placeholderTextColor="#bdbdbd"
 
@@ -371,7 +371,7 @@ export default class TrainerAddCourse extends Component {
                                 }]}
                                     onChangeText={(text) => this.setState({ c_price: text })}
                                     underlineColorAndroid='rgba(0,0,0,0)'
-                                    placeholder="ระบุราคาคอร์ส"
+                                    placeholder="*****บาท"
                                     // secureTextEntry={true}
                                     placeholderTextColor="#bdbdbd"
                                 // ref={(input) => this.password = input}

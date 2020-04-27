@@ -60,7 +60,15 @@ export default class HistoryCourse extends React.Component {
             // Error retrieving data
         }
     }
+    reverseString = (str) => {
 
+        if (str != undefined && str != null) {
+            let splitString = str.split("-");
+            let reverseArray = splitString.reverse();
+            let joinArray = reverseArray.join("-");
+            return joinArray;
+        }
+    }
     render() {
         return (
 
@@ -79,7 +87,7 @@ export default class HistoryCourse extends React.Component {
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
-                            }}>คอร์สที่ลงทะเบียน</Text>
+                            }}>ประวัติการเรียน</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -101,7 +109,7 @@ export default class HistoryCourse extends React.Component {
                             fontWeight: '500',
                             justifyContent: 'center',
                             textAlign: 'center'
-                        }}>ประวัติการลงทะเบียนเรียน</Text>
+                        }}>ประวัติการเรียนคอร์สของฉัน</Text>
                     </View>
                     <ScrollView style={styles.scrollView}>
                         <FlatList

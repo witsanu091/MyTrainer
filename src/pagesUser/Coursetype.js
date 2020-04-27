@@ -4,7 +4,7 @@ import { RadioButton } from 'react-native-paper';
 import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 import Config from '../components/config';
 
 export default class Coursetype extends Component {
@@ -99,8 +99,65 @@ export default class Coursetype extends Component {
 
             });
     }
+    show_star(number) {
+        let point = parseFloat(number) - parseInt(number);
+        let result = parseInt(number);
+        return (
+            <View style={{ flexDirection: 'row' }}>
+                {
+                    result == 1 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                    </View>
 
+                }
+                {
+                    result == 2 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                    </View>
 
+                }
+                {
+                    result == 3 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                    </View>
+
+                }
+                {
+                    result == 4 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                    </View>
+
+                }
+                {
+                    result == 5 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                        <FontAwesome name="star" size={30} color='#F1C40F' />
+                    </View>
+                }
+                {
+                    point != 0 &&
+                    <View style={{ flexDirection: 'row' }}>
+                        <FontAwesome name="star-half" size={30} color='#F1C40F' />
+                    </View>
+                }
+            </View>
+        )
+
+    }
 
     render() {
 
@@ -160,7 +217,7 @@ export default class Coursetype extends Component {
                                 color: '#62757f',
                                 fontSize: 24,
                                 fontWeight: '500',
-                            }}>ชื่อสถานที่ออกกำลังกาย</Text>
+                            }}>เลือกสถานที่</Text>
 
                             <TouchableOpacity onPress={() => {
                                 // this.gymlocations()
@@ -276,20 +333,22 @@ export default class Coursetype extends Component {
                                     <Text style={{ fontSize: 17, textAlign: "center", color: '#62757f', fontWeight: "bold" }} >
                                         {item.CName}{'\n'}
                                        โดยเทรนเนอร์ {item.nickname}
-                                        <Rating
-                                            type='custom'
-                                            ratingCount={item.avgscore}
-                                            ratingColor='#ebc934'
-                                            ratingBackgroundColor='#ebc934'
-                                            imageSize={20}
-                                            showRating
-                                        // onFinishRating={this.}
-                                        />
-                                       สถานที่: {item.LName}
+                                    </Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 17, textAlign: "center", color: '#62757f', fontWeight: "bold" }} >
+                                            คะแนน
+                                        </Text>
+                                        {
+                                            this.show_star(item.avgscore)
+                                        }
+                                    </View>
+                                    <Text style={{ fontSize: 17, textAlign: "center", color: '#62757f', fontWeight: "bold" }} >
+                                        สถานที่: {item.LName}
                                     </Text>
                                 </View>
-                            </TouchableOpacity>}
-                        keyExtractor={item => item.CTID}
+                            </TouchableOpacity>
+                        }
+                        keyExtractor={item => item.TCID}
                     />
 
 

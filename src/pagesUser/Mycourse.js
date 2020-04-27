@@ -144,7 +144,7 @@ export default class mycourse extends React.Component {
                                 backgroundColor: "#d05ce3",
 
                             }} onPress={() => { this.EndCourse() }} >
-                                <Text style={{ color: "#eeeeee" }}>คอร์สที่เรียนจบ</Text>
+                                <Text style={{ color: "#eeeeee" }}>ให้คะแนนเทรนเนอร์</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => { this.HistoryCourse() }} style={{
                                 margin: 8,
@@ -211,7 +211,7 @@ export default class mycourse extends React.Component {
                                                 item.engage_status === '4' &&
                                                 <Text style={{ color: "#03befc" }}>เรียนจบคอร์สแล้ว{'\n'}</Text>
                                             }
-                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {this.reverseString(item.StartCourse)}{'\n'}</Text>
+                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {item.StartCourse}{'\n'}</Text>
 
                                         </Text>
                                     </View>

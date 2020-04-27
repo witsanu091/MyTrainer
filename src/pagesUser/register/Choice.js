@@ -49,7 +49,7 @@ export default class Choice extends Component {
                         style={{ width: 100, height: 100 }}
                         source={require('../../image/logoApp.png')}
                     /></View>
-                <Text style={styles.textlogo}> สมัครสมาชิก </Text>
+                <Text style={styles.textlogo}> สมัครบัญชีผู้ใช้ </Text>
                 <View style={{
                     justifyContent: "center", alignItems: "center", marginTop: 30
                 }}>
@@ -61,7 +61,7 @@ export default class Choice extends Component {
                         fontWeight: '500',
                         paddingTop: 5
                     }}>
-                        เลือกผู้ใช้งานที่ต้องการสมัคร
+                        เลือกสถานะผู้ใช้งาน
                     </Text>
                 </View>
                 <View style={{
@@ -90,7 +90,7 @@ export default class Choice extends Component {
                     // borderWidth: 2,
                     // borderColor: '#d6d7da',
                 }} onPress={() => { (this.state.type != '') ? Actions.signup({ user_type: this.state.type }) : alert('กรุณาเลือกผู้ใช้งานที่ต้องการสมัคร') }}>
-                    < Text style={{ color: "#ffffff" }}>ดำเนินการสมัคร</Text>
+                    < Text style={{ color: "#ffffff" }}>ตกลง</Text>
                 </TouchableOpacity>
                 <View style={{
                     justifyContent: 'center',

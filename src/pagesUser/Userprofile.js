@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { FontAwesome } from '@expo/vector-icons';
-import ReactNativeTooltipMenu from 'react-native-tooltip-menu';
 import Config from '../components/config';
 
 
@@ -78,6 +77,16 @@ export default class Userprofile extends Component {
             alert("Logout fail.")
         }
     }
+
+    reverseString = (str) => {
+
+        if (str != undefined && str != null) {
+            let splitString = str.split("-");
+            let reverseArray = splitString.reverse();
+            let joinArray = reverseArray.join("-");
+            return joinArray;
+        }
+    }
     render() {
 
         return (
@@ -96,9 +105,20 @@ export default class Userprofile extends Component {
                     </View>
                 </View>
                 <Image style={styles.avatar} source={require('../image/pprofile.png')} />
-                <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => this.logout()}>
-                        <Text style={{ color: "#eeeeee" }}>ออกจากระบบ</Text>
+                <View style={{ flexDirection: "row-reverse", marginLeft: 20, marginTop: 10 }}>
+                    <TouchableOpacity style={{
+                        marginTop: 5,
+                        height: 45,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginBottom: 5,
+                        width: 150,
+                        borderRadius: 30,
+                        backgroundColor: "#eb4034",
+                    }} onPress={() => this.logout()}>
+                        <Text style={{ color: "#eeeeee", justifyContent: 'space-between' }}>ออกจากระบบ  <FontAwesome name="sign-out" size={20} color='#fff' />
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
@@ -123,7 +143,7 @@ export default class Userprofile extends Component {
                                 <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
                             </View>
                             <View style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.reverseString(this.state.data_profile.birthday)}</Text>
                             </View>
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>

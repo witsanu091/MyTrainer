@@ -8,7 +8,8 @@ import {
     Image,
     TextInput,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { RadioButton } from 'react-native-paper';
@@ -33,8 +34,19 @@ export default class Signup extends Component {
             gender: '',
             telephone: '',
             birthday: '',
-            items: ''
+            items: '',
+            password2: '',
+            validated: false,
         };
+    }
+    validated = () => {
+        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
+        if (reg.test(this.state.email) === true) {
+            // alert('success');
+        }
+        else {
+            alert('กรุณาตรวจสอบอีเมล');
+        }
     }
     choice() {
         Actions.choice()
@@ -106,29 +118,62 @@ export default class Signup extends Component {
                                 style={{ width: 100, height: 100 }}
                                 source={require('../../image/logoApp.png')}
                             />
-                            <Text style={styles.textlogo}> Sign Up </Text>
+                            <Text style={styles.textlogo}>สมัครบัญชีผู้ใช้</Text>
                         </View>
                         <TextInput style={styles.inputBox}
                             onChangeText={(email) => this.setState({ email })}
                             underlineColorAndroid='rgba(0,0,0,0)'
-                            placeholder="Email"
+                            placeholder="อีเมล"
                             placeholderTextColor="#bdbdbd"
                             keyboardType="email-address"
-                            onSubmitEditing={() => this.password.focus()} />
+                            onSubmitEditing={() => {
+                                this.validated()
+                                this.password.focus()
+
+                            }} />
 
                         <TextInput style={styles.inputBox}
                             onChangeText={(password) => this.setState({ password })}
                             underlineColorAndroid='rgba(0,0,0,0)'
-                            placeholder="Password"
+                            placeholder="รหัสผ่าน"
                             secureTextEntry={true}
                             placeholderTextColor="#bdbdbd"
-                            onSubmitEditing={() => this.firstname.focus()}
+                            onSubmitEditing={() => this.password2.focus()}
                             ref={(input) => this.password = input} />
+
+                        <TextInput style={styles.inputBox}
+                            onChangeText={(password2) => this.setState({ password2 })}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder="ใส่รหัสผ่านอีกครั้ง"
+                            secureTextEntry={true}
+                            placeholderTextColor="#bdbdbd"
+                            onSubmitEditing={() => {
+                                this.firstname.focus()
+                                if (this.state.password != this.state.password2) Alert.alert(
+                                    "กรุณาตรวจสอบรหัสผ่าน",
+                                    "รหัสผ่านไม่ตรงกัน",
+                                    [
+                                        {
+                                            text: "ตกลง", onPress: () => console.log("ok")
+
+                                        },
+
+
+                                        {
+                                            text: "ปิด", onPress: () => console.log("close alert"),
+
+                                        }
+                                    ],
+                                    { cancelable: false }
+                                );
+                            }}
+                            ref={(input) => this.password2 = input} />
+
 
                         <TextInput style={styles.inputBox}
                             onChangeText={(firstname) => this.setState({ firstname })}
                             underlineColorAndroid='rgba(0,0,0,0)'
-                            placeholder="ชื่อ"
+                            placeholder="ชื่อจริง"
                             placeholderTextColor="#bdbdbd"
                             keyboardType="default"
                             ref={(input) => this.firstname = input}
@@ -242,7 +287,7 @@ export default class Signup extends Component {
                     <TouchableOpacity style={styles.button}>
                         <Text style={styles.buttonText} onPress={() =>
                             this.register(this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.nickname, this.state.weight, this.state.height, this.state.gender, this.state.telephone, this.state.birthday
-                            )}>SignUp</Text>
+                            )}>สมัคร</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>

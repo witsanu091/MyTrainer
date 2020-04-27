@@ -90,7 +90,7 @@ export default class Trainerprofile extends Component {
 
                     <View style={{ flex: 7, alignItems: 'center' }}>
 
-                        <Text style={styles.TextBand}>Trainer profile</Text>
+                        <Text style={styles.TextBand}>ข้อมูลส่วนตัว</Text>
 
                     </View>
                 </View>
@@ -113,7 +113,7 @@ export default class Trainerprofile extends Component {
                 </View>
                 <View style={{ flexDirection: "row-reverse", marginLeft: 20 }}>
                     <TouchableOpacity style={styles.buttonContainer} onPress={() => { this.Trainercourse() }} >
-                        <Text style={{ color: "#eeeeee" }}>คอร์สออกกำลังกาย</Text>
+                        <Text style={{ color: "#eeeeee" }}>คอร์สของฉัน</Text>
                     </TouchableOpacity>
                 </View>
                 <ScrollView>
@@ -132,7 +132,7 @@ export default class Trainerprofile extends Component {
                                 <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
                             </View>
                             <View style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.reverseString(this.state.data_profile.birthday)}</Text>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
                             </View>
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
@@ -142,7 +142,7 @@ export default class Trainerprofile extends Component {
                                 marginRight: 20
                             }}>
                                 <TouchableOpacity onPress={() => { this.Mytrainy() }} style={styles.coursebutton}>
-                                    <Text style={{ color: "#eeeeee" }}>รายชื่อผู้เรียน</Text>
+                                    <Text style={{ color: "#eeeeee" }}>คอร์สที่กำลังสอน</Text>
                                 </TouchableOpacity>
                                 {/* <TouchableOpacity style={styles.coursebutton}>
                                     <Text style={{ color: "#eeeeee" }}>ข้อมูลฟิตเนส</Text>

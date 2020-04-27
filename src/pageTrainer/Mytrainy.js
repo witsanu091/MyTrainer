@@ -106,7 +106,7 @@ export default class Mytrainy extends React.Component {
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
-                            }}>คอร์สที่ลงทะเบียน</Text>
+                            }}>คอร์สที่กำลังสอน</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -143,7 +143,7 @@ export default class Mytrainy extends React.Component {
                             borderRadius: 30,
                             backgroundColor: "#d05ce3",
                         }} onPress={() => { this.requirement() }} >
-                            <Text style={{ color: "#eeeeee" }}>คำร้องผู้ที่สนใจ</Text>
+                            <Text style={{ color: "#eeeeee" }}>รายชื่อผู้ลงทะเบียนเรียน</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{
@@ -156,7 +156,7 @@ export default class Mytrainy extends React.Component {
                             fontWeight: '500',
                             justifyContent: 'center',
                             textAlign: 'center'
-                        }}>รายชื่อผู้ที่ลงทะเบียน</Text>
+                        }}>รายชื่อผู้ใช้ที่กำลังเรียน</Text>
                     </View>
                     <ScrollView style={styles.scrollView}>
                         <FlatList
@@ -196,7 +196,7 @@ export default class Mytrainy extends React.Component {
                                     เพศ: {item.gender === 'male' ? 'ชาย' : 'หญิง'}{'\n'}
                                     สถานะคอร์ส:  <Text style={{ color: "#3ac204" }}>{item.engage_status === '1' ? 'รอการตอบรับ' : item.engage_status === '2' ? 'ได้รับการตอบรับแล้ว' : item.engage_status === '3' ? 'ไม่ได้ตอบรับ' : 'เรียนจบคอร์สแล้ว'}{'\n'}</Text>
 
-                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {this.reverseString(item.StartCourse)}{'\n'} </Text>
+                                            <Text style={{ color: "#0479c2" }}>เริ่มวันที่: {item.StartCourse}{'\n'} </Text>
                                         </Text>
                                         <TouchableOpacity style={{
                                             height: 45,

@@ -76,7 +76,7 @@ export default class EndCourse extends Component {
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
-                            }}>คอร์สที่เพิ่งจบ</Text>
+                            }}>ให้คะแนนเทรนเนอร์</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -96,7 +96,7 @@ export default class EndCourse extends Component {
                         fontWeight: '500',
                         justifyContent: 'center',
                         textAlign: 'center'
-                    }}>จบคอร์ส! ให้คะแนนเทรนเนอร์</Text>
+                    }}>หมายเหตุ : ให้คะแนนเทรนเนอร์ได้ เมื่อคุณเรียนจบคอร์สนั้นแล้ว</Text>
                 </View>
                 <FlatList
                     data={this.state.list_review}
@@ -115,20 +115,11 @@ export default class EndCourse extends Component {
                                 elevation: 5,
 
                             }} >
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ fontSize: 20, textAlign: "left", color: '#62757f', fontWeight: "bold", margin: 10 }} >
-                                        <Text style={{ fontSize: 20 }} >   {item.CName}{'\n'}</Text></Text>
-                                    <TouchableOpacity style={{ backgroundColor: '#ff80ff', padding: 10, borderRadius: 5, margin: 10 }} onPress={() => {
-                                        this.setState({ modalvisible: true })
-                                        this.setState({ eng_id: item.ENGID })
-                                    }}>
-                                        <Text>
-                                            ให้คะแนนเทรนเนอร์
-                                    </Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <Text style={{ fontSize: 17, textAlign: "left", color: '#62757f', fontWeight: "bold", margin: 10 }}>
-                                    โดยเทรนเนอร์ {item.nickname}{'\n'}
+
+                                <Text style={{ fontSize: 20, textAlign: "left", color: '#62757f', fontWeight: "bold", margin: 10 }} >
+                                    <Text style={{ fontSize: 20 }} >   {item.CName}</Text>
+                                </Text>
+                                <Text style={{ fontSize: 17, textAlign: "left", color: '#62757f', fontWeight: "bold", margin: 10 }}>โดยเทรนเนอร์ {item.nickname}{'\n'}
                                     {item.firstname} {item.lastname}{'\n'}
                                     {/* <Rating
                                                 type='custom'
@@ -163,7 +154,14 @@ export default class EndCourse extends Component {
                                     }
                                     <Text style={{ color: "#ff5722" }}>เมื่อวันที่: {item.EndCourse}{'\n'}</Text>
                                 </Text>
-
+                                <TouchableOpacity style={{ backgroundColor: '#ff80ff', padding: 10, borderRadius: 5, margin: 10, height: 50 }} onPress={() => {
+                                    this.setState({ modalvisible: true })
+                                    this.setState({ eng_id: item.ENGID })
+                                }}>
+                                    <Text style={{ textAlign: 'center', marginTop: 2, fontSize: 16 }}>
+                                        ให้คะแนนเทรนเนอร์
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
 
                         </View>}
