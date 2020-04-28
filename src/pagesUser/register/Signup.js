@@ -42,10 +42,11 @@ export default class Signup extends Component {
     validated = () => {
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
         if (reg.test(this.state.email) === true) {
-            // alert('success');
+            return true;
         }
         else {
             alert('กรุณาตรวจสอบอีเมล');
+            return false;
         }
     }
     choice() {
@@ -63,7 +64,7 @@ export default class Signup extends Component {
                     console.log(responseJson)
                     if (responseJson.status) {
                         if (responseJson.data.status = "true") {
-                            alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
+                            alert("สมัครสำเร็จ");
                             Actions.login();
                         } else {
                             alert(responseJson.message);
@@ -78,7 +79,7 @@ export default class Signup extends Component {
                     console.log(responseJson)
                     if (responseJson.status) {
                         if (responseJson.data.status = "true") {
-                            alert("สมัครสำเร็จ รอการตรวจสอบข้อมูล");
+                            alert("สมัครสำเร็จ");
                             Actions.login();
                         } else {
                             alert(responseJson.message);
@@ -96,22 +97,22 @@ export default class Signup extends Component {
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     {/* {console.log(this.props.user_type)} */}
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={() => this.choice()}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 2, alignItems: 'left' }}>
+                    <View style={{ flex: 9, alignItems: 'center' }}>
                         <Text style={{
-                            paddingTop: 40,
+                            paddingTop: 25,
                             color: '#eeeeee',
-                            fontSize: 30,
+                            fontSize: 25,
                             fontWeight: '500'
                         }}>Find Trainer</Text>
                     </View>
                 </View>
                 {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}> */}
-                <KeyboardAvoidingView style={{ flex: 1, alignItems: 'center' }} behavior='padding'>
+                <View style={{ flex: 1, alignItems: 'center' }} behavior='padding'>
                     <ScrollView >
                         <View style={{ alignItems: 'center', marginTop: 10 }}>
                             <Image
@@ -126,9 +127,13 @@ export default class Signup extends Component {
                             placeholder="อีเมล"
                             placeholderTextColor="#bdbdbd"
                             keyboardType="email-address"
+                            ref={(input) => this.email = input}
+
                             onSubmitEditing={() => {
-                                this.validated()
-                                this.password.focus()
+                                this.validated() == true ?
+                                    this.password.focus()
+                                    :
+                                    this.email.focus()
 
                             }} />
 
@@ -148,7 +153,6 @@ export default class Signup extends Component {
                             secureTextEntry={true}
                             placeholderTextColor="#bdbdbd"
                             onSubmitEditing={() => {
-                                this.firstname.focus()
                                 if (this.state.password != this.state.password2) Alert.alert(
                                     "กรุณาตรวจสอบรหัสผ่าน",
                                     "รหัสผ่านไม่ตรงกัน",
@@ -166,6 +170,10 @@ export default class Signup extends Component {
                                     ],
                                     { cancelable: false }
                                 );
+                                this.password2.focus()
+                                if (this.state.password == this.state.password2)
+                                    this.firstname.focus()
+
                             }}
                             ref={(input) => this.password2 = input} />
 
@@ -179,8 +187,6 @@ export default class Signup extends Component {
                             ref={(input) => this.firstname = input}
                             onSubmitEditing={() => this.lastname.focus()} />
 
-
-
                         <TextInput style={styles.inputBox}
                             onChangeText={(lastname) => this.setState({ lastname })}
                             underlineColorAndroid='rgba(0,0,0,0)'
@@ -189,8 +195,6 @@ export default class Signup extends Component {
                             keyboardType="default"
                             ref={(input) => this.lastname = input}
                             onSubmitEditing={() => this.nickname.focus()} />
-
-
 
                         <TextInput style={styles.inputBox}
                             onChangeText={(nickname) => this.setState({ nickname })}
@@ -204,18 +208,18 @@ export default class Signup extends Component {
                         <TextInput style={styles.inputBox}
                             onChangeText={(weight) => this.setState({ weight })}
                             underlineColorAndroid='rgba(0,0,0,0)'
-                            placeholder="น้ำหนัก"
+                            placeholder="น้ำหนัก/กิโลกรัม"
                             placeholderTextColor="#bdbdbd"
-                            keyboardType="default"
+                            keyboardType="numeric"
                             ref={(input) => this.weight = input}
                             onSubmitEditing={() => this.height.focus()}
                         />
                         <TextInput style={styles.inputBox}
                             onChangeText={(height) => this.setState({ height })}
                             underlineColorAndroid='rgba(0,0,0,0)'
-                            placeholder="ส่วนสูง"
+                            placeholder="ส่วนสูง/เซนติเมตร"
                             placeholderTextColor="#bdbdbd"
-                            keyboardType="default"
+                            keyboardType="numeric"
                             ref={(input) => this.height = input}
                             onSubmitEditing={() => this.telephone.focus()}
                         />
@@ -285,11 +289,12 @@ export default class Signup extends Component {
                         />
                     </ScrollView>
                     <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText} onPress={() =>
-                            this.register(this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.nickname, this.state.weight, this.state.height, this.state.gender, this.state.telephone, this.state.birthday
-                            )}>สมัคร</Text>
+                        <Text style={styles.buttonText} onPress={() => {
+                            (this.state.email != '' && this.state.password != '' && this.state.firstname != '' && this.state.lastname != '' && this.state.nickname != '' && this.state.weight != '' && this.state.height != '' && this.state.gender != '' && this.state.telephone != '' && this.state.birthday != '')
+                                ? this.register(this.state.email, this.state.password, this.state.firstname, this.state.lastname, this.state.nickname, this.state.weight, this.state.height, this.state.gender, this.state.telephone, this.state.birthday) : alert('กรุณาตรวจสอบข้อมูลว่ากรอกครบทุกช่อง')
+                        }}>สมัคร</Text>
                     </TouchableOpacity>
-                </KeyboardAvoidingView>
+                </View>
             </View>
             // </View >
         )

@@ -75,10 +75,12 @@ export default class Trainerprofile extends Component {
     }
 
     reverseString = (str) => {
-        let splitString = str.split("-");
-        let reverseArray = splitString.reverse();
-        let joinArray = reverseArray.join("-");
-        return joinArray;
+        if (str != undefined && str != null) {
+            let splitString = str.split("-");
+            let reverseArray = splitString.reverse();
+            let joinArray = reverseArray.join("-");
+            return joinArray;
+        }
     }
 
     render() {
@@ -132,7 +134,7 @@ export default class Trainerprofile extends Component {
                                 <Text style={styles.fontSizeText}>ส่วนสูง : {this.state.data_profile.height}</Text>
                             </View>
                             <View style={styles.deteil}>
-                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.state.data_profile.birthday}</Text>
+                                <Text style={styles.fontSizeText}>วันเดือนปีเกิด : {this.reverseString(this.state.data_profile.birthday)}</Text>
                             </View>
                             <View style={styles.deteil} >
                                 <Text style={styles.fontSizeText}>เบอร์โทรศัพท์ : {this.state.data_profile.telephone}</Text>
@@ -174,9 +176,9 @@ const styles = StyleSheet.create({
         marginTop: 98
     },
     TextBand: {
-        paddingTop: 40,
+        paddingTop: 25,
         color: '#eeeeee',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '500',
 
     },

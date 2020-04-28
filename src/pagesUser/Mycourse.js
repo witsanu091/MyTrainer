@@ -88,7 +88,7 @@ export default class mycourse extends React.Component {
 
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.goback}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
@@ -97,7 +97,7 @@ export default class mycourse extends React.Component {
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
                             <Text style={{
-                                paddingTop: 40,
+                                paddingTop: 25,
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
@@ -105,7 +105,7 @@ export default class mycourse extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1 }}>
                         <TouchableOpacity onPress={this.userprofile}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>

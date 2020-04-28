@@ -93,8 +93,8 @@ export default class Mytrainy extends React.Component {
 
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={this.goback}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
+                        <TouchableOpacity onPress={this.trainerprofile}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -102,7 +102,7 @@ export default class Mytrainy extends React.Component {
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
                             <Text style={{
-                                paddingTop: 40,
+                                paddingTop: 25,
                                 color: '#eeeeee',
                                 fontSize: 25,
                                 fontWeight: '500',
@@ -110,7 +110,7 @@ export default class Mytrainy extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1 }}>
                         <TouchableOpacity onPress={this.trainerprofile}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>
@@ -128,9 +128,9 @@ export default class Mytrainy extends React.Component {
                             alignItems: 'center',
                             width: 150,
                             borderRadius: 30,
-                            backgroundColor: "#d05ce3"
-                        }} onPress={() => { this.HistoryTrain() }} >
-                            <Text style={{ color: "#eeeeee" }}>ประวัติการสอน</Text>
+                            backgroundColor: "#d05ce3",
+                        }} onPress={() => { this.requirement() }} >
+                            <Text style={{ color: "#eeeeee" }}>รายชื่อผู้ลงทะเบียนเรียน</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={{
@@ -141,9 +141,9 @@ export default class Mytrainy extends React.Component {
                             alignItems: 'center',
                             width: 150,
                             borderRadius: 30,
-                            backgroundColor: "#d05ce3",
-                        }} onPress={() => { this.requirement() }} >
-                            <Text style={{ color: "#eeeeee" }}>รายชื่อผู้ลงทะเบียนเรียน</Text>
+                            backgroundColor: "#d05ce3"
+                        }} onPress={() => { this.HistoryTrain() }} >
+                            <Text style={{ color: "#eeeeee" }}>ประวัติการสอน</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{

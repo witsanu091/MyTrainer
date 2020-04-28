@@ -37,9 +37,9 @@ export default class Choice extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <Text style={{
-                            paddingTop: 40,
+                            paddingTop: 25,
                             color: '#eeeeee',
-                            fontSize: 30,
+                            fontSize: 25,
                             fontWeight: '500'
                         }}>Find Trainer</Text>
                     </View>

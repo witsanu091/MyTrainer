@@ -68,7 +68,7 @@ export default class Homescreen extends Component {
                     <View style={{ flex: 8, left: 20, alignItems: 'center' }}>
                         <Text style={styles.TextBand}>เลือกประเภทคอร์ส</Text>
                     </View>
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.userprofile}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7ecf8'
     },
     TextBand: {
-        paddingTop: 40,
+        paddingTop: 25,
         color: '#eeeeee',
         fontSize: 25,
         fontWeight: '500',

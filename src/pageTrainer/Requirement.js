@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image, AsyncStorage } from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { StyleSheet, View, Text, TouchableOpacity, Alert, ScrollView, Modal, Image, AsyncStorage, FlatList } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Actions } from 'react-native-router-flux';
 import Config from '../components/config';
@@ -9,13 +8,13 @@ export default class Requirement extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableHead: ['ชื่อ', 'คอร์ส', 'รายละเอียด',],
-            tableData: [
-                ['พชร', 'เพิ่มกล้าม', '3'],
-                ['วิษณุ', 'เพิ่มกล้าม', 'c'],
-                ['ภคพงษ์', 'ลดหุ่น', '3'],
-                ['สุภาดา', 'ลดหุ่น', 'c']
-            ],
+            // tableHead: ['ชื่อ', 'คอร์ส', 'รายละเอียด',],
+            // tableData: [
+            //     ['พชร', 'เพิ่มกล้าม', '3'],
+            //     ['วิษณุ', 'เพิ่มกล้าม', 'c'],
+            //     ['ภคพงษ์', 'ลดหุ่น', '3'],
+            //     ['สุภาดา', 'ลดหุ่น', 'c']
+            // ],
 
             modalVisible: false,
             TID: '',
@@ -52,7 +51,6 @@ export default class Requirement extends Component {
     }
     Mytrainy() {
         Actions.Mytrainy()
-
     }
     get_listUser = async () => {
         try {
@@ -102,49 +100,35 @@ export default class Requirement extends Component {
         return joinArray;
     }
     render() {
-        const state = this.state;
-        const element = (data, index) => (
-            <View>
-                <TouchableOpacity onPress={async () => {
-                    this.setModalVisible(true);
-                    await this.setState({ no: index })
-                }}>
-                    <View style={styles.btn}>
-                        <Text style={styles.btnText}>รายละเอียด</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                    this.setState({ no: index })
-                    Alert.alert(
-                        "ยืนยันคำขอการสมัคร",
-                        "",
-                        [
-                            {
-                                text: "ตอบรับคำขอ",
-                                onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 2) }
-                            },
-                            {
-                                text: "ไม่ตอบรับ",
-                                onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 3) }
-                            },
-                            {
-                                text: "ปิด", onPress: () => console.log("close alert"),
-                                style: "cancel"
-                            }
-                        ],
-                        { cancelable: false }
-                    );
-                }}>
-                    <View style={styles.btn2}>
-                        <Text style={styles.btnText}>ตอบรับ</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
+
+
 
         return (
             <View style={styles.container}>
+                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
+                        <TouchableOpacity onPress={() => { this.Mytrainy() }}>
+                            <FontAwesome name="chevron-left" size={40} color='#fff' />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 5, alignItems: 'center' }}>
+                        <TouchableOpacity onPress={this.home}>
+                            <Text style={{
+                                paddingTop: 25,
+                                color: '#eeeeee',
+                                fontSize: 25,
+                                fontWeight: '500',
+                            }}>คำขอการลงทะเบียน</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1 }}>
+                        <TouchableOpacity onPress={() => { this.trainerprofile() }}>
 
+                            <FontAwesome name="user" size={40} color='#fff' />
+
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -213,45 +197,92 @@ export default class Requirement extends Component {
                         </View>
                     </View>
                 </Modal>
-
-                <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={() => { this.Mytrainy() }}>
-                            <FontAwesome name="chevron-left" size={40} color='#fff' />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 5, alignItems: 'center' }}>
-                        <TouchableOpacity onPress={this.home}>
-                            <Text style={{
-                                paddingTop: 40,
-                                color: '#eeeeee',
-                                fontSize: 30,
-                                fontWeight: '500',
-                            }}>Find Trainer</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
-                        <TouchableOpacity onPress={() => { this.trainerprofile() }}>
-
-                            <FontAwesome name="user" size={40} color='#fff' />
-
-                        </TouchableOpacity>
-                    </View>
+                <View style={{
+                    paddingTop: 10,
+                    justifyContent: "flex-start",
+                }} >
+                    <Text style={{
+                        color: '#62757f',
+                        fontSize: 20,
+                        fontWeight: '500',
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}>รายชื่อผู้ที่ขอลงทะเบียนเรียน</Text>
                 </View>
-                <Table borderStyle={{ borderColor: 'transparent' }}>
-                    <View style={{ alignItems: "center" }}>
-                        <Row data={state.tableHead} style={styles.head} textStyle={styles.text} />
-                    </View>
-                    {state.data.map((rowData, index) => (
-                        <TableWrapper key={index} style={styles.row}>
-                            {rowData.map((cellData, cellIndex) => (
-                                <Cell key={cellIndex} data={cellIndex === 2 ? element(cellData, index) : cellData} textStyle={styles.textdetail} />
-                            ))
-                            }
-                        </TableWrapper>
-                    ))
-                    }
-                </Table>
+                <FlatList
+                    data={this.state.listUser}
+                    renderItem={({ item, index }) =>
+                        <View>
+                            <View style={styles.choice}>
+                                <View>
+                                    <Text style={{
+                                        justifyContent: "center",
+                                        textAlign: 'center',
+                                        color: '#62757f',
+                                        fontSize: 16,
+                                        fontWeight: '500',
+                                        paddingTop: 10
+                                    }}>
+                                        {item.firstname} {item.lastname}
+                                        {/* {item.} {'\n'} */}
+                                    </Text>
+                                </View>
+                                <View>
+                                    <Text style={{
+                                        justifyContent: "center",
+                                        textAlign: 'center',
+                                        color: '#62757f',
+                                        fontSize: 16,
+                                        fontWeight: '500',
+                                        paddingTop: 10
+                                    }}>
+                                        {item.CName}
+                                        {/* {item.} {'\n'} */}
+                                    </Text>
+                                </View>
+
+                                <View>
+                                    <TouchableOpacity onPress={async () => {
+                                        this.setModalVisible(true);
+                                        await this.setState({ no: index })
+                                    }}>
+                                        <View style={styles.btn}>
+                                            <Text style={styles.btnText}>รายละเอียด</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                        this.setState({ no: index })
+                                        Alert.alert(
+                                            "ยืนยันคำขอการสมัคร",
+                                            "",
+                                            [
+                                                {
+                                                    text: "ตอบรับคำขอ",
+                                                    onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 2) }
+                                                },
+                                                {
+                                                    text: "ไม่ตอบรับ",
+                                                    onPress: () => { this.change_status(this.state.listUser[this.state.no].ENGID, 3) }
+                                                },
+                                                {
+                                                    text: "ปิด", onPress: () => console.log("close alert"),
+                                                    style: "cancel"
+                                                }
+                                            ],
+                                            { cancelable: false }
+                                        );
+                                    }}>
+                                        <View style={styles.btn2}>
+                                            <Text style={styles.btnText}>ตอบรับ</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>}
+                    keyExtractor={item => item.EGID}
+                />
+
+
             </View>
         )
     }
@@ -265,5 +296,19 @@ const styles = StyleSheet.create({
     btn: { width: 80, height: 25, backgroundColor: '#247de3', borderRadius: 2, margin: 2, },
     btn2: { width: 80, height: 25, backgroundColor: '#78B7BB', borderRadius: 2, margin: 2 },
     btnText: { textAlign: 'center', color: '#fff', width: 71 },
-    textdetail: { margin: 6, alignItems: "center", fontSize: 18, }
+    textdetail: { margin: 6, alignItems: "center", fontSize: 18, },
+    choice: {
+        flex: 1,
+        padding: 8,
+        borderRadius: 10,
+        margin: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        shadowColor: 'rgba(0,0,0,0.25)',
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 3,
+    },
 });
