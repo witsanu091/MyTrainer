@@ -47,6 +47,9 @@ export default class TrainerAddCourse extends Component {
     goback() {
         Actions.pop()
     }
+    Trainercourse() {
+        Actions.Trainercourse()
+    }
     trainerprofile() {
         Actions.trainerprofile()
     }
@@ -85,8 +88,8 @@ export default class TrainerAddCourse extends Component {
         return (
             <View style={styles.container} >
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
-                        <TouchableOpacity onPress={this.goback}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1, }}>
+                        <TouchableOpacity onPress={this.Trainercourse}>
                             <FontAwesome name="chevron-left" size={40} color='#fff' />
                         </TouchableOpacity>
                     </View>
@@ -94,15 +97,15 @@ export default class TrainerAddCourse extends Component {
                     <View style={{ flex: 5, alignItems: 'center' }}>
                         <TouchableOpacity onPress={this.home}>
                             <Text style={{
-                                paddingTop: 40,
+                                paddingTop: 25,
                                 color: '#eeeeee',
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontWeight: '500',
-                            }}>Find Trainer</Text>
+                            }}>เพิ่มคอร์ส</Text>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ marginTop: 30, marginStart: 10, flex: 1 }}>
+                    <View style={{ marginTop: 25, marginStart: 10, flex: 1 }}>
                         <TouchableOpacity onPress={() => { this.trainerprofile() }}>
                             <FontAwesome name="user" size={40} color='#fff' />
                         </TouchableOpacity>
@@ -495,7 +498,9 @@ export default class TrainerAddCourse extends Component {
                 </ScrollView>
                 <TouchableOpacity
                     onPress={() => {
-                        this.add_course(this.state.TID, this.state.course_name.CID, this.state.c_price, this.state.c_detail, this.state.c_location.LID)
+                        (this.state.c_detail != '' && this.state.c_price != '' && this.state.c_location != '')
+                            ? this.add_course(this.state.TID, this.state.course_name.CID, this.state.c_price, this.state.c_detail, this.state.c_location.LID)
+                            : alert("กรุณาตรวจสอบว่ากรอกข้อมูลครบแล้ว")
                     }} style={{
                         paddingVertical: 10,
                         marginVertical: 10,

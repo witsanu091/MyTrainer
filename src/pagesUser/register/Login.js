@@ -107,9 +107,9 @@ export default class Login extends Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ flex: 5, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{
-                            paddingTop: 40,
+                            paddingTop: 25,
                             color: '#eeeeee',
-                            fontSize: 30,
+                            fontSize: 25,
                             fontWeight: '500'
                         }}>Find Trainer</Text>
                     </View>
@@ -222,10 +222,10 @@ const styles = StyleSheet.create({
         width: 300,
         backgroundColor: '#eeeeee',
         borderRadius: 25,
-        paddingHorizontal: 16,
+        paddingHorizontal: 18,
         fontSize: 16,
         color: '#002f6c',
-        marginVertical: 10, paddingVertical: 10
+        marginVertical: 12, paddingVertical: 12
     },
     button: {
         width: 300,
