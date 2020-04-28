@@ -116,7 +116,7 @@ export default class Trainerprofile extends Component {
                         <Text style={{ color: "#eeeeee" }}>คอร์สของฉัน</Text>
                     </TouchableOpacity>
                 </View>
-                <ScrollView>
+                <ScrollView style={styles.scrollView}>
                     <View style={styles.bodyContent}>
                         <View style={styles.info}>
                             <View style={styles.deteil}>

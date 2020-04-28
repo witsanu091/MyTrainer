@@ -83,7 +83,7 @@ export default class TrainerAddCourse extends Component {
     }
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <View style={styles.container} >
                 <View style={{ flexDirection: 'row', justifyContent: "center", alignItems: "center", backgroundColor: "#883997", paddingBottom: 12 }} >
                     <View style={{ marginTop: 30, marginStart: 10, flex: 1, }}>
                         <TouchableOpacity onPress={this.goback}>
@@ -512,7 +512,7 @@ export default class TrainerAddCourse extends Component {
                         textAlign: "center",
                     }} >บันทึก</Text>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+            </View>
 
         );
     }

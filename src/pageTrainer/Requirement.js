@@ -238,7 +238,7 @@ export default class Requirement extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Table borderStyle={{ borderColor: 'transparent' }}>
+                {/* <Table borderStyle={{ borderColor: 'transparent' }}>
                     <View style={{ alignItems: "center" }}>
                         <Row data={state.tableHead} style={styles.head} textStyle={styles.text} />
                     </View>
@@ -251,7 +251,7 @@ export default class Requirement extends Component {
                         </TableWrapper>
                     ))
                     }
-                </Table>
+                </Table> */}
             </View>
         )
     }
