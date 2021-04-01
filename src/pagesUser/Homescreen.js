@@ -112,8 +112,8 @@ export default class Homescreen extends Component {
                             paddingLeft: 30
                         }}> เลือกเพศของเทรนเนอร์</Text>
                     </View>
-                    <View style={{ flexDirection: "row", paddingLeft: 15, marginTop: 10 }}>
-                        <View style={{ flexDirection: "row", marginRight: 15 }}>
+                    <View style={{ flexDirection: "row", justifyContent: 'space-between', marginTop: 10 }}>
+                        <View style={{ flexDirection: "row", justifyContent: 'space-between' }}>
                             <View style={{ borderWidth: 1, borderRadius: 10 }}>
                                 <RadioButton
                                     value="all"

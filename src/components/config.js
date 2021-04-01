@@ -1,4 +1,3 @@
 export default {
-    //url: 'http://jarlod.tk/findTrainer/'
-    url: 'http://10.66.32.15/server/'
+    url: 'http://jarlod.tk/findtrainer/'
 }

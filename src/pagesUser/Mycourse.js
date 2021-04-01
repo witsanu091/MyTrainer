@@ -111,7 +111,7 @@ export default class mycourse extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Button title={"ตอบรับแล้ว"} onPress={() => { this.filter_listTrainer(2) }} />
                     <Button title={"รอการตอบรับ"} onPress={() => { this.filter_listTrainer(1) }} />
                     <Button title={"ไม่ตอบรับ"} onPress={() => { this.filter_listTrainer(3) }} />
